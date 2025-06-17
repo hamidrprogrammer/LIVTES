@@ -1,0 +1,70 @@
+{
+  "home": {
+    "hero": {
+      "title": "The Science of",
+      "titleHighlight": "Becoming Light",
+      "subtitle": "Turning Water into Wellness. Turning Light into Life.",
+      "buttonText": "Shop Now"
+    },
+    "intro": {
+      "title": "Revolutionary Hydration",
+      "subtitle": "Discover the power of hydrogen-infused water",
+      "description": "Our proprietary technology infuses water with molecular hydrogen, creating a powerful antioxidant that helps neutralize harmful free radicals and supports overall wellness."
+    }
+  },
+  "products": {
+    "bottle": {
+      "title": "The Future of Hydration",
+      "subtitle": "Hydrogen-Infused Water Bottle",
+      "features": {
+        "title": "Advanced Features",
+        "feature1": "Molecular Hydrogen Infusion",
+        "feature2": "Smart LED Display",
+        "feature3": "Rechargeable Battery",
+        "feature4": "Premium Materials"
+      },
+      "cta": "Experience It Now"
+    },
+    "showcase": {
+      "title": "Elegant Design, Revolutionary Technology",
+      "description": "Our bottle combines cutting-edge technology with sleek, modern design for the ultimate hydration experience."
+    },
+    "tablets": {
+      "title": "Hydrogen Tablets",
+      "subtitle": "Enhance your hydration anywhere",
+      "description": "Our hydrogen tablets allow you to transform ordinary water into hydrogen-rich water on the go."
+    }
+  },
+  "lifestyle": {
+    "title": "Transform Your Lifestyle",
+    "subtitle": "Hydration is just the beginning",
+    "benefits": {
+      "title": "Benefits",
+      "benefit1": "Enhanced Energy",
+      "benefit2": "Improved Recovery",
+      "benefit3": "Better Hydration",
+      "benefit4": "Antioxidant Support"
+    }
+  },
+  "common": {
+    "scrollDown": "Scroll Down",
+    "learnMore": "Learn More",
+    "shopNow": "Shop Now",
+    "contactUs": "Contact Us",
+    "readMore": "Read More",
+    "viewAll": "View All"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "science": "Science",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "copyright": "© 2025 LumiVitae. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "followUs": "Follow Us"
+  }
+}

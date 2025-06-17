@@ -1,0 +1,48 @@
+/* buy-option-design.css */
+.buy-option-design {
+  border: 1px solid #072c3d;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 435px; /* Maintain max width from original design */
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 96px; /* Use min-height to allow content to grow */
+  gap: 1rem;
+}
+
+/* New wrapper for left-side text for better flexbox control */
+.buy-option-design .text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem; /* Space between the two text lines */
+}
+
+.buy-option-design .one-pack {
+  color: #1c1f23;
+  font-size: 1.125rem; /* 18px */
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal; /* Allow text to wrap */
+}
+
+.buy-option-design .LVQ-tablets {
+  color: #a7b1b9;
+  font-size: 1rem; /* 16px */
+  font-weight: 300;
+  line-height: 1.4;
+  white-space: normal; /* Allow text to wrap */
+}
+
+.buy-option-design .text-wrapper { /* This is the price */
+  color: #a7b1b9;
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap; /* Price should not wrap */
+  text-align: right;
+  flex-shrink: 0; /* Prevent price from being squashed */
+}

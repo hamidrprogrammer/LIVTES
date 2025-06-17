@@ -1,0 +1,93 @@
+/* LongevityBanner.module.css */
+.longevityBanner {
+    background: linear-gradient(180deg, #0F3445 0%, #000000 100%);
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px; /* Use min-height for flexibility */
+    font-family: sans-serif;
+    text-align: center;
+    overflow: hidden;
+}
+
+.longevityBannerText {
+    color: #FFFFFF; /* Set a base color */
+    font-size: 2.5em; /* Mobile font size */
+    line-height: 1.2;
+    margin-bottom: 30px;
+    max-width: 100%;
+}
+
+.longevityBannerText strong {
+    font-weight: bold;
+}
+
+/* This is the span with the special color */
+.longevityBannerText span {
+    color: #3FFFF8;
+    font-weight: bold;
+}
+
+.buttonContainer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.exploreButton {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.exploreButton:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+@media (min-width: 769px) {
+    .longevityBanner {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 60px 5%;
+        min-height: 300px;
+        text-align: left;
+    }
+
+    .longevityBannerText {
+        font-size: 4em;
+        margin-bottom: 0;
+        flex-basis: 60%; /* Give text content more space */
+    }
+    
+    .buttonContainer {
+       width: auto;
+       height: 100%;
+       align-items: center; /* Vertically center the button in the desktop view */
+       justify-content: flex-end;
+       flex-basis: 40%;
+    }
+
+    .exploreButton {
+        font-size: 1.1em;
+        padding: 18px 35px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .longevityBannerText {
+        font-size: 4.5em;
+    }
+}
