@@ -59,7 +59,7 @@ const ColorOptionCard: React.FC<ColorOptionCardProps> = ({
       <InfoColumn>
         <ColorName>{option.name}</ColorName>
         <DetailsRow>
-          <DetailText className="volume">{option.quantity}</DetailText>
+          {/* <DetailText className="volume">{option.quantity}</DetailText> */}
           <DetailText className="price">{option.sale_price?.gross_value_after_discount_string}</DetailText>
         </DetailsRow>
       </InfoColumn>
