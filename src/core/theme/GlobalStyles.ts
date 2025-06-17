@@ -1,24 +1,18 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
-  /* Import font FIRST */
   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
-::-webkit-scrollbar {
-  display: none;
-}
+
   *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Outfit;
-      scrollbar-width: none;
-
+    font-family: 'Outfit', sans-serif;
   }
 
   html {
-    scroll-behavior: smooth;
     font-size: 16px;
-    font-family: Outfit;
+    font-family: 'Outfit', sans-serif;
   }
 
   body {
@@ -28,8 +22,6 @@ export const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-      scrollbar-width: none;
-
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -38,5 +30,39 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Outfit', sans-serif;
   }
 
-  /* …بقیهٔ استایل‌ها… */
+  /* 🌟 Beautiful Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.backgroundLight};
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      ${({ theme }) => theme.colors.primaryLight} 0%,
+      ${({ theme }) => theme.colors.primaryDark} 100%
+    );
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      ${({ theme }) => theme.colors.primary} 0%,
+      ${({ theme }) => theme.colors.primaryDark} 100%
+    );
+  }
+
+  /* Firefox support */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: ${({ theme }) => theme.colors.primaryDark} ${({ theme }) => theme.colors.backgroundLight};
+  }
 `;

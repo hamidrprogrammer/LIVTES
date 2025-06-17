@@ -47,6 +47,7 @@ const Title = styled.h2`
 const CreateButton = styled.button`
   padding: 10px 20px;
   border: none;
+  width: 200px;
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border-radius: 8px;
@@ -120,9 +121,9 @@ export const AddressListPage: React.FC = () => {
     <PageContainer>
       <Header data-aos="fade-down">
         <Title>My Addresses</Title>
-        <CreateButton onClick={handleCreateNew}>Add New Address</CreateButton>
         <Row>
-               
+                       <CreateButton onClick={handleCreateNew}>Add New Address</CreateButton>
+
                  <DebouncedSearchInput 
                                   value={search}
 
