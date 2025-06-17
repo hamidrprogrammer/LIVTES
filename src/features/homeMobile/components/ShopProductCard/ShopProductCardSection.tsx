@@ -3,8 +3,8 @@ import React from 'react';
 import Section from '../../components/Section/Section';
 import ShopProductCard, { ShopProductCardProps } from './ShopProductCard';
 import { theme } from '../../../../core/theme/theme';
-import  imageProductTwo from '../../../../assets/images/home/imageProductTwo.png';
-import  imageProduct from '../../../../assets/images/home/imageProduct.png';
+const  imageProductTwo = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProductTwo.png';
+const  imageProduct = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProduct.png';
 const shopCardsData: ShopProductCardProps[] = [
   {
     id: "shop-bottle",

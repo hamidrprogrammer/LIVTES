@@ -1,6 +1,6 @@
 // BuyBottlePage/components/WhatsInTheBox/WhatsInTheBox.styles.ts
 import styled from 'styled-components';
-import maskGroupImage from '../../../../assets/images/buy/mask_group.png';
+const maskGroupImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/mask_group.png';
 
 export const SectionWrapper = styled.section`
   position: relative;

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './HeroSection.styles';
-import Hand from '../../../../assets/images/bottle/bottle-hand-gold-bottle-1.png';
+const Hand = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.png';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 

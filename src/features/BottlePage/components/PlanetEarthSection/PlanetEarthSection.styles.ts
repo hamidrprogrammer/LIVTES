@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import plante from '../../../../assets/images/bottle/plante.png'
+const plante = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/plante.png'
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assuming image path: public/images/earth_background_0100.png (based on Figma '0100 1')
 const sectionBackgroundImage = plante;

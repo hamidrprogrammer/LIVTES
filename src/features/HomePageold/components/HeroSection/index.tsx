@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { motion, useAnimation, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslation } from 'react-i18next';
-import whater from '../../../../assets/images/home/whater.png';
+const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/whater.png';
 import ExploreButton from './ExploreButton';
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 

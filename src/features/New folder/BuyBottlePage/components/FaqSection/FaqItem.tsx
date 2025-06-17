@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './FaqItem.styles';
-import vectorIcon from '../../../../assets/images/buy/vector_1.svg'; // Assuming vector_1.svg is the up/down arrow
+const vectorIcon = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/vector_1.svg'; // Assuming vector_1.svg is the up/down arrow
 
 interface FaqItemProps {
   question: string;

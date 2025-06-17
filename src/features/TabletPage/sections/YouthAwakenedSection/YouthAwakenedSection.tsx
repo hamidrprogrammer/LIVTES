@@ -7,7 +7,7 @@ import {
   Subtitle,
   OverlayImage46Container,
 } from './YouthAwakenedSection.styles';
-import Image from '../../../../assets/images/products/image 46.png'
+const Image = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image 46.png'
 
 // Placeholder for the image path
 const overlayImage46Url = Image;

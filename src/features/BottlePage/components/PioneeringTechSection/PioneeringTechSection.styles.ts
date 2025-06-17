@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { FullWidthSection, SectionContent as BaseSectionContent } from '../common/PageSection';
 // تصویر پس زمینه برای این بخش در CSS اصلی مشخص نشده بود، اما رنگ پس زمینه دارد
 // اگر تصویر خاصی دارد، آن را ایمپورت کنید.
-// import sectionFourBg from '../../../../assets/images/bottle/section-four-bg.png';
+// import sectionFourBg from 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/section-four-bg.png';
 
 export const SectionContainer = styled(FullWidthSection)`
   background-color: #072C3D; /* رنگ پس زمینه اصلی */

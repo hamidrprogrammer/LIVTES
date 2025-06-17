@@ -7,10 +7,10 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 /* ----------  Local assets  ---------- */
-import imageCardOne   from '../../../../assets/images/home/imagecardOne.png';
-import imageCardTwo   from '../../../../assets/images/home/imagecardtwo.png';
-import imageCardThree from '../../../../assets/images/home/imagecardtree.png';
-import imageCardFour  from '../../../../assets/images/home/imageFure.png';
+const imageCardOne   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardOne.png';
+const imageCardTwo   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtwo.png';
+const imageCardThree = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtree.png';
+const imageCardFour  = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageFure.png';
 
 /* -------------------------------------------------------------------------- */
 /* STYLES                                     */

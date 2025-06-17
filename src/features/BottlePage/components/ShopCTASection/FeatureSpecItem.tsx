@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PlaceholderIcon from '../../../../assets/icons/PlaceholderIcon'; // Using placeholder
+const PlaceholderIcon = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/icons/PlaceholderIcon'; // Using placeholder
 
 interface FeatureSpecItemProps {
   iconName: string;

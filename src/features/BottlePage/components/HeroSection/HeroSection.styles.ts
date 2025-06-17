@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme'; // Assuming Theme is correctly typed
 
-const heroBackgroundImage = '../../../../assets/images/bottle/bottle-hand-gold-bottle-1.png';
+const heroBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.png';
 const heroBackgroundFallbackColor = '#000000';
 
 export const HeroWrapper = styled.section`
@@ -34,7 +34,7 @@ export const BackgroundImageContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../../../../assets/images/bottle_sec1.jpg') no-repeat center center/cover;
+  background: url('https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle_sec1.jpg') no-repeat center center/cover;
   &::after {
     content: '';
     position: absolute;

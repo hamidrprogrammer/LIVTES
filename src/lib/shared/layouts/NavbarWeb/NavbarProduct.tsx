@@ -12,7 +12,7 @@ import { FiGlobe, FiUser, FiShoppingCart, FiMenu, FiX } from 'react-icons/fi';
 import MobileNavMenu from '../MobileNavMenu/MobileNavMenu';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import logoBlack from '../../../../assets/images/shared/logoblack.svg'; // لوگوی سیاه جدید
+const logoBlack = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/shared/logoblack.svg'; // لوگوی سیاه جدید
 import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '@/features/cart/store/cartStore';
 const Logo = styled(motion.img)<React.ImgHTMLAttributes<HTMLImageElement>>`

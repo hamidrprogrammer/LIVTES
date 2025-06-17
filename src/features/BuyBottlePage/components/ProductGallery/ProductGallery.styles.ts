@@ -1,8 +1,8 @@
 // BuyBottlePage/components/ProductGallery/ProductGallery.styles.ts
 import styled from 'styled-components';
-import galleryBackgroundImage from '../../../../assets/images/buy/image.png';
-import group6Icon from '../../../../assets/images/buy/group_6.png';
-import group7Icon from '../../../../assets/images/buy/group_7.png';
+const galleryBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/image.png';
+const group6Icon = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/group_6.png';
+const group7Icon = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/group_7.png';
 
 
 export const GalleryWrapper = styled.div`

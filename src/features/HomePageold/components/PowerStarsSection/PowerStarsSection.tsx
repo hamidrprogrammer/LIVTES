@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import background from '../../../../assets/images/home/water-waves.png';
+const background = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/water-waves.png';
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 import { useNavigate } from 'react-router-dom';
 

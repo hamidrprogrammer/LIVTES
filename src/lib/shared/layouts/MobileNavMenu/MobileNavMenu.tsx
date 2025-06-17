@@ -16,7 +16,7 @@ import { showToast } from '@/lib/shared/stores/toastStore';
 
 import buttle from '@assets/images/shared/imageme9.png';
 import tablte from '@assets/images/shared/imageme10.png';
-import logoBlack from '../../../../assets/images/shared/logoblack.svg';
+const logoBlack = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/shared/logoblack.svg';
 
 import {
   GlobalMenuFonts, MenuOverlay, MenuDrawer, MenuHeader, CloseButton, MenuContentWrapper,

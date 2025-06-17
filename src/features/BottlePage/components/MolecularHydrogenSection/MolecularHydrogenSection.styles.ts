@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import whater from '../../../../assets/images/bottle/whatter.png'
+const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/whatter.png'
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assumed image path: public/images/molecular_hydrogen_bg.jpg
 const sectionBackgroundImage = whater;

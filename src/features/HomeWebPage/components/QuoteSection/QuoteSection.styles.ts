@@ -5,7 +5,7 @@ export const QuoteSectionContainer = styled.section`
   width: 100%;
   min-height: 700px; // Adjusted for responsiveness, Figma height 860px
   // Assuming homepage_sec6.jpg is in public/images/
-  background: url('../../../../assets/images/homepage_sec6.jpg') no-repeat center center/cover;
+  background: url('https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/homepage_sec6.jpg') no-repeat center center/cover;
   color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
