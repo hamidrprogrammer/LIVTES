@@ -6,6 +6,7 @@ import {  ThemeProvider } from 'styled-components';
 import { theme } from './core/theme/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
+import ScrollToTopOnNext from './core/hooks/ScrollToTopOnNext';
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
@@ -15,6 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <ScrollToTopOnNext/>
  <ThemeProvider theme={theme} >
     <QueryClientProvider client={queryClient}>
  

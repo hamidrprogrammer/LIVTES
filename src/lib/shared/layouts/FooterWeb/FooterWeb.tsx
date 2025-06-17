@@ -177,7 +177,7 @@ const FooterBottomBar = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flext-start;
   flex-wrap: wrap; /* برای پیچیدن آیتم‌ها در صورت کمبود فضا */
   gap: 20px;
   padding: 20px 0 0;

@@ -41,7 +41,7 @@ const App: React.FC = () => {
   return (
     <>
           <GlobalConfigFetcher />
-
+ 
       <GlobalStyles />
        <Toast /> 
       <AppRouter />
