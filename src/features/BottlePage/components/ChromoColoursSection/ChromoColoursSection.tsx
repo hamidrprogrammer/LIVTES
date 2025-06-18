@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './ChromoColoursSection.styles';
-import bottleImageUrl from "../../../../assets/images/bottle/decorativeBgUrl.avif"
+const bottleImageUrl = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/decorativeBgUrl.avif';
+
 const chromaColors = [
   { id: 'purple', hex: '#8919F5' },
   { id: 'deepBlue', hex: '#1840F5' },

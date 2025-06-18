@@ -1,8 +1,9 @@
 import React from 'react';
 import { InfoCard } from './InfoCard';
 import { VRSectionContainer } from './VisionRevolutionSection.styled';
-import homepage_vision from "../../../../assets/images/home/homepage_vision 1.avif'"
-import homepage_revolution from "../../../../assets/images/home/homepage_sec3 1.avif'"
+
+const homepage_vision = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_vision 1.avif';
+const homepage_revolution = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_sec3 1.avif';
 
 const VisionRevolutionSection: React.FC = () => {
   const handleViewMissionClick = () => {

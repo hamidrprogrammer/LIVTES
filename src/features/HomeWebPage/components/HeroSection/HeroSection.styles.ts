@@ -1,7 +1,8 @@
 // src/features/Hom.avif'age/components/HeroSection/HeroSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from "../../../../assets/images/products/homepage_sec1.avif'"
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/homepage_sec1.avif';
+
 export const HeroContainer = styled.section`
   height: 860px; // As per Figma
   width: 100%;

@@ -10,8 +10,8 @@ import {
   ButtonsWrapper,
   ImageWrapper,
 } from './BottleTechnologySection.styles';
-import homepage_sec1 from "../../../../assets/images/home/homepage_sec3 1.avif'"
 import { useNavigate } from 'react-router-dom';
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/homepage_sec3 1.avif';
 
 const BottleTechnologySection: React.FC = () => {
   const nvigate=useNavigate();

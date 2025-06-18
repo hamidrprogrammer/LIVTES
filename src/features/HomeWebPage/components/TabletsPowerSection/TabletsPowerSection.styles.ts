@@ -1,7 +1,7 @@
 // src/features/Hom.avif'age/components/TabletsPowerSection/TabletsPowerSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_revolution from "../../../../assets/images/home/homepage_sec4 1.avif'"
+const homepage_revolution = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_sec4%201.avif';
 
 export const TabletsPowerSectionContainer = styled.section`
   width: 100%;

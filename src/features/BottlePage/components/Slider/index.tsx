@@ -1,11 +1,12 @@
 // BottlePage/components/Slider/index.tsx
-import slide2 from "../../../../assets/images/bottle/imageSlidTwo.avif";
-import slide3 from "../../../../assets/images/bottle/imageSlideTree.avif";
-import slide4 from "../../../../assets/images/bottle/imageSlideFure.avif";
-import image4 from "../../../../assets/images/bottle/image-4.avif"; // Assuming this is slide1
+
 import { forwardRef, useImperativeHandle, useState } from "react";
 import './Slider.css';
 import { useIsMobile } from "@/core/hooks/useIsMobile";
+const slide2 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/imageSlidTwo.avif';
+const slide3 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/imageSlideTree.avif';
+const slide4 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/imageSlideFure.avif';
+const image4 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-4.avif';
 
 const slidesData = [
   {

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { GalleryWrapper, ProductImage, GalleryControls, Dot, ArrowButton } from './ProductGallery.styles';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import Tablet_Shop_C_1 from "../../../../assets/images/products/Tablet_Shop_C_1.avif'"
+
+const Tablet_Shop_C_1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/Tablet_Shop_C_1.avif';
+
 const images = [
  Tablet_Shop_C_1,
  Tablet_Shop_C_1,
