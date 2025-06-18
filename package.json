@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "generate-images": "node scripts/convert-images.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@adyen/adyen-web": "5.68.0",
@@ -19,8 +18,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.38",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.34",
     "aos": "^2.3.4",
     "date-fns": "^4.1.0",
