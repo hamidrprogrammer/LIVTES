@@ -1,157 +1,104 @@
-// src/components/SmartImage.tsx
 import React, {
   useRef,
   useState,
   useEffect,
-  useLayoutEffect,
-  CSSProperties,
   ImgHTMLAttributes,
+  CSSProperties,
   ReactNode,
 } from 'react';
 
-const BREAKPOINTS = [480, 768, 1024, 1440];
-
-/* ---------- Props ---------- */
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
-  src: string;                 // فقط همین الزامى است
+  src: string;
   alt?: string;
   className?: string;
   style?: CSSProperties;
-  children?: ReactNode;        // اگر children باشد و bg داشته باشى → background
   sizes?: string;
   priority?: boolean;
+  children?: ReactNode;
 }
 
-/* ---------- Component ---------- */
-const SmartImage = ({
+const SmartImage: React.FC<Props> = ({
   src,
   alt = '',
   className = '',
   style = {},
-  children,
   sizes = '100vw',
-  loading = 'lazy',
   priority = false,
+  children,
+  loading = 'lazy',
   ...rest
-}: Props) => {
-  /* refs / states ------------------------------------ */
-  const outerRef = useRef<HTMLDivElement | HTMLImageElement>(null);
-  const [visible, setVisible] = useState(priority);
-  const [loaded, setLoaded]   = useState(priority);
-  const [mode,   setMode]     = useState<'img' | 'background'>('img'); // تشخیص خودکار
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(priority);
 
-  /* paths --------------------------------------------- */
-const ext  = src?.split('.').pop()?.toLowerCase() ?? 'jpg';
-const base = src ? src.slice(0, -(ext.length + 1)) : '';
-const blurSrc   = base ? `${base}-blur.${ext}` : '';
-const webpBase  = base ? `${base}.webp` : '';
-const srcSetJpg = base ? BREAKPOINTS.map(w => `${base}-${w}.${ext} ${w}w`).join(', ') : '';
-const srcSetWeb = base ? BREAKPOINTS.map(w => `${base}-${w}.webp ${w}w`).join(', ') : '';
-
-  /* lazy-observer ------------------------------------- */
   useEffect(() => {
-    if (priority) return;
-    const ob = new IntersectionObserver(
-      ([e], o) => { if (e.isIntersecting) { setVisible(true); o.disconnect(); } },
-      { rootMargin: '300px' }
+    if (priority || !containerRef.current) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry], obs) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
     );
-    outerRef.current && ob.observe(outerRef.current);
-    return () => ob.disconnect();
+
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
   }, [priority]);
 
-  /* auto-detect img vs background --------------------- */
-  useLayoutEffect(() => {
- 
+  // const ext = src.split('.').pop()?.toLowerCase() ?? 'jpg';
 
-    const el = outerRef.current as HTMLElement | null;
-    if (!el) return;
-
-    // اگر styled-components براش background-image ست کرده باشد
-    const bg = getComputedStyle(el).backgroundImage;
-    if (bg && bg !== 'none') setMode('background');
-  }, [children]);
-
-  /* shared style -------------------------------------- */
-  useEffect(() => {
-    if (!src) return;
-
-    const img = new Image();
-    // Clean the CSS value if it contains url(...)
-    const cleanedUrl = src.replace(/url\(["']?(.+?)["']?\)/, '$1');
-    img.src = cleanedUrl;
-
-
-    img.onload = () => {
-          console.log('=============setLoaded=======================');
-    console.log(cleanedUrl);
-    console.log('===============setLoaded=====================');
-      setLoaded(true);
-    };
-
-    img.onerror = () => {
-      console.error('Failed to load background image.');
-    };
-  }, [src]);
-  useEffect(() => {
-    console.log('==============onload======================');
-    console.log(loaded);
-    console.log('==============onload======================');
-  }, [loaded])
-  /* --------------------------------------------------- */
-  if (mode === 'background') {
-    return (
-      <div
-        ref={outerRef as React.RefObject<HTMLDivElement>}
-        className={className}
-              
-
-        style={{
-          ...style,
-    transition: 'filter .35s ease',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-          // اگر کاربر با CSS، background-image تعریف کرده باشد بطور پیش‌فرض همان را می‌گذاریم
-          backgroundImage:
-            src ,
-        }}
-        {...rest}
-      >
-        {children}
-      </div>
-    );
-  }
-
-  /* img mode ----------------------------------------- */
+  const srcSe = src;
+  const srcSetOriginal = src;
+  console.log('====================================');
+  console.log(src);
+  console.log('====================================');
 
   return (
-    <picture
-      ref={outerRef as React.RefObject<HTMLDivElement>}
+    <div
+      ref={containerRef}
       className={className}
-     style={{
-          ...style,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-   
-           
-        }}
+      style={{ position: 'relative', ...style }}
     >
-    
-        <>
-          <source srcSet={srcSetWeb} type="image/webp" sizes={sizes} />
-          <source srcSet={srcSetJpg} type={`image/${ext}`} sizes={sizes} />
-        </>
-     
-      <img
-        src={src}
-        alt={alt}
-        decoding="async"
-        onLoad={() => setLoaded(true)}
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        {...rest}
-      />
-    </picture>
+      {isVisible && (
+        <picture>
+          <source srcSet={srcSe} type="image.avif'" sizes={sizes} />
+          <source srcSet={srcSetOriginal} type={`image/avif`} sizes={sizes} />
+          <img
+            src={src} // نسخه اصلی مستقیم
+            alt={alt}
+            decoding="async"
+            loading={priority ? 'eager' : loading}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              filter: 'none',
+            }}
+            {...rest}
+          />
+        </picture>
+      )}
+
+      {children && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 1,
+            pointerEvents: 'none',
+          }}
+        >
+          {children}
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from '@assets/images/products/Ethereal Water Droplets 1.png'
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/Ethereal%20Water%20Droplets%201.avif';
 
 const etherealWaterDropletsBgUrl = homepage_sec1;
 

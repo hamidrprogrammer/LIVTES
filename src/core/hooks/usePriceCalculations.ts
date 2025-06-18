@@ -7,13 +7,13 @@
 import { useEffect, useMemo } from 'react';
 import { useAuthStore } from '@/features/auth/stores/authStore'; // استور کاربر برای اطلاعاتی مثل کشور و نوع کاربر
 import { useSettingsStore } from '@/features/settings/stores/settingsStore'; // استور تنظیمات برای قوانین ارسال و مالیات
-import { useCouponStore } from '@/features/coupons/stores';
 import { CartItem, useCartStore } from '@/features/cart/store/cartStore';
 import { createListKey } from '../utils/createListKey';
 import { useGetConfigDataQuery } from '@/features/settings/hooks/useSettingsQueries';
 import { useGetUserProfileQuery } from '@/features/user/hooks/useUserQueries';
 import { ProductVariation } from '../types/api/shop';
 import { useListProductVariationsQuery } from '@/features/shop/hooks/useProductQueries';
+import { useCouponStore } from '@/features/coupons/stores/couponStore';
 
 /**
  * یک ابزار ساده برای فرمت کردن قیمت‌ها
@@ -35,14 +35,14 @@ interface PriceCalculationsProps {
  */
 export const usePriceCalculations = ({ walletBalance = 0, countryId,deliveryContactGroupId, landmark }: PriceCalculationsProps) => {
   const selectedCountryId = countryId;
-
+const { appliedCoupon } = useCouponStore();
   // Re-fetch product variations when delivery location or items change
  
   // ۱. خواندن داده‌ها از Store های مختلف
   const { items ,updateItems } = useCartStore();
 const { data: userProfileResponse, isLoading: isUserLoading } = useGetUserProfileQuery();
   const user = userProfileResponse?.data;//   const { appliedCoupon } = useCouponStore();
-//   const coupon = appliedCoupon.details;
+  const coupon = appliedCoupon;
  const { data: configResponse, isLoading: isConfigLoading } = useGetConfigDataQuery(
     { countryId: countryId?.toString() ,
       deliveryContactGroupId: deliveryContactGroupId
@@ -69,7 +69,7 @@ const itemIds = useMemo(() => items.map(item => item.id).filter(Boolean) as (str
   );
  useEffect(() => {
     if (isSuccess && updatedVariationsData?.data) {
-      console.log("Updating cart items with new data based on delivery location...");
+       
       updateItems(updatedVariationsData.data);
     }
   }, [isSuccess, updatedVariationsData, updateItems]);
@@ -98,9 +98,9 @@ const getPrice = (item: CartItem) => {
       net: sub?.value_after_discount ?? 0
     };
   } else {
-    console.log('==============item?.sale_price?.value_after_discoun======================');
-    console.log(item?.sale_price?.value_after_discount+"");
-    console.log('=============item?.sale_price?.value_after_discoun=======================');
+     
+     
+     
     return {
       gross: item?.sale_price?.gross_value_after_discount ?? 0,
       net: item?.sale_price?.value_after_discount ?? 0
@@ -111,16 +111,16 @@ const getPrice = (item: CartItem) => {
     const baseItems = items.filter(item => item.type !== 'Promotional Article' && item.type !== 'Coupon Item');
      const totalTransportation = baseItems
     .reduce((prev, next) => prev +  parseInt(next.quantity)* next.transportation?.gross_value, 0)
-    console.log('====================================');
-    console.log(baseItems);
-    console.log('====================================');
+     
+     
+     
 const totalGrossPrice = baseItems.reduce((acc, item) => acc + getPrice(item).gross * parseInt(item.quantity), 0);
 
    const totalNetPrice = baseItems.reduce((acc, item) => acc + getPrice(item).net * parseInt(item.quantity), 0);
 
-    console.log('===============totalNetPrice=====================');
-    console.log(totalNetPrice);
-    console.log('==============totalNetPrice======================');
+     
+     
+     
     const qv = baseItems.reduce((acc, item) => {
         // این منطق MLM باید با ساختار جدید ProductVariation تطبیق داده شود
         // فعلا یک محاسبه نمونه قرار می‌دهیم
@@ -131,9 +131,9 @@ const totalGrossPrice = baseItems.reduce((acc, item) => acc + getPrice(item).gro
 
     // --- محاسبه هزینه ارسال (پیچیده‌ترین بخش) ---
 const getShippingPrice = () => {
-  console.log('=============deliveryContactGroupId=======================');
-  console.log(deliveryContactGroupId);
-  console.log('=============deliveryContactGroupId=======================');
+   
+   
+   
   if(deliveryContactGroupId ==0 ){
     return 0 ;
   }
@@ -150,13 +150,13 @@ const getShippingPrice = () => {
  
   const partnerCost = partnerTransportation?.partner_cost ?? 0;
   const minAmount = partnerTransportation?.min_partner_amount ?? 0;
-  console.log('=============totalTransportation=======================');
-  console.log(totalTransportation);
-  console.log('=============totalTransportation=======================');
+   
+   
+   
   const shippingPrice = totalGrossPrice > minAmount ? totalTransportation : partnerCost;
-   console.log('===============partnerTransportation=====================');
-   console.log(shippingPrice);
-   console.log('===============partnerTransportation=====================');
+    
+    
+    
   if (hasShippingService) {
    return 8;
   }
@@ -182,21 +182,21 @@ const getShippingPrice = () => {
       .reduce((acc, item) => acc + (item.sale_price?.gross_value_after_discount ?? 0) * parseInt(item.quantity), 0);
 
     let couponDiscount = 0;
-    // if (coupon) {
-    //   if (coupon.type === 'fixed_amount') {
-    //     couponDiscount = coupon.amount ?? 0;
-    //   } else if (coupon.type === 'percentage') {
-    //     couponDiscount = (totalGrossPrice * (coupon.percentage_discount ?? 0)) / 100;
-    //   }
-    // }
+    if (coupon) {
+      if (coupon.type === 'fixed_amount') {
+        couponDiscount = coupon.amount ?? 0;
+      } else if (coupon.type === 'percentage') {
+        couponDiscount = (totalGrossPrice * (coupon.percentage_discount ?? 0)) / 100;
+      }
+    }
     // کوپن نباید روی آیتم‌های کوپنی دیگر اعمال شود
     const finalCouponDiscount = Math.max(0, couponDiscount - couponProductsPrice);
     
     // --- محاسبه قیمت نهایی ---
     const totalPayment = totalGrossPrice + shippingPrice - finalCouponDiscount - (walletBalance / 100);
-    console.log('===============totalGrossPrice=====================');
-    console.log(totalGrossPrice);
-    console.log('===============totalGrossPrice=====================');
+     
+     
+     
     const totalVat = totalPayment - (totalNetPrice + (shippingPrice / (1 + (config?.default_vat ?? 0) / 100)));
 
     return {

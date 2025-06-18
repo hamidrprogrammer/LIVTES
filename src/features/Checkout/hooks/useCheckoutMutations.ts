@@ -33,7 +33,7 @@ export function useCreateOrderFromBasketMutation(
       queryClient.invalidateQueries({ queryKey: orderQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: userQueryKeys.profile() });
       
-      console.log('Order created successfully!', data);
+       
       
       // Call original onSuccess if provided
       if (options?.onSuccess) {
@@ -64,7 +64,7 @@ export function useBulkAddBasketMutation(
       // A robust way is to refetch the entire cart from the server.
       // A simpler way for now is to manually add the items to the zustand store,
       // though this might not reflect the exact server state.
-      console.log('Items added successfully to basket via API!', data);
+       
 
       // We will simply show an alert here. For a real app, you would
       // likely refetch the cart or update the Zustand store based on the API response.

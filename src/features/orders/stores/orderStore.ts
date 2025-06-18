@@ -211,7 +211,7 @@ export const selectOrderSaleList = (params?: GetOrderSaleParams) => (state: Orde
 
 if (typeof window !== 'undefined') {
   window.addEventListener('auth:logout', () => {
-    console.log('OrderStore: auth:logout event received, clearing all order data.');
+     
     useOrderStore.getState().clearAllOrderData();
   });
 }

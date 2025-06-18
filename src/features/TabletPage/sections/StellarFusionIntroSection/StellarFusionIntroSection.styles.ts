@@ -1,11 +1,10 @@
 // TabletPage/sections/StellarFusionIntroSection/StellarFusionIntroSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from '@assets/images/products/tablet598.png'; // tabletImageUrl
-import homepage_sec2 from '@assets/images/products/star.png'; // starBgUrl
 
-const starBgUrl = homepage_sec2;
-const tabletImageUrl = homepage_sec1;
+
+const starBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/star.avif";
+const tabletImageUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/tablet598.avif";
 
 /* ─────────────────────────── SECTION ─────────────────────────── */
 

@@ -9,7 +9,7 @@ import {
   QuoteAuthorName,
   QuoteAuthorRole
 } from './QuoteSection.styles';
-import  quoteBgImage from 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_sec6 1.png';
+import  quoteBgImage from 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_sec6 1.avif';
 
 // Placeholder for quote background image
 

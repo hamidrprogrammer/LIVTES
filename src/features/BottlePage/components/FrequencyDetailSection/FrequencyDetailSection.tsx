@@ -3,10 +3,10 @@ import * as S from './FrequencyDetailSection.styles';
 
 export interface VisualProps {
   type: 'sun_lid' | 'animated_lid';
-  mainVisualUrl?: string; // For sun_lid (Bottle_Page-Lid_sun.png)
-  lidImageUrl?: string; // For animated_lid (Top_View.png)
-  haloImageUrl?: string; // For animated_lid (halo.png)
-  animationAssetUrl?: string; // For animated_lid (anim_pink.png, anim_blue.png)
+  mainVisualUrl?: string; // For sun_lid (Bottle_Page-Lid_sun.avif')
+  lidImageUrl?: string; // For animated_lid (Top_View.avif')
+  haloImageUrl?: string; // For animated_lid (halo.avif')
+  animationAssetUrl?: string; // For animated_lid (anim_pink.avif', anim_blue.avif')
 }
 
 interface FrequencyDetailSectionProps {

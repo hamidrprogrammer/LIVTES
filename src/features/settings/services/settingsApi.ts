@@ -122,9 +122,9 @@ export async function listLanguages(
   const url = `${API_BASE_URL}/languages${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
   const response =  httpClient(url, requestOptions, LanguageListResponseSchema);
 
-  console.log('============response========================');
-  console.log(response);
-  console.log('============response========================');
+   
+   
+   
   return response
 }
 

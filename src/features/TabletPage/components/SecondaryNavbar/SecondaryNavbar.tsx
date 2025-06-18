@@ -91,7 +91,7 @@ const SecondaryNavbar: React.FC = () => {
   }, [activeLink]);
 
   const handleNavLinkClick = (href: string) => {
-    console.log(`Secondary Nav: Clicked ${href}`);
+     
     setActiveLink(href);
     const element = document.getElementById(href.substring(1));
     if (element) {

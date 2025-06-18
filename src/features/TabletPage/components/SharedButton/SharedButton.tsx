@@ -56,7 +56,7 @@ const StyledButton = styled.button<ButtonProps>`
 
 const SharedButton: React.FC<ButtonProps> = ({ children, onClick, variant = 'primary', ...props }) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(`Button clicked: ${children}`);
+     
     if (onClick) {
       onClick(event);
     }

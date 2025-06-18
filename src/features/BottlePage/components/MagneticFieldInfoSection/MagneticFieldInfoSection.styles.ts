@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import sectionBackgroundImage from '@assets/images/bottle/mask-group-5.png'
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assumed image path: public/images/bottle_sec7_magnetic_field_bg.jpg (for 'bottle_sec7 1')
+const sectionBackgroundImage = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/mask-group-5.avif";
 
-export const SectionWrapper = styled(SmartImage)`
+export const SectionWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 800px;

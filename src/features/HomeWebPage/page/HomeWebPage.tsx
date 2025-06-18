@@ -1,4 +1,4 @@
-// src/features/HomeWebPage/page/HomeWebPage.tsx
+// src/features/Hom.avif'age/page/Hom.avif'age.tsx
 import React from 'react';
 import styled from 'styled-components';
 
@@ -14,7 +14,7 @@ const HomePageContainer = styled.main`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-export const HomeWebPage: React.FC = () => {
+export const Hom.avif'age: React.FC = () => {
   return (
     <HomePageContainer>
       <Navbar />

@@ -2,13 +2,13 @@
 // src/core/types/images.d.ts
 // Consolidated image type definitions
 
-declare module "*.png" {
+declare module "*.avif'" {
   const value: string; // Path to the image
   export default value;
 }
 
 declare module "*.svg" {
-  // For SVGs imported as React components (e.g., using @svgr/webpack)
+  // For SVGs imported as React components (e.g., using @svgr.avif'ack)
   import React = require('react');
   export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
   const src: string; // Path to the SVG file
@@ -30,7 +30,7 @@ declare module "*.gif" {
   export default value;
 }
 
-declare module "*.webp" {
+declare module "*.avif'" {
   const value: string;
   export default value;
 }

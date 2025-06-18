@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-const Image = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image 47.png'
+const Image = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image%2047.avif'
 
 // اینجا مسیر تصویر زمینه رو به درستی مقدار دادم
 const sectionBgImage47Url = Image;

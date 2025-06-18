@@ -12,17 +12,17 @@ const currencyFormat = (value: number, currency: string) =>
     new Intl.NumberFormat('de-DE', { style: 'currency', currency }).format(value);
 
 export const ProductListItem: React.FC<ProductListItemProps> = ({ item, currencyIso }) => {
-    const [imageLink, setImageLink] = useState<string>('/box.png'); // Default fallback
+    const [imageLink, setImageLink] = useState<string>('/box.avif'); // Default fallback
     const { user } = useAuthStore(); // For MLM details check
 
     // Logic to determine the image URL, copied from your old project
     useEffect(() => {
         const productVariation = item.productVariation;
-        let determinedLink = '/box.png';
+        let determinedLink = '/box.avif';
         if (productVariation?.productVariationFile) {
-            determinedLink = productVariation.productVariationFile.file ?? '/box.png';
+            determinedLink = productVariation.productVariationFile.file ?? '/box.avif';
         } else if (productVariation?.productVariationFiles?.[0]) {
-            determinedLink = productVariation.productVariationFiles[0].file ?? '/box.png';
+            determinedLink = productVariation.productVariationFiles[0].file ?? '/box.avif';
         }
         setImageLink(determinedLink);
     }, [item.productVariation]);
@@ -36,7 +36,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({ item, currency
                 <img
                     src={imageLink}
                     alt={productVariation.name ?? 'Product'}
-                    onError={() => setImageLink('/box.png')} // Fallback on error
+                    onError={() => setImageLink('/box.avif')} // Fallback on error
                 />
             </S.ImageContainer>
 

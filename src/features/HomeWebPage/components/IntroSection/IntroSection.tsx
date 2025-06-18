@@ -1,4 +1,4 @@
-// src/features/HomeWebPage/components/IntroSection/IntroSection.tsx
+// src/features/Hom.avif'age/components/IntroSection/IntroSection.tsx
 import React from 'react';
 import {
   IntroSectionContainer,

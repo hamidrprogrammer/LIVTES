@@ -2,10 +2,9 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { RiFacebookFill } from 'react-icons/ri';
 import { FaTiktok } from 'react-icons/fa';
-import footer_bkganim from "@assets/images/shared/footer_bkganim 1.png";
 import { motion } from 'framer-motion';
 import { responsive } from '@/core/theme/responsive';
-
+const footer_bkganim = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/shared/footer_bkganim%201-1440.webp";
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -25,8 +24,8 @@ const FooterWrapper = styled.footer`
   background: #072C3D;
   overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
+
+  align-items: flex-end;
 
   ${responsive.medium(`
     min-height: auto;

@@ -8,6 +8,7 @@ import { usePriceCalculations } from '@/core/hooks/usePriceCalculations';
 import { useAuthStore } from '@/features/auth/stores/authStore';
 import { UserInvoiceContactGroup } from '@/core/types/api/user';
 import { useGetConfigDataQuery } from '@/features/settings/hooks/useSettingsQueries';
+import { Link } from 'react-router-dom';
 
 
 // NOTE: Other styled-components from the original file that are not listed here remain unchanged.
@@ -132,11 +133,12 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({ deliveryContactGroup
       {isHide == false ?
         <CheckoutButton onClick={onCheckout} isLoading={isLoading} >Checkout Now</CheckoutButton>
         : null}
-      <TermsText>
-        By pressing this button you'll agree with
-        Term of Conditions, Right of Withdrawal &
-        Data protection declaration
-      </TermsText>
+          <TermsText>
+      By pressing this button you'll agree with&nbsp;
+      <Link to="/legals/terms-and-conditions">Term of Conditions</Link>,&nbsp;
+      <Link to="/legals/warranty-policy">Right of Withdrawal</Link> &amp;&nbsp;
+      <Link to="/legals/privacy-policy">Data protection declaration</Link>.
+    </TermsText>
     </SummaryContainer>
   );
 };

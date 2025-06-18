@@ -2,8 +2,8 @@
 import React, { Suspense, lazy } from 'react';
 import styled from 'styled-components';
 import { ProductHighlightSectionProps } from '../components/ProductHighlightSection/ProductHighlightSection';
-import homepage_bottle2_bg from "../../../assets/images/home/battel.png"
-import  background from '../../../assets/images/home/image 2.png';
+import homepage_bottle2_bg from "../../../assets/images/home/battel.avif'"
+import  background from '../../../assets/images/home/image 2.avif';
 import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
 
 // Lazy load feature sections

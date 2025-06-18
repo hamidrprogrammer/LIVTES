@@ -184,7 +184,7 @@ export async function httpClient<T>(
 // Example of how a global event listener for logout might look (e.g., in your main App component or auth provider)
 // if (typeof window !== 'undefined') {
 //   window.addEventListener('auth:logout', (event) => {
-//     console.log('Logout event received', (event as CustomEvent).detail);
+//      
 //     // Implement actual logout logic: clear tokens, redirect to login, clear React Query cache etc.
 //     localStorage.removeItem('authToken');
 //     localStorage.removeItem('refreshToken');

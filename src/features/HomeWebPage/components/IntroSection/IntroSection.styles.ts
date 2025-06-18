@@ -1,4 +1,4 @@
-// src/features/HomeWebPage/components/IntroSection/IntroSection.styles.ts
+// src/features/Hom.avif'age/components/IntroSection/IntroSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
 

@@ -1,7 +1,7 @@
 // TabletPage/sections/UnderwaterSection/UnderwaterSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-const Image = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image 29.png'; // underwaterImage29Url
+const Image = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image%2029-1440.avif'; // underwaterImage29Url
 
 // آدرس تصاویر برای پس‌زمینه و دکوریشن
 const underwaterImage29Url = Image;

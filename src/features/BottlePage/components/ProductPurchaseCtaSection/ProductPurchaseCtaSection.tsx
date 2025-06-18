@@ -1,8 +1,8 @@
 import React from 'react';
 import * as S from './ProductPurchaseCtaSection.styles';
 import { ProductFeatureDisplay } from './ProductFeatureDisplay';
-const bottleSec8Gold = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-sec8-gold.png';
-const bottleSec8Grey = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-sec8-grey.png';
+const bottleSec8Gold = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-sec8-gold.avif';
+const bottleSec8Grey = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-sec8-grey.avif';
 import { useNavigate } from 'react-router-dom';
 
 export const ProductPurchaseCtaSection = () => {

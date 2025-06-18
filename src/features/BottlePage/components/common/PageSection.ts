@@ -20,7 +20,7 @@ export const SectionContent = styled.div`
   }
 `;
 
-export const SectionBackgroundImage = styled(SmartImage)`
+export const SectionBackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;

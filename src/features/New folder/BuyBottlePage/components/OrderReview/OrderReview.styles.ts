@@ -1,6 +1,6 @@
 // BuyBottlePage/components/OrderReview/OrderReview.styles.ts
 import styled from 'styled-components';
-const checkoutShopImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/checkout_shop_1.png';
+const checkoutShopImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/checkout_shop_1.avif';
 const lineImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/line_1.svg';
 
 export const SectionWrapper = styled.section`

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 // src/components/LoginPage/LoginPage.tsx
 
 import React, { useState, useEffect, FormEvent } from 'react';
@@ -15,6 +16,7 @@ import { FiLoader } from 'react-icons/fi';
 // Styled components from the previous step
 import * as S from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
+import { useSettingsStore } from '@/features/settings/stores/settingsStore';
 
 // Define a type for our form's validation errors
 interface FormErrors {
@@ -41,6 +43,7 @@ export const LoginForm: React.FC = () => {
   const isLoading = useAuthStore(selectAuthIsLoading);
   const serverError = useAuthStore(selectAuthError); // API errors from the store
   const navigate = useNavigate();
+    const setSelectedCountryId = useSettingsStore((state) => state.setSelectedCountryId);
 
   // --- LOGIC & SIDE EFFECTS ---
 
@@ -51,6 +54,17 @@ export const LoginForm: React.FC = () => {
       once: true,
     });
   }, []);
+  const handleClear = () => {
+    localStorage.clear();          // Clear all localStorage
+    sessionStorage.clear(); 
+    setSelectedCountryId(null) ;
+    alert('Your cart has been cleared')     
+    caches.keys().then((names) => { // Optional: clear Cache Storage (PWA)
+      for (let name of names) {
+        caches.delete(name);
+      }
+    });
+  }
 useEffect(() => {
   if (isAuthenticated) {
     navigate('/', { replace: true });
@@ -62,7 +76,7 @@ useEffect(() => {
   // Logic to handle successful login (e.g., redirect to dashboard)
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('Login successful! Redirecting to the dashboard...');
+       
       // In a real app, you would use your router here:
       // history.push('/dashboard');
       // For this example, we'll just show an alert.
@@ -103,13 +117,16 @@ useEffect(() => {
    * Handles the form submission event.
    */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+   
     e.preventDefault(); // Prevent the default browser form submission
-    
+      handleClear();
     // Do not submit if a request is already in progress
     if (isLoading) return;
     
     // Clear previous server errors before a new attempt
     clearAuthError();
+   
+
 
     // Perform validation
     const isFormValid = validateForm();
@@ -122,9 +139,9 @@ useEffect(() => {
     // If validation passes, create the payload and call the login action
     const payload: LoginPayload = { username, password };
     await login(payload);
-    console.log('==============LoginPayload======================');
-    console.log(accessToken);
-    console.log('=============LoginPayload=======================');
+     
+     
+     
 
   };
 

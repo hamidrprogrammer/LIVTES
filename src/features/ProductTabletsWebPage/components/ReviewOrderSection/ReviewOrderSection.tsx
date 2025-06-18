@@ -12,7 +12,7 @@ import {
   ActionButton,
   ProductImageWrapper,
 } from './ReviewOrderSection.styles';
- import  Tablets_Shop_B from '@assets/images/products/Tablets_Shop_B 1.png'
+const Tablets_Shop_B = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Tablets_Shop_B 1.avif";
 
 interface OrderSummary {
   productName: string;

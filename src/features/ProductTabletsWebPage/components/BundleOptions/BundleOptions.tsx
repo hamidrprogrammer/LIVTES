@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { BuyOptionCard, BuyOptionCardProps } from '../BuyOptionCard/BuyOptionCard';
 import { OptionsContainer, SectionTitle } from './BundleOptions.styles';
-import Bottle_Shop_C_grey from "@assets/images/products/Bottle_Shop_C_grey 1.png"
+const Bottle_Shop_C_grey = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Bottle_Shop_C_grey 1.avif";
+
 const initialBundleOptions: Omit<BuyOptionCardProps, 'onCardClick' | 'isActive' | 'id'>[] = [
   {
     title: 'One pack',

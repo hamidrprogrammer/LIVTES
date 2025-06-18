@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import whyYouFeelItBgUrl from "@assets/images/products/homepage_sec1.png"
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
+const whyYouFeelItBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/homepage_sec1.avif";
 
 // Placeholder for background image, user needs to replace 'path/to/your/stars-hero-bg.jpg'
 const starsHeroBgUrl = whyYouFeelItBgUrl
 // Placeholder for rotated image 'image 26'
 const image26Url =whyYouFeelItBgUrl
 
-export const HeroSectionContainer = styled(SmartImage)`
+export const HeroSectionContainer = styled.div`
   position: relative;
   width: 100%;
   height: 850px; // As per Figma "Stars Hero"

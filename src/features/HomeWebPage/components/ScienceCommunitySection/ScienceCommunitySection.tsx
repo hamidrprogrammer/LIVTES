@@ -3,16 +3,16 @@ import { SCSectionContainer } from './ScienceCommunitySection.styles';
 // InfoCard is already created and can be imported from its location.
 // Assuming it's in VisionRevolutionSection for now as per previous step, adjust path if moved to common.
 import { InfoCard } from '../VisionRevolutionSection/InfoCard';
-import homepage_science from "../../../../assets/images/home/homepage_sec3 1.png"
-import homepage_community from "../../../../assets/images/home/homepage_community 1.png"
+import homepage_science from "../../../../assets/images/home/homepage_sec3 1.avif'"
+import homepage_community from "../../../../assets/images/home/homepage_community 1.avif'"
 
 const ScienceCommunitySection: React.FC = () => {
   const handleExploreScienceClick = () => {
-    console.log('Explore the science clicked');
+     
   };
 
   const handleJoinCommunityClick = () => {
-    console.log('Join the community clicked');
+     
   };
 
   const scienceDescription = (

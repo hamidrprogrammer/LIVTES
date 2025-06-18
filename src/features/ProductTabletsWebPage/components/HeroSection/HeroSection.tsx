@@ -6,11 +6,11 @@ import { BundleOptions } from '../BundleOptions/BundleOptions';
 export const HeroSection: React.FC = () => {
 
   const handleBundleSelection = (bundleId: string, price?: string) => {
-    console.log('Bundle selected:', bundleId, "Price:", price);
+     
   };
 
   const handleFrequencySelection = (frequencyId: string) => {
-    console.log('Frequency selected:', frequencyId);
+     
   };
 
   return (

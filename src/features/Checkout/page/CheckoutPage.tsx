@@ -59,9 +59,9 @@ const nav = useNavigate(); // your 'nav'
             } ))
             
         };
-        console.log('============userProfile========================');
-        console.log(userProfile?.baskets);
-        console.log('================userProfile====================');
+         
+         
+         
          bulkAdd(payload, {
         onSuccess: () => {
           const data =userProfile?.baskets?.user;

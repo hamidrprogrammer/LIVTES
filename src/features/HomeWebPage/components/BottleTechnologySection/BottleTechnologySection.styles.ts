@@ -1,4 +1,4 @@
-// src/features/HomeWebPage/components/BottleTechnologySection/BottleTechnologySection.styles.ts
+// src/features/Hom.avif'age/components/BottleTechnologySection/BottleTechnologySection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
 

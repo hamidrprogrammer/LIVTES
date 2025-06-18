@@ -35,14 +35,14 @@ const NavbarMobile: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Menu clicked", event.currentTarget);
+     
     setIsMenuOpen(!isMenuOpen);
     // Implement menu open/close logic
   };
 
 
   const handleBasketClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Basket clicked", event.currentTarget);
+     
     if(isAuthenticated){
       navigate('/basket');
     }else{

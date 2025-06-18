@@ -7,7 +7,7 @@ import {
   Description,
   BackgroundImageContainer,
 } from './NicotinamideRibosideSection.styles';
-import homepage_sec1 from '@assets/images/products/Glowing Orb in Hand.png'
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/Glowing Orb in Hand.avif';
 
 const glowingOrbImageUrl = homepage_sec1
 

@@ -5,6 +5,7 @@ import {
   listOrderSales,
     getOrderSaleDetail,
     generatePaymentLink,
+    generateSubPaymentLink,
 
 } from '../services/orderApi';
 import type {
@@ -127,3 +128,13 @@ export function useGeneratePaymentLinkMutation() {
         },
     });
 }
+export function useGenerateSubPaymentLinkMutation() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (orderId: number | string) => generateSubPaymentLink(orderId),
+        onSuccess: (data, variables) => {
+            queryClient.invalidateQueries({ queryKey: orderQueryKeys.saleDetail(variables) });
+        },
+    });
+}
+

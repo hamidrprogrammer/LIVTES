@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { motion, useAnimation, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useTranslation } from 'react-i18next';
-const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/whater.png';
+const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/whater.avif';
 import ExploreButton from './ExploreButton';
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 
 
 
-const HeroBackground = styled(SmartImage)`
+const HeroBackground = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -24,7 +24,7 @@ const HeroBackground = styled(SmartImage)`
   opacity: 0.6;
 `;
 
-const HeroOverlay = styled(SmartImage)`
+const HeroOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -84,14 +84,14 @@ const ScrollIndicator = styled(motion.div)`
 
 
 
-const WaterRipple = styled(SmartImage)`
+const WaterRipple = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   z-index: 2;
-  background-image: url('/assets/images/home/water-ripple.png');
+  background-image: url('/assets/images/home/water-ripple.avif');
   background-size: cover;
   opacity: 0.3;
 `;

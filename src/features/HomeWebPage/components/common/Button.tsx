@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/features/HomeWebPage/components/common/Button.tsx
+// src/features/Hom.avif'age/components/common/Button.tsx
 
 import { PropsWithChildren } from "react";
 

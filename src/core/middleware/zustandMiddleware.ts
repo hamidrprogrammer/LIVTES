@@ -23,11 +23,11 @@ export const logger = <
 ): StateCreator<T, Mps, Mcs> => (set, get, api) => {
   const loggedSet: typeof set = (...args) => {
     if (process.env.NODE_ENV !== 'production') {
-      console.log(name ? `[${name}] Action:` : 'Action:', args);
+       
     }
     (set as any)(...args);
     if (process.env.NODE_ENV !== 'production') {
-      console.log(name ? `[${name}] New State:` : 'New state:', get());
+       
     }
   };
   return config(loggedSet, get, api);

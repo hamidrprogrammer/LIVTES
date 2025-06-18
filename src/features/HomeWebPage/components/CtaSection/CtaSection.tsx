@@ -8,7 +8,7 @@ import {
 
 const CtaSection: React.FC = () => {
   const handleExploreBottleClick = () => {
-    console.log('CTA - Explore the bottle clicked');
+     
   };
 
   return (

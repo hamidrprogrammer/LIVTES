@@ -34,9 +34,9 @@ export async function getUserProfile(
 ): Promise<UserProfileResponse> {
   const url = `${API_BASE_URL}/users/profile`;
   const response = await httpClient(url, requestOptions, UserProfileResponseSchema);
-    console.log('==================response==================');
-    console.log(response);
-    console.log('==================response==================');
+     
+     
+     
   
   
     return response;
@@ -74,9 +74,9 @@ export async function updateUserProfile(
     },
     UserProfileResponseSchema
   );
-  console.log('============ursl========================');
-  console.log(ursl);
-  console.log('====================================');
+   
+   
+   
   return ursl
 }
 

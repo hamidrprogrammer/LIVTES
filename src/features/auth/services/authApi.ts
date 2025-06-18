@@ -47,9 +47,9 @@ export async function login(
     ...restOfOptions,
   };
 const response = await httpClient(url, loginRequestOptions, LoginResponseSchema);
-  console.log('==================response==================');
-  console.log(response);
-  console.log('==================response==================');
+   
+   
+   
 
 
   return response;

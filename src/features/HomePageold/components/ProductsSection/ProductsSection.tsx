@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-const  imageProductTwo = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProductTwo.png'; //
-const  imageProduct = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProduct.png'; //
+const  imageProductTwo = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProductTwo.avif'; //
+const  imageProduct = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageProduct.avif'; //
 import { useNavigate } from 'react-router-dom';
 
 const ProductsContainer = styled.section`

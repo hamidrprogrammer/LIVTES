@@ -9,7 +9,7 @@ import {
   HeroSubtitleText,
   HeroActionButton,
 } from './Hero.styles';
-const heroBgImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/mobile/image.png'; // Replace with your actual image path
+const heroBgImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/mobile/image.avif'; // Replace with your actual image path
 const NavbarMobile = '@/lib/shared/layouts/NavMobileMain/Navbar';
 // Placeholder for hero background image
 

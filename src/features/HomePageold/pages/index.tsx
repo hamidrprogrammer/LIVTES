@@ -6,7 +6,7 @@ import Navbar from '@/lib/shared/layouts/NavbarWeb/Navbar';
 import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 import NavbarMobile from '@/lib/shared/layouts/NavMobileMain/Navbar';
-import Quote from '@/assets/images/home/Quote.svg'; 
+// import Quote from '@/assets/images/home/Quote.svg'; // به جای import مستقیم، از آدرس URL استفاده می‌کنیم
 import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
 
 // Import hooks to fetch data
@@ -15,6 +15,7 @@ import { SocialMediaItem, ConfigData } from '@/core/types/api/settings';
 import { useGetProductVariationsQuery } from '@/features/shop/hooks/useProductQueries';
 import { useGetConfigDataQuery, useGetSocialMediaSettingsQuery } from '@/features/settings/hooks/useSettingsQueries';
 import ScrollToTopButton from '@/lib/shared/components/ScrollToTopButton';
+import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage'; // Import SmartImage
 
 // Lazy load original page components
 const HeroSection = React.lazy(() => import('../components/HeroSection'));
@@ -25,6 +26,8 @@ const FeatureCardsSection = React.lazy(() => import('../components/FeatureCardsS
 const ProductsSection = React.lazy(() => import('../components/ProductsSection/ProductsSection'));
 const LongevityBanner = React.lazy(() => import('../components/LongevityBanner/LongevityBanner'));
 
+// URL برای تصویر Quote (به جای import مستقیم)
+const QuoteImageUrl = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/Quote.svg';
 
 const PageContainer = styled.div`
   width: 100%;
@@ -135,53 +138,25 @@ const ProductVariationsDisplay: React.FC<{ productId: string; countryId: string 
     if (isLoading) return <LoadingSpinner />;
     if (isError) return <ErrorMessage>Error fetching product {productId}: {error?.message}</ErrorMessage>;
 
-    return (
+    return data?.data ? (
         <ProductGrid>
             {data?.data.map((variation: ProductVariation) => (
                 <ProductCard key={variation.id}>
                     <ProductTitle>{variation.name}</ProductTitle>
                     <p>{variation.preview_text}</p>
-                    <ProductPrice>{variation.sale_price.gross_value_string}</ProductPrice>
+                    <ProductPrice>{variation?.sale_price?.gross_value_string}</ProductPrice>
                 </ProductCard>
             ))}
         </ProductGrid>
-    );
+    ) : null;
 };
 
 // Helper component to display Social Media Settings
-const SocialMediaDisplay: React.FC = () => {
-    const { data, isLoading, isError, error } = useGetSocialMediaSettingsQuery();
 
-    if (isLoading) return <LoadingSpinner />;
-    if (isError) return <ErrorMessage>Error fetching social media links: {error?.message}</ErrorMessage>;
-
-    return (
-        <SocialLinksList>
-            {data?.data.map((item: SocialMediaItem) => (
-                <li key={item.name}><SocialLink href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</SocialLink></li>
-            ))}
-        </SocialLinksList>
-    );
-};
-
+ 
 // Helper component to display Config Data
-const ConfigDataDisplay: React.FC<{ countryId: string }> = ({ countryId }) => {
-    const { data, isLoading, isError, error } = useGetConfigDataQuery({ countryId });
 
-    if (isLoading) return <LoadingSpinner />;
-    if (isError) return <ErrorMessage>Error fetching config data: {error?.message}</ErrorMessage>;
-    
-    const config: ConfigData | undefined = data?.data;
-
-    return (
-        <ConfigDataWrapper>
-            {/* <p><strong>Website Title:</strong> {config?.website_title}</p> */}
-            <p><strong>Default Currency:</strong> {config?.user_currency.iso3}</p>
-            <p><strong>Company Email:</strong> {config?.saleSystem.email}</p>
-        </ConfigDataWrapper>
-    );
-};
-
+ 
 
 const PageLoader: React.FC = () => (
   <PageLoaderWrapper>
@@ -232,16 +207,38 @@ const HomeOldPage: React.FC = () => {
         <IntroSection />
         
         {/* Integrated Data Display Section */}
+        {/* این بخش ها را می توان در صورت نیاز به صورت lazy loaded نیز استفاده کرد، اما در حال حاضر به عنوان بخشی از HomeOldPage در نظر گرفته شده‌اند */}
+        {/* <FetchedDataContainer>
+          <Section>
+            <SectionTitle>Product Variations (ID: 1)</SectionTitle>
+            <ProductVariationsDisplay productId="1" countryId="56" />
+          </Section>
+          <Section>
+            <SectionTitle>Product Variations (ID: 10)</SectionTitle>
+            <ProductVariationsDisplay productId="10" countryId="56" />
+          </Section>
+          <Section>
+            <SectionTitle>Product Variations (ID: 12)</SectionTitle>
+            <ProductVariationsDisplay productId="12" countryId="56" />
+          </Section>
+          <Section>
+            <SectionTitle>Social Media Links</SectionTitle>
+            <SocialMediaDisplay />
+          </Section>
+          <Section>
+            <SectionTitle>Config Data</SectionTitle>
+            <ConfigDataDisplay countryId="56" />
+          </Section>
+        </FetchedDataContainer> */}
         
         <BottleShowcase />
         <PowerStarsSection />
         <FeatureCardsSection />
-        <ProductsSection />
-        <img
-          src={Quote}
+        <SmartImage
+          src={QuoteImageUrl} // استفاده از URL تصویر با SmartImage
           style={{width:`100%`, backgroundSize:"cover", display: 'block' }}
           alt="Quote"
-          loading="lazy"
+          loading="lazy" // اضافه کردن lazy loading برای تصاویر خارج از viewport
         />
         <LongevityBanner/>
       </Suspense>
@@ -251,8 +248,7 @@ const HomeOldPage: React.FC = () => {
       ) : (
         <Footer />
       )}
-              <ScrollToTopButton />
-
+      <ScrollToTopButton />
     </PageContainer>
   );
 };

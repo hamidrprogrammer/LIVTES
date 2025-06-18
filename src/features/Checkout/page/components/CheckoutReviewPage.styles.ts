@@ -1,5 +1,8 @@
+// new project/features/Checkout/page/components/CheckoutReviewPage.styles.ts
 // CheckoutReviewPage.styles.ts
 
+import AddIconSVG from '@/lib/shared/components/Besic/Icon/AddIcon';
+import EditAddressIcon from '@/lib/shared/components/Besic/Icon/EditAddressIcon';
 import styled from 'styled-components';
 
 // Main Page Wrapper
@@ -50,13 +53,40 @@ export const Sidebar = styled.aside`
 `;
 
 // Generic Card for Sections
-export const SectionCard = styled.div`
-  background-color: white;
-  padding: 20px;
+export const SectionCard =styled.div`
+  background-color: #fff;
   border-radius: 8px;
-  border: 1px solid #EAEAEA;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  position: relative; // For absolute icons
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 150px; /* یک ارتفاع حداقلی برای تراز بودن کارت‌ها */
+`;
+
+export const ActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto; /* این خط دکمه‌ها را به پایین کارت می‌چسباند */
+  padding-top: 16px;
+`;
+export const IconButton = styled.button`
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.backgroundLight};
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export const CardTitle = styled.h3`
@@ -91,29 +121,37 @@ export const AddressDetails = styled.div`
 `;
 
 export const ChangeAddressButton = styled.button`
-  background-color: #EAF9F9;
-  color: #075985;
-  border: 1px solid #D1EAF1;
-  border-radius: 6px;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
+  flex-grow: 1; /* باعث می‌شود فضای خالی باقی‌مانده را پر کند */
 
   &:hover {
-    background-color: #D1EAF1;
+    background-color: #e0e0e0;
+    border-color: #bdbdbd;
   }
 `;
 
-export const EditIcon = styled.span`
-  &::before {
-    content: '✎'; // Simple pencil icon
-    font-size: 16px;
-  }
+
+export const EditIcon = styled(EditAddressIcon)`
+  width: 18px;
+  height: 18px;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const AddIcon = styled(AddIconSVG)`
+  width: 18px;
+  height: 18px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 // Highlighted Text (e.g., Shipping Service)
@@ -154,30 +192,69 @@ export const StyledInput = styled.input`
   font-size: 16px;
 `;
 
-export const ProceedButton = styled.button`
-  background-color: #D1D5DB;
-  color: #4B5563;
-  border: none;
-  padding: 0 20px;
-  border-radius: 6px;
+// New styled components for the additional options
+export const OptionsSection = styled(SectionCard)`
+  margin-top: 20px; /* Space from previous card in sidebar */
+  gap: 15px; /* Space between input rows */
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+`;
+
+export const InputLabel = styled.label`
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.textGrey};
   font-weight: 500;
+`;
+
+export const InputWithButton = styled.div`
+  display: flex;
+  gap: 10px; /* Space between input and button */
+  width: 100%;
+
+  ${StyledInput} {
+    flex-grow: 1;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    
+    ${StyledInput} {
+      width: 100%; /* Full width when stacked */
+    }
+  }
+`;
+
+export const SetButton = styled.button`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.textGrey};
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; /* Full width when stacked */
+  }
 `;
 
-export const InputWrapper = styled.div`
-  position: relative;
-`;
-
-export const InputIcon = styled.span`
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #EF4444;
-  cursor: pointer;
-`;
-
-// Text Area
 export const StyledTextArea = styled.textarea`
     width: 100%;
     padding: 12px;
@@ -209,6 +286,7 @@ export const CartItemCard = styled(SectionCard)`
     display: flex;
     align-items: center;
     gap: 20px;
+flex-direction: row;
 
     @media (max-width: 480px) {
       flex-direction: column;

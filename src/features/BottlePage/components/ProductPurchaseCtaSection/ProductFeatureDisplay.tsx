@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 const iconoirColorFilter = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/iconoir-color-filter.svg';
 const iconoirHydrogen = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/iconoir-hydrogen.svg';
-const group6 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-6.png';
+const group6 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-6.avif';
 const membrane = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/membrane.svg';
 const radix = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/radix-icons_dimensions.svg'
 const ion_magnet = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/ion_magnet.svg';

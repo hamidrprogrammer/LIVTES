@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/features/HomeWebPage/components/BottleTechnologySection/BottleTechnologySection.tsx
+// src/features/Hom.avif'age/components/BottleTechnologySection/BottleTechnologySection.tsx
 import React from 'react';
 import {
   BottleTechSectionContainer,
@@ -10,19 +10,19 @@ import {
   ButtonsWrapper,
   ImageWrapper,
 } from './BottleTechnologySection.styles';
-import homepage_sec1 from "../../../../assets/images/home/homepage_sec3 1.png"
+import homepage_sec1 from "../../../../assets/images/home/homepage_sec3 1.avif'"
 import { useNavigate } from 'react-router-dom';
 
 const BottleTechnologySection: React.FC = () => {
   const nvigate=useNavigate();
   
   const handleLearnMoreClick = () => {
-    console.log('Bottle Tech - Learn More clicked');
+     
   };
 
   const handleBuyBottleClick = () => {
     nvigate('/products-bottle/1')
-    console.log('Bottle Tech - Buy Bottle clicked');
+     
   };
 
   return (
@@ -53,7 +53,7 @@ const BottleTechnologySection: React.FC = () => {
           </ButtonsWrapper>
         </TextContent>
         <ImageWrapper data-aos="fade-left" data-aos-delay="200">
-          {/* Assuming homepage_sec3.png is in public/images/ */}
+          {/* Assuming homepage_sec3.avif' is in public/images/ */}
           <img src={homepage_sec1} alt="LumiVitae Hydrogen Bottle Technology" />
         </ImageWrapper>
       </BottleTechContentWrapper>

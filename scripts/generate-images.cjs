@@ -4,8 +4,8 @@ const path = require('path');
 
 const INPUT_DIR = path.join(__dirname, '../src/assets/images');
 const breakpoints = [480, 768, 1024, 1440];
-const validExtensions = ['.jpg', '.jpeg', '.png'];
-const skipExtensions = ['.svg', '.gif', '.webp'];
+const validExtensions = ['.jpg', '.jpeg', '.avif'];
+const skipExtensions = ['.svg', '.gif', '.avif'];
 
 async function processImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
@@ -23,10 +23,10 @@ async function processImage(filePath) {
     .jpeg({ quality: 40 })
     .toFile(`${fullName}-blur.jpg`);
 
-  // 👇 webp اصلی
+  // 👇.avif' اصلی
   await image
-    .webp({ quality: 75 })
-    .toFile(`${fullName}.webp`);
+    .avif'({ quality: 75 })
+    .toFile(`${fullName}.avif'`);
 
   // 👇 خروجی‌های responsive
   for (const width of breakpoints) {
@@ -39,11 +39,11 @@ async function processImage(filePath) {
 
     await image
       .resize({ width })
-      .webp({ quality: 75 })
-      .toFile(`${fullName}-${width}.webp`);
+      .avif'({ quality: 75 })
+      .toFile(`${fullName}-${width}.avif'`);
   }
 
-  console.log(`✅ Processed: ${path.relative(INPUT_DIR, filePath)}`);
+   
 }
 
 async function walk(dir) {
@@ -59,7 +59,7 @@ async function walk(dir) {
       const ext = path.extname(fullPath).toLowerCase();
 
       if (skipExtensions.includes(ext)) {
-        console.log(`⏭ Skipped (not needed): ${path.relative(INPUT_DIR, fullPath)}`);
+         
         continue;
       }
 
@@ -75,7 +75,7 @@ async function walk(dir) {
 }
 
 (async () => {
-  console.log('🚀 شروع پردازش عکس‌ها...');
+   
   await walk(INPUT_DIR);
-  console.log('🏁 همه عکس‌ها پردازش شدند!');
+   
 })();

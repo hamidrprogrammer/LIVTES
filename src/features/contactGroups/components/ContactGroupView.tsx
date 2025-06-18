@@ -51,7 +51,7 @@ export const ContactGroupView: React.FC<ContactGroupViewProps> = ({ contactGroup
         // Message is now in the store, component will re-render
         // You could show a toast or specific UI feedback based on 'success' here if needed
         if(success) {
-            console.log("Address validation reported success by API.");
+             
         } else {
             console.warn("Address validation reported failure or error by API.");
         }

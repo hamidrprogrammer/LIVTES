@@ -28,7 +28,7 @@ const UnderwaterSection: React.FC = () => {
         Example:
         <HiddenVisual>
           <div className="rectangle-42-styles"></div>
-          <img src="path/to/image-27.png" alt="Hidden decorative element" />
+          <img src="path/to/image-27.avif'" alt="Hidden decorative element" />
         </HiddenVisual>
       */}
     </UnderwaterSectionContainer>

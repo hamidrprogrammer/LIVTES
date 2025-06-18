@@ -16,7 +16,7 @@ interface StyledSectionProps {
   $overflowHidden?: boolean;
 }
 
-export const StyledSection = styled(SmartImage)`
+export const StyledSection = styled.div`
   width: 100%;
   max-width: ${({ theme, $fullWidth }) => $fullWidth ? '100%' : theme.maxWidth };
   margin-left: auto;

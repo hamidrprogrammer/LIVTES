@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNewsletterStore } from '@/features/newsletter/stores/newsletterStore';
 import { useAuthStore } from '@/features/auth/stores/authStore';
 import { useNavigate } from 'react-router-dom';
+import { ConfirmDialog } from '@/lib/shared/components/ConfirmDialog/ConfirmDialog'; // ایمپورت کامپوننت جدید
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const HeaderWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    padding: 16px; // کاهش پدینگ در تبلت
+    padding: 16px;
   }
 `;
 
@@ -28,7 +29,7 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.primaryDark};
 
   @media (max-width: 480px) {
-    font-size: 1.5rem; // کاهش سایز فونت در موبایل
+    font-size: 1.5rem;
   }
 `;
 
@@ -36,7 +37,7 @@ const ActionsContainer = styled.div`
   display: flex;
   gap: 12px;
   flex-wrap: wrap; 
-  justify-content: flex-start; // برای اطمینان از چینش مناسب هنگام wrap شدن
+  justify-content: flex-start;
 
   @media (max-width: 768px) {
       width: 100%;
@@ -52,10 +53,10 @@ const ActionButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
-  flex-grow: 1; // دکمه‌ها در موبایل فضا را پر کنند
+  flex-grow: 1;
 
   @media (min-width: 768px) {
-    flex-grow: 0; // در دسکتاپ به اندازه محتوا باشند
+    flex-grow: 0;
   }
 
   &:hover {
@@ -88,39 +89,52 @@ interface ProfileHeaderProps {
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ isEditing, setIsEditing }) => {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
-  const { subscribe } = useNewsletterStore();
-
-  const handleUnsubscribe = () => {
-    if (user?.email) {
-      alert(`A request to unsubscribe ${user.email} has been sent.`);
-    }
-  };
+  
+  const [isLogoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
 
   const handleDeactivate = () => {
     if (window.confirm('Are you sure you want to deactivate your account? This action cannot be undone.')) {
       alert('Deactivation request sent.');
       logout();
+      navigate('/login');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setLogoutConfirmOpen(true);
+  };
+
+  const confirmLogout = () => {
     logout();
     navigate('/login');
+    setLogoutConfirmOpen(false);
   };
 
   return (
-    <HeaderWrapper>
-      <Title>Profile</Title>
-      <ActionsContainer>
-        <ActionButton onClick={handleDeactivate}>Deactivate Account</ActionButton>
-        <ActionButton onClick={handleUnsubscribe}>Unsubscribe Newsletter</ActionButton>
-        <ActionButton className="edit" onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? 'Cancel' : 'Edit Profile'}
-        </ActionButton>
-        <ActionButton className="logout" onClick={handleLogout}>
-          Logout
-        </ActionButton>
-      </ActionsContainer>
-    </HeaderWrapper>
+    <>
+      <HeaderWrapper>
+        <Title>Profile</Title>
+        <ActionsContainer>
+          <ActionButton onClick={handleDeactivate}>Deactivate Account</ActionButton>
+                  <ActionButton onClick={handleDeactivate}>Unsubscribe Newsletter</ActionButton>
+
+          <ActionButton className="edit" onClick={() => setIsEditing(!isEditing)}>
+            {isEditing ? 'Cancel' : 'Edit Profile'}
+          </ActionButton>
+          <ActionButton className="logout" onClick={handleLogoutClick}>
+            Logout
+          </ActionButton>
+        </ActionsContainer>
+      </HeaderWrapper>
+
+      <ConfirmDialog
+        isOpen={isLogoutConfirmOpen}
+        onClose={() => setLogoutConfirmOpen(false)}
+        onConfirm={confirmLogout}
+        title="Confirm Logout"
+        message="Are you sure you want to log out of your account?"
+        confirmText="Logout"
+      />
+    </>
   );
 };

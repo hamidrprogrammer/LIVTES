@@ -8,7 +8,7 @@ import {
   Description,
   BackgroundImageContainer,
 } from './MagnesiumSection.styles';
-import homepage_sec1 from '@assets/images/products/image 51.png'
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image%2051.avif';
 
 // Placeholder for the image path
 const magnesiumImageUrl =homepage_sec1;

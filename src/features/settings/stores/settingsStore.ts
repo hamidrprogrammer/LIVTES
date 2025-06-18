@@ -227,7 +227,8 @@ export const useSettingsStore = create<SettingsStoreState & SettingsStoreActions
               }
             }
           }));
-          if (response.data.country?.id) {
+         if (get().selectedCountryId === null && response.data.country?.id) {
+            alert(response.data.country?.id)
             get().setSelectedCountryId(response.data.country.id);
           }
         } catch (error) {

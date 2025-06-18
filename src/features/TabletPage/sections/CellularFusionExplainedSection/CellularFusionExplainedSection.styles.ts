@@ -1,9 +1,10 @@
 // TabletPage/sections/CellularFusionExplainedSection/CellularFusionExplainedSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from '@assets/images/products/image 43.png'; // image43Url
-import homepage_sec45 from '@assets/images/products/image 45.png'; // image45Url
-import tabletSmallUrl from '@assets/images/products/tablet598.png'; 
+
+const homepage_sec1 = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image%2043.avif";
+const homepage_sec45 = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image%2045.avif";
+const tabletSmallUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/tablet598.avif";
 
 const image43Url = homepage_sec1;
 const image45Url = homepage_sec45;

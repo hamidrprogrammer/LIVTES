@@ -1,4 +1,4 @@
-// src/features/HomeWebPage/components/TabletsPowerSection/TabletsPowerSection.tsx
+// src/features/Hom.avif'age/components/TabletsPowerSection/TabletsPowerSection.tsx
 import React from 'react';
 import {
   TabletsPowerSectionContainer,

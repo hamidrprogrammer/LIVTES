@@ -1,7 +1,7 @@
-// src/features/HomeWebPage/components/TabletsPowerSection/TabletsPowerSection.styles.ts
+// src/features/Hom.avif'age/components/TabletsPowerSection/TabletsPowerSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_revolution from "../../../../assets/images/home/homepage_sec4 1.png"
+import homepage_revolution from "../../../../assets/images/home/homepage_sec4 1.avif'"
 
 export const TabletsPowerSectionContainer = styled.section`
   width: 100%;

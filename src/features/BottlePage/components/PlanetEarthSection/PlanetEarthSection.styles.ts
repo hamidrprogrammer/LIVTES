@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-const plante = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/plante.png'
+const plante = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/plante.avif'
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
-// Assuming image path: public/images/earth_background_0100.png (based on Figma '0100 1')
+// Assuming image path: public/images/earth_background_0100.avif' (based on Figma '0100 1')
 const sectionBackgroundImage = plante;
 
-export const SectionWrapper = styled(SmartImage)`
+export const SectionWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 1171px; // As per Figma

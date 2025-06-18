@@ -1,8 +1,8 @@
 // BottlePage/components/ChromoColoursSection/ChromoColoursSection.styles.ts
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme';
-import decorativeBgUrl from '@assets/images/bottle/bottleImageUrl.png'; // Ensure this path is correct
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
+const decorativeBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/bottleImageUrl.avif";
 
 export const SectionWrapper = styled.section`
   position: relative;
@@ -23,7 +23,7 @@ export const SectionWrapper = styled.section`
   }
 `;
 
-export const DecorativeBackground = styled(SmartImage)`
+export const DecorativeBackground = styled.div`
   position: absolute;
   width: 50%;
   height: 100%;

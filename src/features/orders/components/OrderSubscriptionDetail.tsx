@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
-import { useGetOrderSubscriptionQuery } from '../hooks/useOrderQueries';
+import React, { useEffect, useState } from 'react';
+import { useGeneratePaymentLinkMutation, useGenerateSubPaymentLinkMutation, useGetOrderSubscriptionQuery } from '../hooks/useOrderQueries';
 import * as S from './OrderDetailPage.styles'; // Reusing the same styles
 import { FiArrowLeft, FiCreditCard } from 'react-icons/fi';
 import { format } from 'date-fns';
 import { SubscriptionProductListItem } from './SubscriptionProductListItem'; // Using the new component
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import AdyenDropIn from '@/lib/shared/components/adyen';
 
 interface OrderSubscriptionDetailProps {
   subscriptionId: number;
@@ -13,7 +14,7 @@ interface OrderSubscriptionDetailProps {
 }
 
 export const OrderSubscriptionDetail: React.FC<OrderSubscriptionDetailProps> = ({ subscriptionId, onBack }) => {
-    const { data: response, isLoading, isError, error } = useGetOrderSubscriptionQuery(subscriptionId);
+    const { data: response, isLoading, isError, error ,refetch} = useGetOrderSubscriptionQuery(subscriptionId);
 
     useEffect(() => {
         AOS.init({
@@ -23,13 +24,26 @@ export const OrderSubscriptionDetail: React.FC<OrderSubscriptionDetailProps> = (
     }, []);
 
     const subscription = response?.data;
-
+ const [generateLinkResponse, setGenerateLinkResponse] = useState<any>(null);
+     const generatePaymentLinkMutation = useGenerateSubPaymentLinkMutation();
+     const [showAdyen, setShowAdyen] = useState<boolean>(false);
+ 
     if (isLoading) return <S.StatusMessage>Loading Subscription Details...</S.StatusMessage>;
     if (isError) return <S.StatusMessage>Error: {error?.message}</S.StatusMessage>;
     if (!subscription) return <S.StatusMessage>Subscription not found.</S.StatusMessage>;
 
     const currencyFormat = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: subscription.currency?.iso3 ?? 'EUR' }).format(value);
-
+    const handleGenerateLink = () => {
+        if (!subscription) return;
+        generatePaymentLinkMutation.mutate(subscription.id??0, {
+            onSuccess: (res) => {
+                const responseData = res.data;
+                setGenerateLinkResponse(responseData);
+                if (responseData?.session_data) setShowAdyen(true);
+            },
+            onError: (err) => alert(`Could not generate payment link: ${err.message}`),
+        });
+    };
     return (
         <S.PageWrapper>
             <S.Header data-aos="fade-down">
@@ -41,12 +55,23 @@ export const OrderSubscriptionDetail: React.FC<OrderSubscriptionDetailProps> = (
                     <S.HeaderTitle>Subscription Details</S.HeaderTitle>
                 </S.HeaderContent>
                 <S.ActionsContainer>
-                    <S.SecondaryActionButton>
+                    <S.SecondaryActionButton onClick={handleGenerateLink}>
                         <FiCreditCard /> Change Payment Method
                     </S.SecondaryActionButton>
                 </S.ActionsContainer>
             </S.Header>
-
+  {showAdyen && generateLinkResponse && (
+                            <S.AdyenWrapper>
+                                <S.CardTitle>Complete Your Payment</S.CardTitle>
+                                <AdyenDropIn
+                                    clientKey={generateLinkResponse?.client_key}
+                                    id={generateLinkResponse?.id}
+                                    session={generateLinkResponse?.session_data}
+                                    testMode={generateLinkResponse?.test_mode}
+                                    onCallBack={() => { refetch(); /* Refresh data after payment */ }}
+                                />
+                            </S.AdyenWrapper>
+                        )}
             <S.SummaryGrid data-aos="fade-up">
                 <S.SummaryItem>
                     <S.SummaryLabel>Subscription ID</S.SummaryLabel>

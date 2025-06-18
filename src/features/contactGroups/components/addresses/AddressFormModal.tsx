@@ -5,6 +5,7 @@ import { ContactGroup, CreateContactGroupPayload, Country } from '@/core/types/a
 import { FiX } from 'react-icons/fi';
 import { useAuthStore } from '@/features/auth/stores/authStore';
 import { useListCountriesQuery, useListStatesQuery } from '@/features/settings/hooks/useSettingsQueries';
+import Select from 'react-select';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -19,20 +20,24 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background: #fff;
   padding: 24px 32px;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.2);
   width: 90%;
   max-width: 700px;
-  max-height: 90vh;  /* محدودیت ارتفاع */
-  overflow-y: auto; /* اسکرول عمودی برای محتوای بلند */
+  max-height: 90vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
 
-  @media (max-width: 480px) {
-    padding: 24px 16px;
+  @media (max-width: 768px) {
+    width: 95vw;
+    max-height: 95vh;
+    padding: 16px;
+    border-radius: 8px;
+    gap: 16px;
   }
 `;
 
@@ -91,6 +96,10 @@ const FormGroup = styled.div<{ fullWidth?: boolean }>`
   flex-direction: column;
   gap: 6px;
   ${({ fullWidth }) => fullWidth && `grid-column: 1 / -1;`}
+
+  @media (max-width: 480px) {
+    gap: 4px;
+  }
 `;
 
 const Label = styled.label`
@@ -102,8 +111,8 @@ const Label = styled.label`
 const Input = styled.input`
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
   border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 
@@ -112,8 +121,12 @@ const Input = styled.input`
     box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}33;
     outline: none;
   }
-`;
 
+  @media (max-width: 480px) {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+`;
 const SelectWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -189,7 +202,7 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  const listParams = useMemo(() => ({ isArchive: false, per_page: 200 }), []);
+  const listParams = useMemo(() => ({ isArchive: false, per_page: 300 }), []);
 
   const { data: countriesData, isLoading: isLoadingCountries } = useListCountriesQuery(listParams);
   const countries: Country[] = useMemo(() => countriesData?.data || [], [countriesData]);
@@ -268,9 +281,12 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
       first_name: formData.first_name,
       last_name: formData.last_name,
     };
+    alert(formData.state_id)
 
     if (formData.state_id) {
-      addressPayload.state_id = formData.state_id;
+      addressPayload.state_id =parseInt( formData?.state_id.toString());
+      addressPayload.state = statesData?.data.find(state => state.name === formData.state)?.name || null;
+
     }
 
     const payload: CreateContactGroupPayload = {
@@ -289,10 +305,16 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
         },
       },
     };
+     
+     
+     
 
     if (initialData?.id) {
       updateMutation.mutate({ id: initialData.id, payload }, { onSuccess: onClose });
     } else {
+        
+     
+     
       createMutation.mutate(payload, { onSuccess: onClose });
     }
   };
@@ -308,24 +330,30 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
         </ModalHeader>
         <Form onSubmit={handleSubmit} noValidate>
           <FormGroup fullWidth>
-            <Label htmlFor="country_id">* Country</Label>
-            <SelectWrapper>
-              <select id="country_id" name="country_id" value={formData.country_id} onChange={handleChange} required>
-                {isLoadingCountries ? (
-                  <option>Loading countries...</option>
-                ) : (
-                  <>
-                    <option value="">Select...</option>
-                    {countries.map(country => (
-                      <option key={country.id} value={country.id}>{country.name}</option>
-                    ))}
-                  </>
-                )}
-              </select>
-            </SelectWrapper>
-            {errors.country_id && <ErrorMessage>{errors.country_id}</ErrorMessage>}
-          </FormGroup>
-
+  <Label htmlFor="country_id">* Country</Label>
+  <Select
+    id="country_id"
+    name="country_id"
+    value={countries.find(c => c.id === formData.country_id) || null}
+    onChange={(selectedOption: any) => {
+      setFormData(prev => ({
+        ...prev,
+        country_id: selectedOption?.id || 0,
+        state: '',
+        state_id: null,
+      }));
+      if (errors.country_id) {
+        setErrors(prev => ({ ...prev, country_id: '' }));
+      }
+    }}
+    options={countries}
+    getOptionLabel={(option) => option.name}
+    getOptionValue={(option) => option.id.toString()}
+    isLoading={isLoadingCountries}
+    placeholder="Select country..."
+  />
+  {errors.country_id && <ErrorMessage>{errors.country_id}</ErrorMessage>}
+</FormGroup>
           <FormGrid>
             <FormGroup>
               <Label htmlFor="first_name">* First Name</Label>
@@ -367,23 +395,37 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
               {errors.city && <ErrorMessage>{errors.city}</ErrorMessage>}
             </FormGroup>
 
-            <FormGroup>
-              <Label htmlFor="state">State</Label>
-              {isLoadingStates ? (
-                <Input value="Loading states..." disabled />
-              ) : statesData && statesData.data && statesData.data.length > 0 ? (
-                <SelectWrapper>
-                  <select name="state" value={formData.state || ''} onChange={handleChange}>
-                    <option value="">Select a state...</option>
-                    {statesData.data.map(state => (
-                      <option key={state.id} value={state.name}>{state.name}</option>
-                    ))}
-                  </select>
-                </SelectWrapper>
-              ) : (
-                <Input id="state" name="state" placeholder="Enter state manually" value={formData.state || ''} onChange={handleChange} />
-              )}
-            </FormGroup>
+           <FormGroup>
+  <Label htmlFor="state_id">State</Label>
+  {isLoadingStates ? (
+    <Input value="Loading states..." disabled />
+  ) : statesData && statesData.data && statesData.data.length > 0 ? (
+    <Select
+      id="state_id"
+      name="state_id"
+      value={statesData.data.find(s => s.id === formData.state_id) || null}
+      onChange={(selectedOption: any) => {
+        setFormData(prev => ({
+          ...prev,
+          state_id: selectedOption?.id || null,
+          state: selectedOption?.name || '',
+        }));
+      }}
+      options={statesData.data}
+      getOptionLabel={(option) => option.name}
+      getOptionValue={(option) => option.id.toString()}
+      placeholder="Select state..."
+    />
+  ) : (
+    <Input
+      id="state"
+      name="state"
+      placeholder="Enter state manually"
+      value={formData.state || ''}
+      onChange={handleChange}
+    />
+  )}
+</FormGroup>
 
             <FormGroup>
               <Label htmlFor="phone">* Phone</Label>

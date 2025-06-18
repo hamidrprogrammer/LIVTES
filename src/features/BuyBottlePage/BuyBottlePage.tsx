@@ -37,7 +37,7 @@ export const BuyBottlePage = (): JSX.Element => {
 
   // START: 2. استفاده از useMemo برای ساخت پارامترها و افزودن selectedCountryId به وابستگی‌ها
   const params = useMemo(() => ({
-    countryId: selectedCountryId?.toString() || '56' // استفاده از ID سراسری یا یک مقدار پیش‌فرض
+    countryId: selectedCountryId?.toString() // استفاده از ID سراسری یا یک مقدار پیش‌فرض
   }), [selectedCountryId]); // این هوک با تغییر selectedCountryId دوباره اجرا می‌شود
   // END: 2.
 
@@ -89,9 +89,9 @@ export const BuyBottlePage = (): JSX.Element => {
 
 
       };
-      console.log('====================================');
-      console.log(itemToAdd);
-      console.log('====================================');
+       
+       
+       
       addItemSub(itemToAdd);
       setSelectedProduct(null);
       setSelectedSubscription(null);
@@ -99,7 +99,7 @@ export const BuyBottlePage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log('Product selection changed:', selectedProduct);
+     
   }, [selectedProduct]);
 
   if (!id) return <></>;
@@ -130,14 +130,16 @@ export const BuyBottlePage = (): JSX.Element => {
                <ColorPicker data={data} />
             </S.BottleSelectionPositioner>
           ) : (
-            null
+            <>
+            </>
           )}
           <>
-              <S.BundleOptionsPositioner>
+    
+              <S.BundleOptionsPositioner style={{gridArea:id=="10"?"color":"bundle"}}>
                 <BundleOptionsSection data={dataTablet} onSelect={handleProductSelect} selectedId={selectedProduct?.id} />
               </S.BundleOptionsPositioner>
               
-              <S.FrequencyOptionsPositioner>
+              <S.FrequencyOptionsPositioner  style={{gridArea:id=="10"?"bundle":"frequency"}}>
                 <FrequencyOptionsSection product={memoizedProduct} onSelect={handleFrequencySelect} selectedId={selectedSubscription} />
               </S.FrequencyOptionsPositioner>
             </>

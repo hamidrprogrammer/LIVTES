@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { SalePriceSchema, SubscriptionSchema } from './shopSchema';
 
 // Common Schemas
 const MetaLinkSchema = z.object({
@@ -403,6 +404,9 @@ const ProductVariationSchema = z.object({
   sale_forecast: z.any().optional().nullable(),
   number: z.string().optional().nullable(),
   is_main: z.boolean().optional().nullable(),
+    subscriptionPrices: z.array(SubscriptionSchema).optional().nullable(),
+    sale_price: SalePriceSchema.optional().nullable(),
+  
   only_partner: z.boolean().optional().nullable(),
   is_active: z.boolean().optional().nullable(),
   is_dangerous_goods: z.boolean().optional().nullable(),

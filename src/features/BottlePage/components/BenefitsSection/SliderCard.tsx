@@ -27,7 +27,7 @@ const CardWrapper = styled.div`
   }
 `;
 
-const CardImage = styled(SmartImage)`
+const CardImage = styled.div`
   width: 100%;
   height: 350px; // As per Figma
   background-image: url(${({ imageUrl }) => imageUrl});

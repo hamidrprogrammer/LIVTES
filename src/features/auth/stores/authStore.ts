@@ -45,17 +45,17 @@ const decodeJwt = (token: string): { exp?: number; [key: string]: any } | null =
 
 const isTokenValid = (token: string | null): boolean => {
   if (!token) {
-    console.log("[isTokenValid] token is null");
+     
     return false;
   }
   const decoded = decodeJwt(token);
   if (!decoded || !decoded.exp) {
-    console.log("[isTokenValid] token decode failed or no exp");
+     
     return false;
   }
   const now = Date.now();
   const isValid = decoded.exp * 1000 > now;
-  console.log(`[isTokenValid] token exp: ${decoded.exp}, now: ${now}, isValid: ${isValid}`);
+   
   return isValid;
 };
 const initialState: AuthState = {

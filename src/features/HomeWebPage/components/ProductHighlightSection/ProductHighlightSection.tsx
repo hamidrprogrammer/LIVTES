@@ -5,11 +5,11 @@ import { ProductCard } from './ProductCard'; // Import the new ProductCard
 
 const ProductHighlightSection: React.FC = () => {
   const handleBottleLearnMore = () => {
-    console.log('Bottle product - Learn More clicked');
+     
   };
 
   const handleTabletsLearnMore = () => {
-    console.log('Tablets product - Learn More clicked');
+     
   };
 
   const bottleDescription = (

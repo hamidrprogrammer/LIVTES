@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import whyYouFeelItBgUrl from "@assets/images/products/homepage_sec1.png"
+const whyYouFeelItBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/homepage_sec1.avif";
 
 // Placeholders for background images - replace with actual paths
 const underwaterImage29Url = whyYouFeelItBgUrl // Simulating water
@@ -36,7 +36,7 @@ export const UnderwaterSectionContainer = styled.section`
 
 export const BackgroundImage29 = styled.div`
   /* Figma: image 29, position: absolute; width: 1440px; height: 854px; left: 0px; top: 836px; (top seems relative to page) */
-  /* background: linear-gradient(0deg, rgba(63, 255, 248, 0.4), rgba(63, 255, 248, 0.4)), url(image.png); */
+  /* background: linear-gradient(0deg, rgba(63, 255, 248, 0.4), rgba(63, 255, 248, 0.4)), url(image.avif'); */
   position: absolute;
   top: 0; // Relative to parent UnderwaterSectionContainer
   left: 0;

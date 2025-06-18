@@ -1,7 +1,7 @@
-// src/features/HomeWebPage/components/HeroSection/HeroSection.styles.ts
+// src/features/Hom.avif'age/components/HeroSection/HeroSection.styles.ts
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from "../../../../assets/images/products/homepage_sec1.png"
+import homepage_sec1 from "../../../../assets/images/products/homepage_sec1.avif'"
 export const HeroContainer = styled.section`
   height: 860px; // As per Figma
   width: 100%;

@@ -17,7 +17,7 @@ import { ProductVariation, Subscription } from '@/core/types/api/shop';
 import { CartItem } from '@/features/cart/store/cartStore';
 import useScrollAnimation from '@/core/hooks/useScrollAnimation';
 import Button from '../../Button/Button';
-import checkoutImageUrl from '@assets/images/bottle/Checkout_Shop 1.png';
+const checkoutImageUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Checkout_Shop 1.avif";
 
 interface OrderReviewProps {
   selectedProduct: ProductVariation | null;

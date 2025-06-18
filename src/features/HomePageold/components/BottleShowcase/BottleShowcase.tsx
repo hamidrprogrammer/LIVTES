@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-const bubbles = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/bubbles-bg.png';
-const battel = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/battel.png';
+const bubbles = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/bubbles-bg.avif';
+const battel = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/battel.avif';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 

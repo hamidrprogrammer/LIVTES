@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import bottle_chromatherapy from "@assets/images/bottle/bottle_chromatherapy.png"
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
+const bottle_chromatherapy = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle_chromatherapy-1024.avif";
+
 // Assumed image path: public/images/bottle_chromatherapy.jpg
 const sectionBackgroundImage =bottle_chromatherapy;
 
-export const SectionWrapper = styled(SmartImage)`
+export const SectionWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 800px; // As per Figma

@@ -1,6 +1,6 @@
 import styled from 'styled-components'; 
 import { media } from '../../../../core/theme/theme';
-import whyYouFeelItBgUrl from "@assets/images/products/e85a450827 1.png"
+const whyYouFeelItBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/e85a450827%201-1440.avif";
 
 export const SectionContainer = styled.section`
   position: relative;

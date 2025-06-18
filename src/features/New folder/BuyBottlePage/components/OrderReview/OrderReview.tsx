@@ -16,7 +16,7 @@ export const OrderReview: React.FC<OrderReviewProps> = ({ currentOrder, onAddToB
   
 
   const handleCheckoutNow = () => {
-    console.log('Checkout Now clicked');
+     
   };
 
   return (

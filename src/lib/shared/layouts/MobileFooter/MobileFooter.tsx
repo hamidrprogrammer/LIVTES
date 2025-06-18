@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
-import backmobifo from '@assets/images/shared/backmobifo.png'
 import logoDefault from '@assets/images/logo.svg';
 import { motion } from 'framer-motion';
+const backmobifo = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/shared/backmobifo.avif';
 
 // --- Styled Components ---
 

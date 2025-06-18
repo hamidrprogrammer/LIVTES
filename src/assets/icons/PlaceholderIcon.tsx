@@ -21,7 +21,7 @@ const IconWrapper = styled.span<{ size?: string; color?: string }>`
   min-height: ${({ size }) => size || '24px'};
 `;
 
-const FeatureIcon = styled(SmartImage)`
+const FeatureIcon = styled.div`
   height: 32px;
   width: 32px;
   margin-bottom: 8px;

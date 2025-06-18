@@ -1,18 +1,18 @@
 import React from 'react';
 import * as S from './HeroSection.styles';
-const Hand = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.png';
+const Hand = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.avif';
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 
 const HeroSection: React.FC = () => {
   const handleStartJourneyClick = () => {
-    console.log('Start Your Journey clicked');
+     
     // Add navigation or modal logic here
   };
   const navigate =useNavigate();
   
   const handleBuyBottleClick = () => {
-    console.log('Buy Bottle clicked');
+     
         navigate('/products-bottle/1')
     // Add navigation to shop or modal logic here
   };

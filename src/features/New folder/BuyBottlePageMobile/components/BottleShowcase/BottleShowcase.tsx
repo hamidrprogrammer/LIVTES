@@ -13,17 +13,16 @@ import CarouselIndicator from '../../components/CarouselIndicator/CarouselIndica
 import { SlideData } from '@/core/types';
 import useScrollAnimation from '@/core/hooks/useScrollAnimation';
 // تایپ برای داده‌های اسلاید
-import  Bottle_Shop_C_gold from '@assets/images/bottle/Bottle_Shop_C_gold 1.png'
 import { ProductVariationsResponse } from '@/core/types/api/shop';
-// تصاویر نمونه برای گالری - در پروژه واقعی از CMS یا API دریافت می‌شوند
-// یا به صورت محلی وارد می‌شوند.
+const Bottle_Shop_C_gold = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Bottle_Shop_C_gold 1.avif";
+
 const gallerySlides: SlideData[] = [
   { id: 'gold', src:Bottle_Shop_C_gold, alt: 'Gold LumiVitae Bottle' },
   { id: 'graphite', src: Bottle_Shop_C_gold, alt: 'Graphite LumiVitae Bottle' }, // تصویر نمونه
   { id: 'silver', src: Bottle_Shop_C_gold, alt: 'Silver LumiVitae Bottle' }, // تصویر نمونه
 ];
-// نکته: مطمئن شوید که مسیر تصاویر صحیح است. اگر در پوشه public هستند، /نام_پوشه/نام_فایل.png
-// اگر در src/assets وارد می‌کنید: import goldBottle from '../../assets/images/Bottle_Shop_C_gold.png';
+// نکته: مطمئن شوید که مسیر تصاویر صحیح است. اگر در پوشه public هستند، /نام_پوشه/نام_فایل.avif'
+// اگر در src/assets وارد می‌کنید: import goldBottle from '../../assets/images/Bottle_Shop_C_gold.avif';
 
 
 const BottleShowcase = ({ data }: { data?: ProductVariationsResponse }) => {

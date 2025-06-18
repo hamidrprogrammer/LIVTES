@@ -41,16 +41,16 @@ const BuyBottlePageMobile: React.FC = () => {
       return;
     }
 
-    console.log('Adding to bag:', currentOrder);
+     
     addItemToCart(currentOrder);
   };
 
   useEffect(() => {
-    console.log('[BuyBottlePageMobile] Product variations loaded:', data?.data);
+     
   }, [data]);
 
   const handleCheckoutNow = () => {
-    console.log('Proceeding to checkout:', currentOrder);
+     
     alert('Proceeding to checkout (simulated)! Check console for details.');
   };
 

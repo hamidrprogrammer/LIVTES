@@ -312,7 +312,8 @@ export const PrimaryActionButton = styled.button`
 export const AdyenWrapper = styled.div`
     margin-top: ${theme.spacing.lg};
     padding-top: ${theme.spacing.lg};
-    border-top: 1px solid ${theme.colors.borderColor};
+    max-width: 350px;
+        border-top: 1px solid ${theme.colors.borderColor};
 `;
 
 export const StatusMessage = styled.p`

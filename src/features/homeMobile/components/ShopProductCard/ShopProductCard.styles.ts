@@ -6,7 +6,7 @@ import Text from '../../../../lib/shared/components/Besic/Typography/Text'; // A
 import Button from '../Button/Button'; // Adjusted path
 import OptimizedImage from '../Image/OptimizedImage'; // Adjusted path
 import { theme } from '../../../../core/theme/theme';
-console.log("✅ ShopProductCard.styles.ts loaded!");
+ 
 
 // Interface for the props specific to the ProductImage styled component
 interface ShopCardWrapperProps {

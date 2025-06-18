@@ -1,129 +1,121 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import AOS from 'aos';
+import React, { useEffect, Suspense, lazy } from 'react'; //
+import styled from 'styled-components'; //
+import AOS from 'aos'; //
+import 'aos/dist/aos.css'; //
 
-// Import Sections (we will create these next)
-import Navbar from '../../../lib/shared/layouts/NavbarWeb/Navbar';
-import HeroSection from '../sections/HeroSection/HeroSection';
-import UnderwaterSection from '../sections/UnderwaterSection/UnderwaterSection';
-import SecondaryNavbar from '../components/SecondaryNavbar/SecondaryNavbar';
-import StellarFusionIntroSection from '../sections/StellarFusionIntroSection/StellarFusionIntroSection';
-import CellularFusionExplainedSection from '../sections/CellularFusionExplainedSection/CellularFusionExplainedSection';
-import WhyYouFeelItSection from '../sections/WhyYouFeelItSection/WhyYouFeelItSection';
-import IngredientsIntroSection from '../sections/IngredientsIntroSection/IngredientsIntroSection';
-// Import individual ingredient sections (or a reusable one)
-import MolecularHydrogenSection from '../sections/IngredientSections/MolecularHydrogenSection';
-import NicotinamideRibosideSection from '../sections/IngredientSections/NicotinamideRibosideSection';
-import ResveratrolSection from '../sections/IngredientSections/ResveratrolSection';
-import SpermidineSection from '../sections/IngredientSections/SpermidineSection';
-import MagnesiumSection from '../sections/IngredientSections/MagnesiumSection';
-import VitaminCSection from '../sections/IngredientSections/VitaminCSection';
-import VitaminB12Section from '../sections/IngredientSections/VitaminB12Section';
+// Import Layouts
+import Navbar from '../../../lib/shared/layouts/NavbarWeb/Navbar'; //
+import NavbarMobile from '@/lib/shared/layouts/NavMobileMain/Navbar'; //
+import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb'; //
+import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter'; //
+import ScrollToTopButton from '@/lib/shared/components/ScrollToTopButton'; //
+import { useIsMobile } from '@/core/hooks/useIsMobile'; //
 
-import StarWithinSection from '../sections/StarWithinSection/StarWithinSection';
-import YouthAwakenedSection from '../sections/YouthAwakenedSection/YouthAwakenedSection';
-import CtaSection from '../sections/CtaSection/CtaSection';
-import { useIsMobile } from '@/core/hooks/useIsMobile';
-import NavbarMobile from '@/lib/shared/layouts/NavMobileMain/Navbar';
-import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
-import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
-import ScrollToTopButton from '@/lib/shared/components/ScrollToTopButton';
-// import Footer from '../components/Footer/Footer';
-
+// Lazy Load Sections
+const HeroSection = lazy(() => import('../sections/HeroSection/HeroSection')); //
+const UnderwaterSection = lazy(() => import('../sections/UnderwaterSection/UnderwaterSection')); //
+// const SecondaryNavbar = lazy(() => import('../components/SecondaryNavbar/SecondaryNavbar')); // // تصمیم گرفته شد که SecondaryNavbar استیکی باشد، بنابراین Lazy Load نمی‌شود.
+const StellarFusionIntroSection = lazy(() => import('../sections/StellarFusionIntroSection/StellarFusionIntroSection')); //
+const CellularFusionExplainedSection = lazy(() => import('../sections/CellularFusionExplainedSection/CellularFusionExplainedSection')); //
+const WhyYouFeelItSection = lazy(() => import('../sections/WhyYouFeelItSection/WhyYouFeelItSection')); //
+const IngredientsIntroSection = lazy(() => import('../sections/IngredientsIntroSection/IngredientsIntroSection')); //
+const NicotinamideRibosideSection = lazy(() => import('../sections/IngredientSections/NicotinamideRibosideSection')); //
+const ResveratrolSection = lazy(() => import('../sections/IngredientSections/ResveratrolSection')); //
+const SpermidineSection = lazy(() => import('../sections/IngredientSections/SpermidineSection')); //
+const MagnesiumSection = lazy(() => import('../sections/IngredientSections/MagnesiumSection')); //
+const VitaminCSection = lazy(() => import('../sections/IngredientSections/VitaminCSection')); //
+const VitaminB12Section = lazy(() => import('../sections/IngredientSections/VitaminB12Section')); //
+const StarWithinSection = lazy(() => import('../sections/StarWithinSection/StarWithinSection')); //
+const YouthAwakenedSection = lazy(() => import('../sections/YouthAwakenedSection/YouthAwakenedSection')); //
+const CtaSection = lazy(() => import('../sections/CtaSection/CtaSection')); //
 
 const TabletPageContainer = styled.div`
   position: relative;
-  width: 100%; // Design is 1440px, but we make the container responsive
-  margin: 0 auto; // Center the page content
-  background-color: ${({ theme }) => theme.colors.white}; // Base background from Figma for the page itself
-  overflow: hidden; // Important for absolutely positioned children and AOS
+  width: 100%;
+  margin: 0 auto;
+  background-color: ${({ theme }) => theme.colors.white};
+  overflow: hidden;
 `;
 
 const TabletPage: React.FC = () => {
   useEffect(() => {
-    // AOS.refresh(); // Refresh AOS if content changes dynamically after initial load.
-    // Not strictly necessary here for static content if initialized in main.tsx
-  }, []);
-     const isMobile = useIsMobile();
+    AOS.init({
+      once: true, // Whether animation should happen only once - while scrolling down
+      easing: 'ease-out', // Easing for animation
+      duration: 1000, // Duration of animation
+      delay: 50, // Delay animation
+      offset: 100, // Offset (in px) from the top of the screen
+    });
+    AOS.refresh();
+  }, []); //
+
+  const isMobile = useIsMobile(); //
 
   return (
     <TabletPageContainer>
-      {/* Figma indicates main background is #FFFFFF, but sections have their own dark backgrounds.
-          The overall container for the page content (1440px wide) has this white background.
-          The sections inside will span full width or be constrained.
-      */}
+      {isMobile ? <NavbarMobile /> : <Navbar />}
 
-      {/* Top Navigation */}
+      <Suspense fallback={<div></div>}> {/* Add a fallback for lazy loaded components */}
+        <HeroSection />
+      </Suspense>
 
+      <Suspense fallback={<div></div>}> {/* */}
+        <UnderwaterSection />
+      </Suspense>
 
-      {isMobile ? (
-        <NavbarMobile />
-      ) : (
-        <Navbar />
-      )}
-
-      {/* Stars Hero Section */}
-      <HeroSection />
-
-      {/* Underwater Hero Section */}
-      <UnderwaterSection />
-
-      {/* Secondary Navigation - This appears at top: 2440px in Figma, might need special sticky logic */}
+      {/* SecondaryNavbar will not be lazy loaded as it's often sticky and needs to be present early */}
       {/* <SecondaryNavbar /> */}
 
-      {/* Section Four (Stellar Fusion Intro) - top: 2500px */}
-      <StellarFusionIntroSection />
+      <Suspense fallback={<div></div>}> {/* */}
+        <StellarFusionIntroSection />
+      </Suspense>
 
-      {/* Section Five (Cellular Fusion Explained) - top: 3825px */}
-      <CellularFusionExplainedSection />
+      <Suspense fallback={<div></div>}> {/* */}
+        <CellularFusionExplainedSection />
+      </Suspense>
 
-      {/* Section Five (Why You Feel It) - top: 5825px */}
-      <WhyYouFeelItSection />
+      <Suspense fallback={<div></div>}> {/* */}
+        <WhyYouFeelItSection />
+      </Suspense>
 
-      {/* Ingredients Intro Section - top: 6625px */}
-      <IngredientsIntroSection />
+      <Suspense fallback={<div></div>}> {/* */}
+        <IngredientsIntroSection />
+      </Suspense>
 
       {/* Individual Ingredient Sections */}
-      {/* These sections share a similar structure in Figma: Image on one side, text on the other.
-          A reusable component might be good, but for full explicitness as requested,
-          I'll create separate components that could later be refactored.
-      */}
-      {/* Molecular Hydrogen (H2) - top: 6625px (part of IngredientsIntro, then detailed) - this is a bit confusing in Figma.
-          Figma: "We begin with the most powerful one of all..." (top: 6758px)
-          Then "Molecular Hydrogen (H2)" text (top: 7100px)
-          This structure is complex. Let's assume IngredientsIntroSection covers the title, and
-          then each ingredient has its own subsequent section.
-          The next ingredient section starts effectively after previous one.
-          The 'top' values in Figma for these are relative to the very tall page.
-          We'll stack them normally.
-      */}
+      <Suspense fallback={<div></div>}> {/* */}
+        <NicotinamideRibosideSection />
+      </Suspense>
+      <Suspense fallback={<div></div>}> {/* */}
+        <ResveratrolSection />
+      </Suspense>
+      <Suspense fallback={<div></div>}> {/* */}
+        <SpermidineSection />
+      </Suspense>
+      <Suspense fallback={<div></div>}> {/* */}
+        <MagnesiumSection />
+      </Suspense>
+      <Suspense fallback={<div></div>}> {/* */}
+        <VitaminCSection />
+      </Suspense>
+      <Suspense fallback={<div></div>}> {/* */}
+        <VitaminB12Section />
+      </Suspense>
 
-      <NicotinamideRibosideSection /> {/* Related to content around top ~7818px */}
-      <ResveratrolSection /> {/* Related to content around top ~8642px */}
-      <SpermidineSection /> {/* Related to content around top ~9420px */}
-      <MagnesiumSection /> {/* Related to content around top ~10230px */}
-      <VitaminCSection /> {/* Related to content around top ~11042px */}
-      <VitaminB12Section /> {/* Related to content around top ~11808px */}
+      <Suspense fallback={<div></div>}> {/* */}
+        <StarWithinSection />
+      </Suspense>
 
+      <Suspense fallback={<div></div>}> {/* */}
+        <YouthAwakenedSection />
+      </Suspense>
 
-      {/* Section Four (Star Within You) - top: 12425px */}
-      <StarWithinSection />
+      <Suspense fallback={<div></div>}> {/* */}
+        <CtaSection />
+      </Suspense>
 
-      {/* Section Five (Youth Awakened) - top: 13925px */}
-      <YouthAwakenedSection />
-
-      {/* CTA Section - top: 14725px */}
-      <CtaSection />
-
-      {/* Footer - bottom: 1px (effectively at the end of 16460px page height) */}
-      
-      {isMobile ? (
-       <MobileFooter />
-      ) : (
-       <Footer />
-      )}
-              <ScrollToTopButton />
-
+      {isMobile ? <MobileFooter /> : <Footer />}
+      <ScrollToTopButton />
     </TabletPageContainer>
   );
 };

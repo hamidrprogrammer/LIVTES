@@ -19,7 +19,7 @@ export const GalleryWrapper = styled.div`
   }
 `;
 
-export const ProductImage = styled(SmartImage)`
+export const ProductImage = styled.div`
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -84,6 +84,16 @@ export async function generatePaymentLink(
   // The curl command implies a GET request as no method or data is specified.
   return httpClient(url, requestOptions, GeneratePaymentLinkResponseSchema);
 }
+export async function generateSubPaymentLink(
+  orderId: number | string,
+  requestOptions?: RequestOptions
+): Promise<z.infer<typeof GeneratePaymentLinkResponseSchema>> {
+  // Using the correct endpoint from your curl command
+  const url = `${API_BASE_URL}/order-subscriptions/${orderId}/generate-payment-link`;
+  
+  // The curl command implies a GET request as no method or data is specified.
+  return httpClient(url, requestOptions, GeneratePaymentLinkResponseSchema);
+}
 // END: Corrected function
 export async function listOrderSales(
   params?: GetOrderSaleListParams,

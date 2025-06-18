@@ -60,9 +60,9 @@ export const FrequencyOptionsSection: React.FC<FrequencyOptionsSectionProps> = (
     <S.SectionContainer>
       {allOptions.map((option) => {
         const uniqueKey = option.interval_days === null ? `onetime-${product.id}` : `${option.interval_days}-${product.id}`;
-        console.log('====================================');
-        console.log(option);
-        console.log('====================================');
+         
+         
+         
         return (
             <BuyOptionSubDesign
                 key={uniqueKey}

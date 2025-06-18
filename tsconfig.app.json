@@ -29,6 +29,6 @@
     "strict": true,
     "lib": ["dom", "dom.iterable", "esnext"]
   },
-  "include": ["src"], // اطمینان حاصل کنید که TypeScript فایل‌های src را بررسی می‌کند
+  "include": ["src", "scripts/convert-images.mjs"], // اطمینان حاصل کنید که TypeScript فایل‌های src را بررسی می‌کند
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/whatter.png'
+const  whater = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/whatter.avif'
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assumed image path: public/images/molecular_hydrogen_bg.jpg
 const sectionBackgroundImage = whater;
@@ -25,7 +25,7 @@ export const SectionWrapper = styled.section`
   }
 `;
 
-export const BackgroundImage = styled(SmartImage)`
+export const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;

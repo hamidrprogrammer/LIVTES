@@ -3,8 +3,9 @@
 
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from '@assets/images/products/imagesec.png';
-import tabletShopCUrl from '@assets/images/products/Tablet_Shop_C 1.png';
+
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/imagesec.avif';
+const tabletShopCUrl = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/Tablet_Shop_C%201.avif';
 
 const sectionBgImageUrl = homepage_sec1;
 
@@ -183,6 +184,7 @@ export const RotatedTabletImage = styled.div`
   height: 817.94px;
   background-image: url(${tabletShopCUrl});
   background-size: contain;
+  right: 35vw;
   background-repeat: no-repeat;
   transform: rotate(0deg);
   margin: 0 auto; /* Center the image container */
@@ -199,6 +201,8 @@ export const RotatedTabletImage = styled.div`
   @media (max-width: 480px) {
     width: 90%;
     max-width: 350px;
+      right: 25vw;
+
     margin: 30px auto 0;
     transform: rotate(5deg);
   }

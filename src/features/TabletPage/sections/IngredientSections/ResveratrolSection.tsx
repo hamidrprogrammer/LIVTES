@@ -7,7 +7,7 @@ import {
   Description,
   BackgroundImageContainer,
 } from './ResveratrolSection.styles';
-import homepage_sec1 from '@assets/images/products/image 53.png'
+const homepage_sec1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image 53.avif';
 
 const resveratrolImageUrl = homepage_sec1;
 

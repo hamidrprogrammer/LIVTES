@@ -15,7 +15,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ProductTabletsWebPage: React.FC = () => {
+const ProductTablet.avif'age: React.FC = () => {
   return (
     <PageWrapper>
       <NavbarProduct />
@@ -27,4 +27,4 @@ const ProductTabletsWebPage: React.FC = () => {
   );
 };
 
-export default ProductTabletsWebPage;
+export default ProductTablet.avif'age;

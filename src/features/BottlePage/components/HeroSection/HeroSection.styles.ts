@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme'; // Assuming Theme is correctly typed
 
-const heroBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.png';
+const heroBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.avif';
 const heroBackgroundFallbackColor = '#000000';
 
 export const HeroWrapper = styled.section`

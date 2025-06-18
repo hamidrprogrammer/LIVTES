@@ -1,145 +1,205 @@
-import React, { useEffect, useRef } from 'react';
+// BottlePage/page/BottlePage.tsx
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import styled from 'styled-components';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // Import AOS styles
 
-// Import all the section components
-import HeroSection from '../components/HeroSection/HeroSection';
-import MolecularHydrogenSection from '../components/MolecularHydrogenSection/MolecularHydrogenSection';
-import BenefitsSection from '../components/BenefitsSection/BenefitsSection';
-import PlanetEarthSection from '../components/PlanetEarthSection/PlanetEarthSection';
-import FeatureHighlightsSection from '../components/FeatureHighlightsSection/FeatureHighlightsSection';
-import InPageNav from '../components/InPageNav/InPageNav';
-import FrequencyIntroSection from '../components/FrequencyIntroSection/FrequencyIntroSection';
-import FrequencyDetailSection, { VisualProps as FrequencyVisualProps } from '../components/FrequencyDetailSection/FrequencyDetailSection';
-import ChromotherapyIntroSection from '../components/ChromotherapyIntroSection/ChromotherapyIntroSection';
-import ChromoColoursSection from '../components/ChromoColoursSection/ChromoColoursSection';
-import PioneeringTechSection from '../components/PioneeringTechSection/PioneeringTechSection';
-import MagneticFieldInfoSection from '../components/MagneticFieldInfoSection/MagneticFieldInfoSection';
-import ShopCTASection from '../components/ShopCTASection/ShopCTASection';
-import { theme } from '../../../core/theme/theme'; // To access theme colors if needed for props
-import frequencies_energy from '@assets/images/bottle/frequencies_energy.png'
-import frequencies_lumivitae from '@assets/images/bottle/frequencies_lumivitae.png'
+// Import all the section components as lazy-loaded components
+const HeroSection = lazy(() => import('../components/HeroSection/HeroSection'));
+const MolecularHydrogenSection = lazy(() => import('../components/MolecularHydrogenSection/MolecularHydrogenSection'));
+const BenefitsSection = lazy(() => import('../components/BenefitsSection/BenefitsSection'));
+const PlanetEarthSection = lazy(() => import('../components/PlanetEarthSection/PlanetEarthSection'));
+const FeatureHighlightsSection = lazy(() => import('../components/FeatureHighlightsSection/FeatureHighlightsSection'));
+const InPageNav = lazy(() => import('../components/InPageNav/InPageNav'));
+const FrequencyIntroSection = lazy(() => import('../components/FrequencyIntroSection/FrequencyIntroSection'));
+const FrequencyDetailSection = lazy(() => import('../components/FrequencyDetailSection/FrequencyDetailSection'));
+const ChromotherapyIntroSection = lazy(() => import('../components/ChromotherapyIntroSection/ChromotherapyIntroSection'));
+const ChromoColoursSection = lazy(() => import('../components/ChromoColoursSection/ChromoColoursSection'));
+const PioneeringTechSection = lazy(() => import('../components/PioneeringTechSection/PioneeringTechSection'));
+const MagneticFieldInfoSection = lazy(() => import('../components/MagneticFieldInfoSection/MagneticFieldInfoSection'));
+// const ProductPurchaseCtaSection = lazy(() => import('../components/ProductPurchaseCtaSection/ProductPurchaseCtaSection'));
+const ScrollToTopButton = lazy(() => import('@/lib/shared/components/ScrollToTopButton'));
 
-import frequencies_recovery from '@assets/images/bottle/frequencies_recovery.png'
+
+import { theme } from '../../../core/theme/theme'; // To access theme colors if needed for props
+
 import NavbarMobile from '@/lib/shared/layouts/NavMobileMain/Navbar';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 import Navbar from '@/lib/shared/layouts/NavbarWeb/Navbar';
 import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
 import { SliderHandle } from '../components/Slider';
+import { VisualProps as FrequencyVisualProps } from '../components/FrequencyDetailSection/FrequencyDetailSection'; // Import type
 import { ProductPurchaseCtaSection } from '../components/ProductPurchaseCtaSection/ProductPurchaseCtaSection';
-import ScrollToTopButton from '@/lib/shared/components/ScrollToTopButton';
+const frequencies_energy = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
+const frequencies_lumivitae = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
+const frequencies_recovery = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_recovery.avif";
+
 
 const PageWrapper = styled.main`
-  // This wrapper is optional if all sections are full-width and manage their own backgrounds.
-  // It can be used for a global page background or max-width if sections didn't handle it.
-  overflow: hidden; // Ensures nothing bleeds out unexpectedly from AOS or section designs
+  overflow: hidden; 
 `;
 
 // Data for the FrequencyDetailSection instances
 const lumivitaeVisuals: FrequencyVisualProps = {
   type: 'sun_lid',
-  mainVisualUrl: '/images/bottle_lid_sun.png',
+  mainVisualUrl: '/images/bottle_lid_sun.avif',
 };
 
 const recoveryVisuals: FrequencyVisualProps = {
   type: 'animated_lid',
-  lidImageUrl: '/images/top_view_lid.png',
-  haloImageUrl: '/images/halo_effect.png',
-  animationAssetUrl: '/images/anim_blue.png',
+  lidImageUrl: '/images/top_view_lid.avif',
+  haloImageUrl: '/images/halo_effect.avif',
+  animationAssetUrl: '/images/anim_blue.avif',
 };
 
 const energyVisuals: FrequencyVisualProps = {
   type: 'animated_lid',
-  lidImageUrl: '/images/top_view_lid.png',
-  haloImageUrl: '/images/halo_effect.png',
-  animationAssetUrl: '/images/anim_pink.png',
+  lidImageUrl: '/images/top_view_lid.avif',
+  haloImageUrl: '/images/halo_effect.avif',
+  animationAssetUrl: '/images/anim_pink.avif',
 };
 
 const BottlePage: React.FC = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
-      once: true,     // Whether animation should happen only once - while scrolling down
-      offset: 50,     // Offset (in px) from the original trigger point
-      delay: 100,     // Values from 0 to 3000, with step 50ms
-      easing: 'ease-in-out', // Default easing for AOS animations
+      duration: 1000, 
+      once: true,     
+      offset: 50,     
+      delay: 100,     
+      easing: 'ease-in-out', 
     });
-    // Optional: Refresh AOS on certain conditions if page layout changes dynamically after initial load
-    // AOS.refresh();
   }, []);
-    const isMobile = useIsMobile();
+
+  const isMobile = useIsMobile();
   const whySliderRef = useRef<SliderHandle>(null);
+
+  // Preload critical background image for HeroSection to improve LCP
+  // You might need to adjust the path based on your build system's output
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle-hand-gold-bottle-1.avif'; // Direct URL for critical image
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
   return (
     <PageWrapper>
-      {isMobile ? (
-        <NavbarMobile />
-      ) : (
-        <Navbar />
-      )}
+      <Suspense fallback={<div>Loading Navigation...</div>}>
+        {isMobile ? <NavbarMobile /> : <Navbar />}
+      </Suspense>
       
-      <HeroSection />
-      <MolecularHydrogenSection />
-      <BenefitsSection sliderRef={whySliderRef}/>
-      <PlanetEarthSection />
-      <FeatureHighlightsSection />
-      <InPageNav />
-      <FrequencyIntroSection />
+      <Suspense fallback={<div>Loading Hero Section...</div>}>
+        <HeroSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Molecular Hydrogen Section...</div>}>
+        <MolecularHydrogenSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Benefits Section...</div>}>
+        <BenefitsSection sliderRef={whySliderRef}/>
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Planet Earth Section...</div>}>
+        <PlanetEarthSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Feature Highlights Section...</div>}>
+        <FeatureHighlightsSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading In-Page Navigation...</div>}>
+        <InPageNav />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Frequency Intro Section...</div>}>
+        <FrequencyIntroSection />
+      </Suspense>
 
       {/* Lumivitae Frequency Detail */}
-      <FrequencyDetailSection
-        id="lumivitae-frequency-detail-section"
-        backgroundImageUrl={frequencies_lumivitae}
-        category="Lumivitae Frequency"
-        categoryColor={theme.colors.white}
-        headline="Sunlight, captured. Energy, unleashed."
-        description={
-          <>
-            LumiVitæ bridges the power of nature with the precision of technology. 
-            A calibrated frequency field, emitted from the bottle’s lid, mimics the 
-            revitalizing effects of sunlight on water—restoring its structure, 
-            amplifying its vitality, and elevating hydration to an entirely new dimension. 
-            Water, as it was meant to be. <br />Pure. Energized. Alive.
-          </>
-        }
-        visuals={lumivitaeVisuals}
-        textSide="left"
-        descriptionFontWeight={700}
-      />
+      <Suspense fallback={<div>Loading Lumivitae Frequency Details...</div>}>
+        <FrequencyDetailSection
+          id="lumivitae-frequency-detail-section"
+          backgroundImageUrl={frequencies_lumivitae}
+          category="Lumivitae Frequency"
+          categoryColor={theme.colors.white}
+          headline="Sunlight, captured. Energy, unleashed."
+          description={
+            <>
+              LumiVitæ bridges the power of nature with the precision of technology. 
+              A calibrated frequency field, emitted from the bottle’s lid, mimics the 
+              revitalizing effects of sunlight on water—restoring its structure, 
+              amplifying its vitality, and elevating hydration to an entirely new dimension. 
+              Water, as it was meant to be. <br />Pure. Energized. Alive.
+            </>
+          }
+          visuals={lumivitaeVisuals}
+          textSide="left"
+          descriptionFontWeight={700}
+        />
+      </Suspense>
 
       {/* Recovery Frequency Detail */} 
-       <FrequencyDetailSection
-        id="recovery-frequency-detail-section"
-        backgroundImageUrl={frequencies_recovery}
-        category="Recovery"
-        categoryColor={theme.colors.accentBlue}
-        headline="Restore balance. Reduce oxidative stress. Reclaim your energy."
-        description="Infused with a frequency that supports YIN energy restoration, LumiVitæ helps bring the body back into equilibrium—reducing oxidative stress and enhancing cellular renewal."
-        visuals={recoveryVisuals}
-        textSide="left"
-      />
+      <Suspense fallback={<div>Loading Recovery Frequency Details...</div>}>
+        <FrequencyDetailSection
+          id="recovery-frequency-detail-section"
+          backgroundImageUrl={frequencies_recovery}
+          category="Recovery"
+          categoryColor={theme.colors.accentBlue}
+          headline="Restore balance. Reduce oxidative stress. Reclaim your energy."
+          description="Infused with a frequency that supports YIN energy restoration, LumiVitæ helps bring the body back into equilibrium—reducing oxidative stress and enhancing cellular renewal."
+          visuals={recoveryVisuals}
+          textSide="left"
+        />
+      </Suspense>
     
-
       {/* Energy Frequency Detail */}
-      <FrequencyDetailSection
-        id="energy-frequency-detail-section"
-        backgroundImageUrl={frequencies_energy}
-        category="Energy"
-        categoryColor={theme.colors.accentPink}
-        headline="Power up. Ignite vitality. Elevate performance."
-        description="Designed to stimulate cellular oxidation and amplify Yang energy, this frequency supports circulation, endurance, and sustained vitality—helping you move through life with strength and momentum."
-        visuals={energyVisuals}
-        textSide="left"
-      />
+      <Suspense fallback={<div>Loading Energy Frequency Details...</div>}>
+        <FrequencyDetailSection
+          id="energy-frequency-detail-section"
+          backgroundImageUrl={frequencies_energy}
+          category="Energy"
+          categoryColor={theme.colors.accentPink}
+          headline="Power up. Ignite vitality. Elevate performance."
+          description="Designed to stimulate cellular oxidation and amplify Yang energy, this frequency supports circulation, endurance, and sustained vitality—helping you move through life with strength and momentum."
+          visuals={energyVisuals}
+          textSide="left"
+        />
+      </Suspense>
 
-      <ChromotherapyIntroSection />
-      <ChromoColoursSection />
-      <PioneeringTechSection sliderRef={undefined} />
-      <MagneticFieldInfoSection />
-      <ProductPurchaseCtaSection />
-      <Footer />
-                    <ScrollToTopButton />
+      <Suspense fallback={<div>Loading Chromotherapy Intro Section...</div>}>
+        <ChromotherapyIntroSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Chromo Colours Section...</div>}>
+        <ChromoColoursSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Pioneering Tech Section...</div>}>
+        {/* The sliderRef prop is optional for PioneeringTechSection based on its current usage */}
+        <PioneeringTechSection sliderRef={whySliderRef} /> 
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Magnetic Field Info Section...</div>}>
+        <MagneticFieldInfoSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Product Purchase CTA Section...</div>}>
+        <ProductPurchaseCtaSection />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading Footer...</div>}>
+        <Footer />
+      </Suspense>
+
+      <Suspense fallback={null}> {/* ScrollToTopButton is light, null fallback is fine */}
+        <ScrollToTopButton />
+      </Suspense>
       
     </PageWrapper>
   );

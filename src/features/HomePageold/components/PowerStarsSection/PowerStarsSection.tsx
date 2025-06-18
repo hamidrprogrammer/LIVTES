@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-const background = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/water-waves.png';
+const background = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/water-waves.avif';
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 import { useNavigate } from 'react-router-dom';
 
 const HOMEPAGE_SEC4_BACKGROUND_URL = background;
 
-const ProductsContainer = styled(SmartImage)`
+const ProductsContainer = styled.div`
   position: relative;
   width: 100%;
   height: auto;
@@ -40,11 +40,14 @@ const ContentWrapper = styled(motion.div)`
   flex-direction: column;
   align-items: flex-end;
   width: 90%;
+  left:25rem;
   max-width: 450px;
 
  @media (max-width: 768px) {
    align-items: center;
    text-align: center;
+     left:0rem;
+
   }
 `;
 

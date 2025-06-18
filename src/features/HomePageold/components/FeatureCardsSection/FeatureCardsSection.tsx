@@ -7,10 +7,10 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 /* ----------  Local assets  ---------- */
-const imageCardOne   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardOne.png';
-const imageCardTwo   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtwo.png';
-const imageCardThree = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtree.png';
-const imageCardFour  = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageFure.png';
+const imageCardOne   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardOne.avif';
+const imageCardTwo   = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtwo.avif';
+const imageCardThree = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imagecardtree.avif';
+const imageCardFour  = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/imageFure.avif';
 
 /* -------------------------------------------------------------------------- */
 /* STYLES                                     */
@@ -127,7 +127,7 @@ const FeatureCardsSection: React.FC = () => {
           <Grid>
             {/* The mapping is kept as is from the original file, which was commented out. */}
             {/* If uncommented, it will now work with the corrected grid styles. */}
-            {/*
+            
             {cards.map(({ id, area, title, desc, img, btn: cta, big }) => (
               <Card
                 key={id}
@@ -138,7 +138,7 @@ const FeatureCardsSection: React.FC = () => {
               >
               </Card>
             ))}
-            */}
+           
           </Grid>
         </motion.div>
       </Wrapper>

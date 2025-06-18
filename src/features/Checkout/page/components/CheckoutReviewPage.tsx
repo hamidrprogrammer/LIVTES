@@ -1,9 +1,9 @@
+// new project/features/Checkout/page/components/CheckoutReviewPage.tsx
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import * as S from './CheckoutReviewPage.styles';
 import { useChangeInvoiceContactGroupMutation, useGetUserProfileQuery } from '@/features/user/hooks/useUserQueries';
-import { useCartStore } from '@/features/cart/store/cartStore';
 import { OrderSummary } from './OrderSummary';
 import { useCreateOrderFromBasketMutation } from '../../hooks/useCheckoutMutations';
 import type { CreateOrderFromBasketPayload } from '@/core/types/api/checkout';
@@ -12,7 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { AddressSelectionModal } from '@/lib/shared/components/AddressSelectionModal/AddressSelectionModal';
 import { LoginPrompt } from '@/lib/shared/components/LoginPrompt/LoginPrompt';
 import { useGetContactGroupAddress, useListContactGroupsQuery } from '@/features/contactGroups/hooks/useContactGroupQueries';
-import { ContactGroupDetailResponse, ListContactGroupsParams } from '@/core/types/api/contactGroup';
+import { ContactGroupDetailResponse, ListContactGroupsParams, ContactGroup } from '@/core/types/api/contactGroup'; // Import ContactGroup type
+import { AddressFormModal } from '@/features/contactGroups/components/addresses/AddressFormModal'; // Import AddressFormModal
 import { useSettingsStore } from '@/features/settings/stores/settingsStore';
 import AdyenDropIn from '@/lib/shared/components/adyen';
 import { NavbarProduct } from '@/lib/shared/layouts/NavbarWeb/NavbarProduct';
@@ -20,6 +21,13 @@ import { useListProductVariationsQuery } from '@/features/shop/hooks/useProductQ
 import { ListProductVariationsParams } from '@/core/types/api/shop';
 import { ProductUnavailableDialog } from './ProductUnavailableDialog';
 import { set } from 'date-fns';
+import { useSetCouponMutation } from '@/features/coupons/hooks/useCouponQueries'; // Import the new hook
+import { showToast } from '@/lib/shared/stores/toastStore'; // Import showToast for feedback
+import { ApiError } from '@/core/httpClient/httpClient'; // Import ApiError for type checking
+import { useQueryClient } from '@tanstack/react-query'; // Import useQueryClient
+import { useCouponStore } from '@/features/coupons/stores/couponStore'; // Import the new coupon store
+import { useCartStore } from '@/features/cart/store/cartStore';
+
 
 // Utility to find address by ID safely
 const findAddressById = (
@@ -32,6 +40,8 @@ const findAddressById = (
 
 export const CheckoutReviewPage: React.FC = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient(); // Initialize useQueryClient
+  const { setAppliedCoupon, clearAppliedCoupon } = useCouponStore(); // Get setters from coupon store
 
   // 1. Fetch user profile
   const { data: userProfileData, isLoading: isUserLoading } = useGetUserProfileQuery({
@@ -46,40 +56,42 @@ export const CheckoutReviewPage: React.FC = () => {
     const [idAyden, setIdAyden] = useState<string >('')
     const [isHide, setIshide] = useState<boolean >(false)
 
+  // New state variables for the additional inputs
+  const [storeCreditCode, setStoreCreditCode] = useState<string>('');
+  const [vatNumber, setVatNumber] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  // const [isApplyingStoreCredit, setIsApplyingStoreCredit] = useState(false); // State for the "Set" button loading - removed, using mutation isPending
+
   // 2. Extract invoice contact group ID safely to pass to address query hook
   const invoiceContactGroupId = userProfile?.invoiceContactGroup?.id ?? null;
   const [selectedBillingAddressId, setSelectedBillingAddressId] = useState<number | null>(null);
   const [selectedDeliveryAddressId, setSelectedDeliveryAddressId] = useState<number | null>(null);
   const [isBillingModalOpen, setBillingModalOpen] = useState<boolean>(false);
   const [isDeliveryModalOpen, setDeliveryModalOpen] = useState<boolean>(false);
+
+  // State for Add/Edit Address Modal
+  const [isAddressFormModalOpen, setIsAddressFormModalOpen] = useState<boolean>(false);
+  const [addressToEdit, setAddressToEdit] = useState<ContactGroup | null>(null); // To store address data for editing
+
   // 3. Fetch addresses using the invoiceContactGroupId
   // Hook called unconditionally at top-level
-  const { data: contactGroupAddressesData, isLoading: isAddressLoading } = useGetContactGroupAddress(invoiceContactGroupId as number, {
-    // enabled: !!invoiceContactGroupId,
-  });
-const listParams = useMemo((): ListContactGroupsParams => ({
-    page: 1,
-    per_page: 12,
-    'orderBy[id]': 'DESC',
+  const { data: contactGroupAddressesData, isLoading: isAddressLoading, refetch: refetchAddresses } = useListContactGroupsQuery({ // Changed to useListContactGroupsQuery
+    page: 1, // Assuming you want to fetch all or a relevant subset
+    per_page: 100, // Fetch enough addresses
     isArchive: false,
-  }), []);
- 
+  });
+
   // 4. Extract all addresses or empty array
-    const { data, isLoading, isError, error } = useListContactGroupsQuery(listParams);
+  const allAddresses: ContactGroup[] = useMemo(() => contactGroupAddressesData?.data || [], [contactGroupAddressesData]);
 
-
-
-
-  // 5. Local state for selected billing and delivery addresses
-
-
+// Re-fetch product variations when delivery location or items change
 const selectedBillingAddress = useMemo(() => {
-  return data?.data?.find(addr => addr.id === selectedBillingAddressId) ?? null;
-}, [selectedBillingAddressId, data]);
+  return allAddresses?.find(addr => addr.id === selectedBillingAddressId) ?? null;
+}, [selectedBillingAddressId, allAddresses]);
 
 const selectedDeliveryAddress = useMemo(() => {
-  return data?.data.find(addr => addr.id === selectedDeliveryAddressId) ?? null;
-}, [selectedDeliveryAddressId, data]);
+  return allAddresses?.find(addr => addr.id === selectedDeliveryAddressId) ?? null;
+}, [selectedDeliveryAddressId, allAddresses]);
  const listParamsVariations = useMemo((): ListProductVariationsParams => ({
     page: 1,
     per_page: 12,
@@ -107,7 +119,7 @@ const { data: updatedVariationsData, isSuccess } = useListProductVariationsQuery
       const allItemsAvailable = cartItems.every(item => availableVariationIds.includes(item.id));
 
       if (!allItemsAvailable) {
-        console.log("One or more products are unavailable in the selected country. Opening dialog.");
+         
         setProductUnavailableDialogOpen(true);
       } else if (updatedVariationsData?.data) {
         // Also update items with potentially new prices/taxes for the new location
@@ -137,7 +149,7 @@ const onHandleChangeInvoice = (invoice_contact_group_id: number, event?: React.M
       onSuccess: () => {
         setSelectedBillingAddressId(invoice_contact_group_id);
         setBillingModalOpen(false);
-          const selectedAddress = data?.data?.find(addr => addr.id === invoice_contact_group_id);
+          const selectedAddress = allAddresses?.find(addr => addr.id === invoice_contact_group_id);
     useSettingsStore.getState().setSelectedCountryId(selectedAddress?.country?.id??52);
 
       },
@@ -152,35 +164,34 @@ const onHandleChangeDelivery = (delivery_contact_group_id: number) => {
 
   // 6. Initialize default selected addresses when userProfile or addresses change
   useEffect(() => {
-    if (userProfile && data?.data) {
-      // Use user's default invoice_contact_group_id or fallback to first address ID
+    if (userProfile && allAddresses.length > 0) {
       const defaultId =
-        userProfile.invoice_contact_group_id ?? data?.data[0]?.id ?? null;
+        userProfile.invoice_contact_group_id ?? allAddresses[0]?.id ?? null;
 
       setSelectedBillingAddressId(defaultId);
       setSelectedDeliveryAddressId(defaultId);
     }
-  }, [userProfile, data]);
+  }, [userProfile, allAddresses]);
 
   // 7. Get cart items from store
   const { items: cartItems, clearCart } = useCartStore();
 //  useEffect(() => {
-//   console.log('==============variationsAreFetched======================');
-//   console.log(productVariationsData);
-//   console.log('==============variationsAreFetched======================');
+//    
+//    
+//    
 //     if (variationsAreFetched && cartItems.length > 0) {
 //       const availableVariationIds = productVariationsData?.data?.map(v => v.id) ?? [];
 //       const allItemsAvailable = cartItems.every(item => availableVariationIds.includes(item.id));
 
 //       if (!allItemsAvailable) {
-//         console.log("One or more products are unavailable in the selected country. Opening dialog.");
+//          
 //         setProductUnavailableDialogOpen(true);
 //       } else if (productVariationsData?.data) {
 //         // Also update items with potentially new prices/taxes for the new location
 //         // updateItems(productVariationsData.data);
 //       }
 //     }
-//  }, [isSuccess, productVariationsData, cartItems]);
+//  }, [isSuccess, updatedVariationsData, cartItems]); // Added cartItems to dependency array
   // 8. Mutation hook to create order
   const { mutate: createOrder, isPending: isCreatingOrder } = useCreateOrderFromBasketMutation({
     onSuccess: (response) => {
@@ -193,6 +204,52 @@ const onHandleChangeDelivery = (delivery_contact_group_id: number) => {
     onError: (error) => {
     },
   });
+
+  // Hook to set coupon
+  const { mutate: setCouponMutation, isPending: isApplyingStoreCredit } = useSetCouponMutation({ //
+    onSuccess: (data) => {
+      // Handle success, e.g., show a success toast
+      showToast(data.message || 'Store credit applied successfully!', 'success'); //
+      setAppliedCoupon(data.data); // Store coupon details in Zustand
+      // Invalidate queries that might reflect the cart/order total to show the discount.
+      // Adjust query keys based on your actual data fetching for cart summary/order totals.
+      queryClient.invalidateQueries({ queryKey: ['cart', 'summary'] }); //
+      queryClient.invalidateQueries({ queryKey: ['checkout', 'orderSummary'] }); // Example if you have a specific query for order summary
+      queryClient.invalidateQueries({ queryKey: ['user', 'profile'] }); // If user profile also shows coupon info
+    },
+    onError: (error) => {
+      // Handle error, e.g., show an error toast
+      let errorMessage = 'Failed to apply store credit.';
+      if (error instanceof ApiError && error.errors) { //
+        // Attempt to extract a more specific error message from the API error response
+        const apiError = error.errors as any;
+        if (apiError.data && apiError.data.message) { //
+          errorMessage = apiError.data.message; //
+        } else if (apiError.code && Array.isArray(apiError.code) && apiError.code.length > 0) { //
+          errorMessage = apiError.code[0]; //
+        }
+      }
+      showToast(errorMessage, 'error'); //
+      clearAppliedCoupon(); // Clear applied coupon on error
+    },
+  });
+
+  // Handler for setting store credit
+  const handleSetStoreCredit = () => {
+    if (!storeCreditCode) {
+      showToast('Please enter a store credit code.', 'warning');
+      return;
+    }
+    if (selectedBillingAddressId === null) {
+      showToast('Please select a billing address first to apply store credit.', 'warning');
+      return;
+    }
+
+    setCouponMutation({
+      code: storeCreditCode,
+      invoice_contact_group_id: selectedBillingAddressId,
+    });
+  };
 
   // 9. Handler for checkout button, wrapped in useCallback for stable reference
   const handleCheckout = useCallback(() => {
@@ -210,15 +267,36 @@ const onHandleChangeDelivery = (delivery_contact_group_id: number) => {
       invoice_contact_group_id: selectedBillingAddressId,
       delivery_contact_group_id: selectedDeliveryAddressId,
       payment_method_id: 31, // Using the ID from your cURL command
-      description: "",
+      description: description, // Pass the description
       wallet_coin_amount: 0,
       is_change_sponsor: false,
-      data: {},
+      data: {
+          vat_number: vatNumber, // Pass the VAT number
+      },
     };
 
     createOrder(payload);
-  }, [selectedBillingAddressId, selectedDeliveryAddressId, createOrder, isCreatingOrder]);
+  }, [selectedBillingAddressId, selectedDeliveryAddressId, createOrder, isCreatingOrder, description, vatNumber]);
 
+
+  // Handler for opening the address form modal to add a new address
+  const handleAddNewAddress = () => {
+    setAddressToEdit(null); // Clear any existing data for a new address
+    setIsAddressFormModalOpen(true);
+  };
+
+  // Handler for opening the address form modal to edit an existing address
+  const handleEditAddress = (address: ContactGroup) => {
+    setAddressToEdit(address);
+    setIsAddressFormModalOpen(true);
+  };
+
+  // Callback for when the address form modal is closed
+  const onAddressFormModalClose = () => {
+    setIsAddressFormModalOpen(false);
+    setAddressToEdit(null);
+    refetchAddresses(); // Refetch addresses to update the list after changes
+  };
 
   // 10. Show loading or login prompt if needed
   if (isUserLoading || isAddressLoading) return <p>Loading Your Information...</p>;
@@ -233,42 +311,119 @@ const stripHtmlTags = (htmlString: string): string => {
       <S.CheckoutPageWrapper className="Checkout">
         <S.MainContent>
           <S.AddressRow>
-            <S.AddressCard>
-              <S.CardTitle>Billing Address</S.CardTitle>
-              {selectedBillingAddress ? (
-                <S.AddressDetails >
-                  <span>{selectedBillingAddress.full_name}</span>
-  {                stripHtmlTags(selectedBillingAddress.address?.address_complete)} <br />                  <span>
-                    {selectedBillingAddress.address?.postal_code} {selectedBillingAddress.address?.city}
-                  </span>
-                  <span>{selectedBillingAddress.country?.name}</span>
-                </S.AddressDetails>
-              ) : (
-                <p>No billing address selected.</p>
-              )}
-              <S.ChangeAddressButton onClick={() => setBillingModalOpen(true)}>
-              <S.EditIcon /> {selectedBillingAddress?"Choose Another Address":"Select Billing Address"}
+           <S.AddressCard>
+              <div> 
+                <S.CardTitle>Billing Address</S.CardTitle>
+                {selectedBillingAddress ? (
+                  <S.AddressDetails>
+                    <span>{selectedBillingAddress.full_name}</span>
+                    <span>{stripHtmlTags(selectedBillingAddress.address?.address_complete ?? '')}</span>
+                    <span>
+                      {selectedBillingAddress.address?.postal_code} {selectedBillingAddress.address?.city}
+                    </span>
+                    <span>{selectedBillingAddress.country?.name}</span>
+                  </S.AddressDetails>
+                ) : (
+                  <p>No billing address selected.</p>
+                )}
+              </div>
 
-              </S.ChangeAddressButton>
+              {/* نگهدارنده جدید برای دکمه‌ها */}
+              <S.ActionsContainer>
+                <S.ChangeAddressButton onClick={() => setBillingModalOpen(true)}>
+                  {selectedBillingAddress ? "Choose Another" : "Select Address"}
+                </S.ChangeAddressButton>
+                
+                {selectedBillingAddress && (
+                  <S.IconButton onClick={() => handleEditAddress(selectedBillingAddress)} title="Edit Address">
+                    <S.EditIcon />
+                  </S.IconButton>
+                )}
+                
+                <S.IconButton onClick={handleAddNewAddress} title="Add New Address">
+                  <S.AddIcon />
+                </S.IconButton>
+              </S.ActionsContainer>
             </S.AddressCard>
 
             <S.AddressCard>
-              <S.CardTitle>Delivery Address</S.CardTitle>
-              {selectedDeliveryAddress ? (
-                <S.AddressDetails>
-                  {selectedDeliveryAddress.title} <br />
-                     {stripHtmlTags(selectedDeliveryAddress.address?.address_complete)} <br />
-                    {selectedDeliveryAddress?.address?.postal_code} {selectedDeliveryAddress?.address?.city} <br />
-                  {selectedDeliveryAddress?.country?.name}
-                </S.AddressDetails>
-              ) : (
-                <p>No delivery address selected.</p>
-              )}
-              <S.ChangeAddressButton onClick={() => setDeliveryModalOpen(true)}>
-                <S.EditIcon /> {selectedDeliveryAddress?"Choose Another Address":"Select Delivery Address"}
-              </S.ChangeAddressButton>
+              <div> 
+                <S.CardTitle>Delivery Address</S.CardTitle>
+                {selectedDeliveryAddress ? (
+                  <S.AddressDetails>
+                    <span>{selectedDeliveryAddress.full_name}</span>
+                    <span>{stripHtmlTags(selectedDeliveryAddress.address?.address_complete ?? '')}</span>
+                    <span>
+                      {selectedDeliveryAddress.address?.postal_code} {selectedDeliveryAddress.address?.city}
+                    </span>
+                    <span>{selectedDeliveryAddress.country?.name}</span>
+                  </S.AddressDetails>
+                ) : (
+                  <p>No delivery address selected.</p>
+                )}
+              </div>
+
+              <S.ActionsContainer>
+                <S.ChangeAddressButton onClick={() => setDeliveryModalOpen(true)}>
+                  {selectedDeliveryAddress ? "Choose Another" : "Select Address"}
+                </S.ChangeAddressButton>
+
+                {selectedDeliveryAddress && (
+                  <S.IconButton onClick={() => handleEditAddress(selectedDeliveryAddress)} title="Edit Address">
+                    <S.EditIcon />
+                  </S.IconButton>
+                )}
+
+                <S.IconButton onClick={handleAddNewAddress} title="Add New Address">
+                  <S.AddIcon />
+                </S.IconButton>
+              </S.ActionsContainer>
             </S.AddressCard>
           </S.AddressRow>
+
+          {/* New: Additional options section */}
+          <S.OptionsSection>
+            <S.CardTitle>Additional Options</S.CardTitle>
+            
+            <S.InputGroup>
+              <S.InputLabel htmlFor="storeCreditCode">Use a Store Credit Code</S.InputLabel>
+              <S.InputWithButton>
+                <S.StyledInput
+                  id="storeCreditCode"
+                  type="text"
+                  value={storeCreditCode}
+                  onChange={(e) => setStoreCreditCode(e.target.value)}
+                  placeholder="Enter store credit code"
+                  disabled={isApplyingStoreCredit}
+                />
+                <S.SetButton onClick={handleSetStoreCredit} disabled={isApplyingStoreCredit}>
+                  {isApplyingStoreCredit ? 'Applying...' : 'Set'}
+                </S.SetButton>
+              </S.InputWithButton>
+            </S.InputGroup>
+
+            <S.InputGroup>
+              <S.InputLabel htmlFor="vatNumber">VAT Number (European Union only)</S.InputLabel>
+              <S.StyledInput
+                id="vatNumber"
+                type="text"
+                value={vatNumber}
+                onChange={(e) => setVatNumber(e.target.value)}
+                placeholder="Enter VAT number"
+              />
+            </S.InputGroup>
+
+            <S.InputGroup>
+              <S.InputLabel htmlFor="description">Description</S.InputLabel>
+              <S.StyledTextArea
+                id="description"
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Add a note or description for your order"
+              />
+            </S.InputGroup>
+          </S.OptionsSection>
 
           <S.ShoppingCartSection>
             <S.SectionTitle>Your Shopping Cart</S.SectionTitle>
@@ -288,7 +443,7 @@ const stripHtmlTags = (htmlString: string): string => {
                   <>
                                 <S.CartItemPrice>{item?.subscriptionPrices[0]?.interval_days} Days </S.CartItemPrice>
                   <S.CartItemPrice>{item?.subscriptionPrices[0]?.gross_value_after_discount_string }</S.CartItemPrice></>:
-                  <S.CartItemPrice>{item.sale_price.gross_value_after_discount_string}</S.CartItemPrice>
+                  <S.CartItemPrice>{item?.sale_price?.gross_value_after_discount_string}</S.CartItemPrice>
 }
                 </S.CartItemCard>
               ))
@@ -326,7 +481,7 @@ const stripHtmlTags = (htmlString: string): string => {
       <AddressSelectionModal
         isOpen={isBillingModalOpen}
         onClose={() => setBillingModalOpen(false)}
-        addresses={data?.data ?? []}
+        addresses={allAddresses}
         selectedAddressId={selectedBillingAddressId}
         onSelectAddress={(invoice_contact_group_id, event) => {
             if (event) event.preventDefault();
@@ -337,7 +492,7 @@ const stripHtmlTags = (htmlString: string): string => {
       <AddressSelectionModal
         isOpen={isDeliveryModalOpen}
         onClose={() => setDeliveryModalOpen(false)}
-        addresses={data?.data ?? []}
+        addresses={allAddresses}
         selectedAddressId={selectedDeliveryAddressId}
         onSelectAddress={(delivery_contact_group_id, event) => {
             if(event) event.preventDefault();
@@ -345,6 +500,14 @@ const stripHtmlTags = (htmlString: string): string => {
         }}
         title="Select Delivery Address"
       />
+
+       {/* New Address Add/Edit Modal */}
+       <AddressFormModal
+          isOpen={isAddressFormModalOpen}
+          onClose={onAddressFormModalClose}
+          initialData={addressToEdit}
+        />
+
        <ProductUnavailableDialog
         isOpen={isProductUnavailableDialogOpen}
         onConfirm={handleClearCartAndRedirect}

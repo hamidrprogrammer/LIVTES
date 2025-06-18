@@ -12,6 +12,8 @@ import { ProductListItem } from './ProductListItem';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useGetConfigDataQuery } from '@/features/settings/hooks/useSettingsQueries';
+import { showToast } from '@/lib/shared/stores/toastStore';
+import { useCartStore } from '@/features/cart/store/cartStore';
 
 interface OrderOrderDetailProps {
   orderId: number;
@@ -27,6 +29,7 @@ export const OrderDetailPage: React.FC<OrderOrderDetailProps> = ({onBack,orderId
     const { data: response, isLoading, isError, error, refetch } = useGetOrderSaleDetailQuery(orderId!);
     const generatePaymentLinkMutation = useGeneratePaymentLinkMutation();
     const order = response?.data;
+    const { addItem, addItemSub } = useCartStore(); 
 
     useEffect(() => {
         AOS.init({
@@ -47,10 +50,35 @@ export const OrderDetailPage: React.FC<OrderOrderDetailProps> = ({onBack,orderId
         });
     };
 
-    const handleBuyAgain = () => {
-        // Logica para "Buy Again"
-        // ...
-        // navigate('/cart'); // Redirect to cart after adding items
+   const handleBuyAgain = () => {
+        if (!order || !order.orderSalePositions) {
+            showToast('No items found to buy again.', 'error'); //
+            return;
+        }
+
+        let itemsAddedCount = 0;
+        order.orderSalePositions.forEach(pos => {
+            // اطمینان از اینکه آیتم یک محصول است و نه مثلاً هزینه حمل و نقل یا مالیات
+            if (pos.productVariation) { 
+                const product = pos.productVariation;
+                const quantity = String(pos.quantity); // تعداد را به string تبدیل می‌کنیم
+
+                // بررسی می‌کنیم که آیا محصول اشتراکی است یا خیر
+                if (Array.isArray(product.subscriptionPrices) && product.subscriptionPrices.length > 0) {
+                    addItemSub(product, quantity); // اضافه کردن محصول اشتراکی
+                } else {
+                    addItem(product, quantity); // اضافه کردن محصول معمولی
+                }
+                itemsAddedCount++;
+            }
+        });
+
+        if (itemsAddedCount > 0) {
+            showToast(`Added ${itemsAddedCount} item(s) to your cart!`, 'success'); //
+            navigate('/basket'); // انتقال به صفحه سبد خرید پس از افزودن آیتم‌ها
+        } else {
+            showToast('No products were added to the cart.', 'info'); //
+        }
     };
     
     // A more user-friendly loading/error state

@@ -19,6 +19,7 @@ export const PageWrapper = styled.div`
   /* was: background-color:#fbffff; flex column */
   background-color: #fbffff;
   display: flex;
+  margin-top:100px;
   flex-direction: column;
   align-items: center;
   width: 100%;

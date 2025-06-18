@@ -32,12 +32,12 @@ const NavMobileProduct: React.FC = () => {
 
 
   const handleMenuClick = () => {
-    console.log('Menu clicked');
+     
     // در اینجا منطق باز شدن منوی همبرگری پیاده‌سازی می‌شود
   };
 
   const handleBasketClick = () => {
-    console.log('Basket clicked');
+     
     // در اینجا منطق نمایش سبد خرید یا رفتن به صفحه سبد خرید پیاده‌سازی می‌شود
   };
 

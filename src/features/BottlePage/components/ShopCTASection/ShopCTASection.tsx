@@ -2,10 +2,11 @@ import React from 'react';
 import BottleShowcaseCard from './BottleShowcaseCard';
 import FeatureSpecItem from './FeatureSpecItem';
 import * as S from './ShopCTASection.styles';
- import bottle_sec8_gold from '@assets/images/bottle/bottle_sec8_gold.png'
-  import bottle_sec8_grey from '@assets/images/bottle/bottle_sec8_grey.png'
+
 import { useNavigate } from 'react-router-dom';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
+const bottle_sec8_gold = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle_sec8_gold.avif";
+const bottle_sec8_grey = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottle_sec8_grey.avif";
 
 const bottleData = [
   {
@@ -39,7 +40,7 @@ const ShopCTASection: React.FC = () => {
   const navigate =useNavigate();
   
   const handleBuyBottle = (bottleName: string) => {
-    console.log('Buy Bottle clicked');
+     
     navigate('/products-bottle/1')
     // Add navigation to shop or modal logic here
   };

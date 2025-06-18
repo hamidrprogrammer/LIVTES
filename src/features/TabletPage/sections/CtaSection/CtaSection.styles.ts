@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import { media } from '../../../../core/theme/theme';
-import homepage_sec1 from '@assets/images/products/pills-sec7-1.png';
+const homepage_sec1 = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/pills-sec7-1.avif";
 
 const pillsSec7ImageUrl = homepage_sec1;
 

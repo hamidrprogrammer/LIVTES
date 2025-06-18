@@ -12,6 +12,7 @@ import type { ApiError } from '../../../core/httpClient/httpClient';
 export const couponQueryKeys = {
   all: ['coupons'] as const,
   list: (params?: GetCouponListParams) => [...couponQueryKeys.all, 'list', params ?? {}] as const,
+
   // If there was a GET /coupons/{code} endpoint:
   // detail: (code: string) => [...couponQueryKeys.all, 'detail', code] as const,
 };

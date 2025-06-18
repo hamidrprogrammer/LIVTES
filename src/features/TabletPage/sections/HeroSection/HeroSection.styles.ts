@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import homepage_sec1 from '@assets/images/products/image-26.png';
 import { media } from '../../../../core/theme/theme';
 
-const starsHeroBgUrl = homepage_sec1;
+const starsHeroBgUrl = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/image-26-1440.avif';
 
 // 🔲 سکشن اصلی
 export const HeroSectionContainer = styled.section`

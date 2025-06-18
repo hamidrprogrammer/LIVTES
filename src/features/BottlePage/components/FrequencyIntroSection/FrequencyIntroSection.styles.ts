@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme';
-import frequencies from '@assets/images/bottle/frequencies.png'
+
+const frequencies = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies.avif";
+
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assumed image path: public/images/frequencies.jpg
 const sectionBackgroundImage = frequencies;
 
-export const SectionWrapper = styled(SmartImage)`
+export const SectionWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 800px;

@@ -67,7 +67,7 @@ export const Price = styled.p`
   }
 `;
 
-export const BottleImage = styled(SmartImage)`
+export const BottleImage = styled.div`
   position: absolute;
   width: 113px;
   height: auto;

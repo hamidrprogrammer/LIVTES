@@ -3,11 +3,11 @@ import React from 'react';
 import InfoCard, { InfoCardProps } from './InfoCard';
 import { InfoCardsCustomSection } from './InfoCardSection.styles';
 import { theme } from '../../../../core/theme/theme';
-const imagecardOne =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_visionbob.png'
+const imagecardOne =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_visionbob.avif'
 /* ==========  Styled Components  ========== */
-const imagecardtwo =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_revolution 1.png'
-const imagecardtree =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_science 1.png'
-const imageFure =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_communitymob.png'
+const imagecardtwo =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_revolution 1.avif'
+const imagecardtree =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_science 1.avif'
+const imageFure =  'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/home/homepage_communitymob.avif'
 const infoCardsData: InfoCardProps[] = [
   {
     id: 'vision',

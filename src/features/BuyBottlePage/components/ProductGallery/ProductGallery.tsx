@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import * as S from './ProductGallery.styles';
 import { ProductVariation } from '@/core/types/api/shop'; // Import کردن تایپ مربوطه
-const galleryBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/image.png'; // Assuming image.png was renamed
+const galleryBackgroundImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/image.avif'; // Assuming image.avif' was renamed
 
 // تعریف پراپ‌های کامپوننت برای دریافت داده
 interface ProductGalleryProps {

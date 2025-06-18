@@ -168,7 +168,7 @@ export const selectContactGroupList = (params?: ListContactGroupsParams) => (sta
 
 if (typeof window !== 'undefined') {
   window.addEventListener('auth:logout', () => {
-    console.log('ContactGroupStore: auth:logout event received, clearing all contact group data.');
+     
     useContactGroupStore.getState().clearAllContactGroupData();
   });
 }

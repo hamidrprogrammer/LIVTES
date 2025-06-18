@@ -49,7 +49,7 @@ export const SectionTitle = styled.h2`
 export const CheckoutImage = styled.img`
   /* Checkout_Shop 1 */
   /* width: 317px; height: 222px; left: 29px; top: 2131px; */
-  /* background: url(Checkout_Shop.png); */
+  /* background: url(Checkout_Shop.avif'); */
   width: ${pxToRem(317)};
   height: ${pxToRem(222)};
   object-fit: contain; // یا cover، بسته به تصویر

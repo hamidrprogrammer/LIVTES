@@ -28,7 +28,7 @@ const InPageNav: React.FC = () => {
    const navigate =useNavigate();
   
   const handleBuyBottleClick = () => {
-    console.log('Buy Bottle clicked');
+     
             navigate('/products-bottle/1')
 
     // Add navigation to shop or modal logic here

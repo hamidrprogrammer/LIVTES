@@ -31,7 +31,7 @@ const CtaSection: React.FC = () => {
   };
 
   const handleIngredientsTableClick = () => {
-    console.log('Ingredients Table link clicked');
+     
     // Navigation or modal logic
   };
 

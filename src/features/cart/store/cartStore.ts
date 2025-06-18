@@ -72,9 +72,9 @@ export const useCartStore = create<CartState>()(
         set(
           produce((state: CartState) => {
             const item = state.items.find((i) => i.id === itemId);
-            console.log('=========item===========================');
-            console.log(item);
-            console.log('========item============================');
+             
+             
+             
             if (item) {
                 const nu =parseInt(quantity);
               if (nu > 0) {

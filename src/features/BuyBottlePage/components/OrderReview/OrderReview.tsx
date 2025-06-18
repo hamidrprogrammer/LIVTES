@@ -4,6 +4,8 @@ import * as S from './OrderReview.styles';
 import { OrderState } from '@/core/types';
 import { usePriceCalculations } from '@/core/hooks/usePriceCalculations';
 import { ProductVariation } from '@/core/zodSchemas/shopSchema';
+import { useNavigate } from 'react-router-dom';
+import { useCartStore } from '@/features/cart/store/cartStore';
 
 interface OrderReviewProps {
   currentOrder: ProductVariation|null;
@@ -11,18 +13,19 @@ interface OrderReviewProps {
 }
 
 export const OrderReview: React.FC<OrderReviewProps> = ({ currentOrder, onAddToBag }) => {
-
+   const navigate = useNavigate()
   
+        const items = useCartStore((state) => state.items);
   
 
   const handleCheckoutNow = () => {
-    console.log('Checkout Now clicked');
+     navigate('/basket')
   };
 
   return (
     <S.SectionWrapper>
-      <S.AddToBagButton onClick={onAddToBag}>Add to Bag</S.AddToBagButton>
-      <S.CheckoutNowButton onClick={handleCheckoutNow}>Checkout Now</S.CheckoutNowButton>
+      
+    
 
       <S.ImageSection>
         <S.CheckoutShopImage alt="LumiVitae Products" />
@@ -35,13 +38,22 @@ export const OrderReview: React.FC<OrderReviewProps> = ({ currentOrder, onAddToB
       </S.OrderTitle>
 
       {/* Dynamic Order Details */}
-      {currentOrder && (
+      {items && (
         <>
-          <S.ItemName>{currentOrder.name}</S.ItemName>
-          <S.ItemQuantity>Quantity {currentOrder.quantity}</S.ItemQuantity>
-          <S.ItemPrice>{currentOrder.sale_price.gross_value_after_discount_string}</S.ItemPrice>
+         <div style={{width:`100%`,height:`100%`}}>
+        {items.map((res)=>{
+          return <> 
+          
+          <S.ItemName>{res.name}</S.ItemName>
+          <S.ItemQuantity>Quantity {res.quantity}</S.ItemQuantity>
+          <S.ItemPrice>{res?.sale_price.gross_value_after_discount_string}</S.ItemPrice>
           <S.SeparatorLine alt="Line" />
+       
+          </>
+        })}
+         </div>
         </>
+       
       )}
 
       {/* {selectedBundle && (
@@ -54,6 +66,11 @@ export const OrderReview: React.FC<OrderReviewProps> = ({ currentOrder, onAddToB
            <S.TabletPrice>{totalPrice.string}</S.TabletPrice>
         </>
       )} */}
+      <div style={{height:`100%` ,gap:"30",display:"flex",flexDirection:"column"}}>
+  <S.AddToBagButton onClick={onAddToBag}>Add to Bag</S.AddToBagButton>
+  <div style={{height:15}}/>
+      <S.CheckoutNowButton onClick={handleCheckoutNow}>Checkout Now</S.CheckoutNowButton>
+      </div>
 
     </S.SectionWrapper>
   );

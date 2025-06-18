@@ -49,9 +49,9 @@ export const BottleSelection = ({ data, onOrderUpdate }: BottleSelectionProps): 
   return (
     <S.SectionContainer>
       {data?.data?.map((option) => {
-        console.log('=============option=======================');
-        console.log(option);
-        console.log('============option========================');
+         
+         
+         
         return (
           
             <BottleOptionCard

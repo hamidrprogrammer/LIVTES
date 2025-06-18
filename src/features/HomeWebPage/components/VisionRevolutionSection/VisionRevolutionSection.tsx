@@ -1,16 +1,16 @@
 import React from 'react';
 import { InfoCard } from './InfoCard';
 import { VRSectionContainer } from './VisionRevolutionSection.styled';
-import homepage_vision from "../../../../assets/images/home/homepage_vision 1.png"
-import homepage_revolution from "../../../../assets/images/home/homepage_sec3 1.png"
+import homepage_vision from "../../../../assets/images/home/homepage_vision 1.avif'"
+import homepage_revolution from "../../../../assets/images/home/homepage_sec3 1.avif'"
 
 const VisionRevolutionSection: React.FC = () => {
   const handleViewMissionClick = () => {
-    console.log('View our mission clicked');
+     
   };
 
   const handleBecomePartnerClick = () => {
-    console.log('Become a partner clicked');
+     
   };
 
   const visionDescription = (

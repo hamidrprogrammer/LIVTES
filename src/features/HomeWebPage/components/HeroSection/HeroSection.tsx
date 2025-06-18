@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// src/features/HomeWebPage/components/HeroSection/HeroSection.tsx
+// src/features/Hom.avif'age/components/HeroSection/HeroSection.tsx
 import React from 'react';
 import { HeroContainer, HeroContent, HeroTitle, HeroSubtitle } from './HeroSection.styles';
 // import { Button } from '../common/Button'; // Import shared button
 
 const HeroSection: React.FC = () => {
   const handleExploreBottleClick = () => {
-    console.log('Explore the bottle clicked!');
+     
     // Add navigation logic or other actions here
   };
 

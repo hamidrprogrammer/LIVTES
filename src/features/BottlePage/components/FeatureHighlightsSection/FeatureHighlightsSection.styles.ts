@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme';
-import plantesec from '@assets/images/bottle/plantesec.png'
+const plantesec = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/plantesec-1440.avif";
+
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
-// Assumed image path: public/images/earth_background_0140.png (based on Figma '0140 1')
+// Assumed image path: public/images/earth_background_0140.avif' (based on Figma '0140 1')
 const sectionBackgroundImage = plantesec;
 // Decorative image (image 20 from Figma)
-const decorativeOverlayImage = '/images/decorative_overlay_ planète.png'; // Replace with actual image name
+const decorativeOverlayImage = '/images/decorative_overlay_ planète.avif'; // Replace with actual image name
 
-export const SectionWrapper = styled(SmartImage)`
+export const SectionWrapper = styled.div`
   position: relative;
   width: 100%;
   height: 860px; // As per Figma

@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
       const navigate = useNavigate();
   
   const handleBuyTabletsClick = () => {
-    console.log('Buy Tablets button clicked - Hero Section');
+     
     // Implement navigation or modal logic here
           navigate('/products-bottle/10'); // replace "1" with your default ID
 

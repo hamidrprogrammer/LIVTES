@@ -59,8 +59,8 @@ const slideOutAnimation = keyframes`
 `;
 
 
-export const SlideImage = styled(SmartImage)<{ $isCurrent: boolean, $isExiting: boolean }>`
-  /* Included_Shop 1: background: url(Included_Shop.png); */
+export const SlideImage = styled.div<{ $isCurrent: boolean, $isExiting: boolean }>`
+  /* Included_Shop 1: background: url(Included_Shop.avif'); */
   /* width: 1144px; height: 449.19px; left: 0px; top: 3050.92px; */
   /* این ابعاد برای کل تصویر sprite است، ما تصاویر جداگانه استفاده می‌کنیم. */
   position: absolute;

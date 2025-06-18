@@ -1,10 +1,11 @@
 // BuyBottlePage/components/OrderReview/OrderReview.styles.ts
 import styled from 'styled-components';
-const checkoutShopImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/checkout_shop_1.png';
+const checkoutShopImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/checkout_shop_1-1440.webp';
 const lineImage = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/buy/line_1.svg';
 
 export const SectionWrapper = styled.section`
   background-color: #eaf9f9;
+      background-image : url(${checkoutShopImage});
   /* Removed fixed height and width. Width is now 100% of the grid area. */
   width: 100%;
   position: relative;
@@ -98,9 +99,11 @@ export const ImageSection = styled.div`
   aspect-ratio: 453 / 288; /* Maintain aspect ratio */
 `;
 
-export const CheckoutShopImage = styled.img.attrs({ src: checkoutShopImage })`
+export const CheckoutShopImage = styled.div`
   height: 100%;
   width: 100%;
+  
+  background-image : url(${checkoutShopImage});
   object-fit: contain;
   /* Removed absolute positioning */
 `;

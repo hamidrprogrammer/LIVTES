@@ -95,7 +95,7 @@ const BuyBottlePageMobile: React.FC = () => {
   };
   
   const handleCheckoutNow = () => {
-    console.log('Proceeding to checkout with:', { selectedProduct, selectedSubscription });
+     
     alert('Proceeding to checkout (simulated)! Check console for details.');
     // Here you would typically navigate to the checkout page
   };

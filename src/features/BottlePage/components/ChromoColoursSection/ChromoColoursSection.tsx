@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './ChromoColoursSection.styles';
-import bottleImageUrl from "../../../../assets/images/bottle/decorativeBgUrl.png"
+import bottleImageUrl from "../../../../assets/images/bottle/decorativeBgUrl.avif"
 const chromaColors = [
   { id: 'purple', hex: '#8919F5' },
   { id: 'deepBlue', hex: '#1840F5' },
@@ -16,7 +16,7 @@ const ChromoColoursSection: React.FC = () => {
 
   const handleColorSelect = (colorId: string) => {
     setActiveColor(colorId);
-    console.log('Selected Chromo Color:', colorId);
+     
     // Here you would typically update the bottle's light color in a real app
   };
 

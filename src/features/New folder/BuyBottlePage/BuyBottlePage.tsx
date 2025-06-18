@@ -89,9 +89,9 @@ export const BuyBottlePage = (): JSX.Element => {
 
 
       };
-      console.log('====================================');
-      console.log(itemToAdd);
-      console.log('====================================');
+       
+       
+       
       addItemSub(itemToAdd);
       setSelectedProduct(null);
       setSelectedSubscription(null);
@@ -99,7 +99,7 @@ export const BuyBottlePage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log('Product selection changed:', selectedProduct);
+     
   }, [selectedProduct]);
 
   if (!id) return <></>;

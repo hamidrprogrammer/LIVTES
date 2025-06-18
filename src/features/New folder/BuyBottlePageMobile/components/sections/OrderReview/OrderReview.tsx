@@ -15,7 +15,7 @@ import {
 import { OrderState } from '@/core/types';
 import useScrollAnimation from '@/core/hooks/useScrollAnimation';
 import Button from '../../Button/Button';
-import checkoutImageUrl from '@assets/images/bottle/Checkout_Shop 1.png'
+const checkoutImageUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Checkout_Shop 1.avif";
 
 // مسیر تصویر نمونه - جایگزین با مسیر واقعی
 

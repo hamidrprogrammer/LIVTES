@@ -24,7 +24,7 @@ export const SectionWrapper = styled.section<{ textSide?: 'left' | 'right' }>`
   }
 `;
 
-export const BackgroundImage = styled(SmartImage)`
+export const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -126,7 +126,7 @@ export const VisualContainer = styled.div`
 `;
 
 // For the "Sun Lid" type visual
-export const SunLidImage = styled(SmartImage)`
+export const SunLidImage = styled.div`
   width: 100%;
   max-width: 490px;
   height: auto;
@@ -161,7 +161,7 @@ export const AnimatedLidWrapper = styled.div`
   }
 `;
 
-export const LidImage = styled(SmartImage)`
+export const LidImage = styled.div`
   position: relative;
   z-index: 2;
   width: 100%;
@@ -174,7 +174,7 @@ export const LidImage = styled(SmartImage)`
   }
 `;
 
-export const HaloImage = styled(SmartImage)`
+export const HaloImage = styled.div`
   position: absolute;
   z-index: 3;
   width: 110%;
@@ -188,7 +188,7 @@ export const HaloImage = styled(SmartImage)`
   }
 `;
 
-export const AnimationAsset = styled(SmartImage)`
+export const AnimationAsset = styled.div`
   position: absolute;
   z-index: 4;
   width: 55%; /* Relative to wrapper size */

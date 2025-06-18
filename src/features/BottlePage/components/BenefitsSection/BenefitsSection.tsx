@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import * as S from './BenefitsSection.styles';
-const benefitImage1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-4.png';
-const benefitImage2 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-2.png';
-const benefitImage3 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.png';
-const benefitImage5 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-5.png';
+const benefitImage1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-4.avif';
+const benefitImage2 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-2.avif';
+const benefitImage3 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.avif';
+const benefitImage5 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-5.avif';
 import { Slider, SliderHandle } from '../Slider';
-const group62 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-6-2.png'; // Next arrow
-const  group72 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-7-2.png'; // Back arro
+const group62 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-6-2.avif'; // Next arrow
+const  group72 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-7-2.avif'; // Back arro
 const benefitsData = [
 
   {
