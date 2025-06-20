@@ -19,17 +19,35 @@ const PioneeringTechSection = lazy(() => import('../components/PioneeringTechSec
 const MagneticFieldInfoSection = lazy(() => import('../components/MagneticFieldInfoSection/MagneticFieldInfoSection'));
 // const ProductPurchaseCtaSection = lazy(() => import('../components/ProductPurchaseCtaSection/ProductPurchaseCtaSection'));
 const ScrollToTopButton = lazy(() => import('@/lib/shared/components/ScrollToTopButton'));
-
+const defaultSlidesTwo = [
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.avif',
+    text: "Reduces oxidative stress – the root cause of aging, fatigue, and chronic disease."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-2.avif',
+    text: "Boosts natural antioxidants like glutathione, the body’s master detoxifier."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-5.avif',
+    text: "Enhances energy production at a cellular level by optimizing mitochondrial function."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/imageSlideFure.avif',
+    text: "Supports healthy inflammation response, helping the body recover faster."
+  },
+];
 
 import { theme } from '../../../core/theme/theme'; // To access theme colors if needed for props
 
 import NavbarMobile from '@/lib/shared/layouts/NavMobileMain/Navbar';
 import { useIsMobile } from '@/core/hooks/useIsMobile';
 import Navbar from '@/lib/shared/layouts/NavbarWeb/Navbar';
-import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
 import { SliderHandle } from '../components/Slider';
 import { VisualProps as FrequencyVisualProps } from '../components/FrequencyDetailSection/FrequencyDetailSection'; // Import type
 import { ProductPurchaseCtaSection } from '../components/ProductPurchaseCtaSection/ProductPurchaseCtaSection';
+import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
+import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
 const frequencies_energy = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
 const frequencies_lumivitae = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
 const frequencies_recovery = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_recovery.avif";
@@ -72,6 +90,8 @@ const BottlePage: React.FC = () => {
 
   const isMobile = useIsMobile();
   const whySliderRef = useRef<SliderHandle>(null);
+    const whySliderRefTwo = useRef<SliderHandle>(null);
+
 
   // Preload critical background image for HeroSection to improve LCP
   // You might need to adjust the path based on your build system's output
@@ -102,7 +122,7 @@ const BottlePage: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={<div>Loading Benefits Section...</div>}>
-        <BenefitsSection sliderRef={whySliderRef}/>
+        <PioneeringTechSection sliderRef={whySliderRef} /> 
       </Suspense>
 
       <Suspense fallback={<div>Loading Planet Earth Section...</div>}>
@@ -182,7 +202,7 @@ const BottlePage: React.FC = () => {
 
       <Suspense fallback={<div>Loading Pioneering Tech Section...</div>}>
         {/* The sliderRef prop is optional for PioneeringTechSection based on its current usage */}
-        <PioneeringTechSection sliderRef={whySliderRef} /> 
+        <PioneeringTechSection sliderRef={whySliderRefTwo} slider={defaultSlidesTwo} /> 
       </Suspense>
 
       <Suspense fallback={<div>Loading Magnetic Field Info Section...</div>}>
@@ -194,7 +214,8 @@ const BottlePage: React.FC = () => {
       </Suspense>
 
       <Suspense fallback={<div>Loading Footer...</div>}>
-        <Footer />
+      {isMobile?<MobileFooter/>:
+        <Footer />}
       </Suspense>
 
       <Suspense fallback={null}> {/* ScrollToTopButton is light, null fallback is fine */}

@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme';
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
-const decorativeBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/products/bottleImageUrl.avif";
+const decorativeBgUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/bottleImageUrl.avif";
 
 export const SectionWrapper = styled.section`
   position: relative;
@@ -75,6 +75,24 @@ export const BottleVisualContainer = styled.div`
   }
 `;
 
+
+export const BottleImageTwo = styled.img<{ $filter: string }>`
+  width: 80%;
+  max-width: 290px;
+  height: auto;
+  max-height: 750px;
+  filter: ${({ $filter }) => $filter};
+  object-fit: contain;
+  position: absolute;
+  bottom: -150px;
+
+   ${media.tabletDown} {
+    position: static;
+    width: auto;
+    max-width: 160px;
+    max-height: 100%;
+  }
+`;
 export const BottleImage = styled.img`
   width: 80%; /* Relative width */
   max-width: 290px; /* With a max-width limit */

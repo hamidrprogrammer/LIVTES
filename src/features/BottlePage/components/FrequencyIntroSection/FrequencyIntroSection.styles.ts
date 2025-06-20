@@ -1,19 +1,39 @@
 import styled from 'styled-components';
 import { media, Theme } from '../../../../core/theme/theme';
 
-const frequencies = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies.avif";
+// const frequencies = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies.avif";
+import b from "@assets/images/bottle/attachment.png"
+import frequencies from "@assets/images/bottle/frequenciestrans.webp"
 
 import SmartImage from '@/lib/shared/components/Besic/SmartImage/SmartImage';
 // Assumed image path: public/images/frequencies.jpg
 const sectionBackgroundImage = frequencies;
-
-export const SectionWrapper = styled.div`
+export const SectionWrapperMain = styled.div`
   position: relative;
   width: 100%;
   height: 800px;
   background-color: #000309; // Fallback base color from Figma
-  background-image: url(${sectionBackgroundImage});
+  background-image: url(${b});
   background-size: cover;
+  background-position: center center;
+  color: ${({ theme }) => theme.colors.white};
+  display: flex; // To center ContentContainer
+  align-items: center; // Vertically align ContentContainer
+  overflow: hidden;
+
+  ${media.tabletDown} {
+    height: auto;
+    min-height: 700px;
+    padding: ${({ theme }) => theme.spacing.xxl} 0;
+  }
+`;
+export const SectionWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 800px;
+  background-size: cover;
+    background-image: url(${frequencies});
+
   background-position: center center;
   color: ${({ theme }) => theme.colors.white};
   display: flex; // To center ContentContainer

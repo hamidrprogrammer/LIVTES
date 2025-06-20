@@ -24,6 +24,7 @@ const FrequencyIntroSection: React.FC = () => {
   };
 
   return (
+    <S.SectionWrapperMain>
     <S.SectionWrapper id="frequency-intro-section">
       <S.ContentContainer>
         <S.TextAndButtonCluster data-aos="fade-right">
@@ -62,6 +63,7 @@ const FrequencyIntroSection: React.FC = () => {
         {/* <S.ImagePlaceholder data-aos="fade-left" /> */}
       </S.ContentContainer>
     </S.SectionWrapper>
+    </S.SectionWrapperMain>
   );
 };
 

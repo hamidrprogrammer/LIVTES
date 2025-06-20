@@ -1,46 +1,41 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from 'react';
 import * as S from './PioneeringTechSection.styles';
-const benefitImage1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-4.avif';
+const benefitImage1 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.avif';
 const benefitImage2 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-2.avif';
 const benefitImage3 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.avif';
 const benefitImage5 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-5.avif';
 import { Slider, SliderHandle } from '../Slider';
 const group62 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-6-2.avif'; // Next arrow
 const group72 = 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/group-7-2.avif'; // Back arro
-const benefitsData = [
+export type Slide = {
+  image: string;
+  text: string;
+};
 
-  {
-    id: '1',
-    imageUrl: benefitImage1,
-    caption: 'Reduces oxidative stress – the root cause of aging, fatigue, and chronic disease.',
-  },
-  {
-    id: '2',
-    imageUrl: benefitImage2,
-    caption: 'Boosts natural antioxidants like glutathione, the body’s master detoxifier.',
-  },
-  {
-    id: '3',
-    imageUrl:benefitImage3,
-    caption: 'Enhances energy production at a cellular level by optimizing mitochondrial function.',
-  },
-  {
-    id: '4',
-    imageUrl: benefitImage5,
-    caption: 'Supports healthy inflammation response, helping the body recover faster.',
-  },
-  {
-    id: '5',
-    imageUrl: benefitImage5,
-    caption: 'Protects the brain, heart, muscles, and skin, promoting longevity and resilience.',
-  },
-];
 interface PioneeringTechSectionProps {
   sliderRef: React.RefObject<SliderHandle>;
+  slider?: Slide[];
 }
-
-const PioneeringTechSection:  React.FC<PioneeringTechSectionProps> = ({ sliderRef }) => {
+const defaultSlides = [
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-3.avif',
+    text: "Reduces oxidative stress – the root cause of aging, fatigue, and chronic disease."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-2.avif',
+    text: "Boosts natural antioxidants like glutathione, the body’s master detoxifier."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/image-5.avif',
+    text: "Enhances energy production at a cellular level by optimizing mitochondrial function."
+  },
+  {
+    image: 'https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/imageSlideFure.avif',
+    text: "Supports healthy inflammation response, helping the body recover faster."
+  },
+];
+const PioneeringTechSection:  React.FC<PioneeringTechSectionProps> = ({ sliderRef ,slider}) => {
   return (
  <S.SectionContainer data-aos="fade-up">
       <S.SectionContent>
@@ -54,7 +49,7 @@ const PioneeringTechSection:  React.FC<PioneeringTechSectionProps> = ({ sliderRe
         <S.SliderWrapper>
           {/* کامپوننت Slider در اینجا قرار می گیرد و ref را می پذیرد */}
           {/* محتوای اسلایدر (تصاویر و متن های زیرین) باید به عنوان children یا props به Slider داده شوند */}
-          <Slider ref={sliderRef} />
+          <Slider ref={sliderRef} slider={slider}/>
         </S.SliderWrapper>
         
         <S.SliderControls>
