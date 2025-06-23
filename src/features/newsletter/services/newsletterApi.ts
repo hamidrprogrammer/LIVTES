@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { httpClient, type RequestOptions } from '../../../core/httpClient/httpClient';
 import {
   SubscribeNewsletterPayloadSchema,
@@ -6,6 +7,7 @@ import {
 import type {
   SubscribeNewsletterPayload,
   SubscribeNewsletterResponse,
+  UnsubscribeNewsletterPayload,
 } from '../../../core/types/api/newsletter';
 
 const API_BASE_URL = 'https://api.lumivitaeglobal.com/api'; // Should be in an env file
@@ -35,5 +37,26 @@ export async function subscribeToNewsletter(
       ...requestOptions,
     },
     SubscribeNewsletterResponseSchema
+  );
+}
+
+/**
+ * Unsubscribes an email address from the newsletter.
+ * @param payload The email to unsubscribe.
+ * @param requestOptions Optional fetch request options.
+ * @returns
+ */
+export async function unsubscribeFromNewsletter(
+  payload: UnsubscribeNewsletterPayload,
+  requestOptions?: RequestOptions
+): Promise<any> {
+  const url = `${API_BASE_URL}/unsubscribe`;
+  return httpClient(
+    url,
+    {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+      ...requestOptions,
+    }
   );
 }

@@ -48,6 +48,7 @@ import { VisualProps as FrequencyVisualProps } from '../components/FrequencyDeta
 import { ProductPurchaseCtaSection } from '../components/ProductPurchaseCtaSection/ProductPurchaseCtaSection';
 import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
 import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
+import { LoadingIndicator } from '@/core/loading/LoadingIndicator';
 const frequencies_energy = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
 const frequencies_lumivitae = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_lumivitae.avif";
 const frequencies_recovery = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/frequencies_recovery.avif";
@@ -109,40 +110,40 @@ const BottlePage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <Suspense fallback={<div>Loading Navigation...</div>}>
+      <Suspense >
         {isMobile ? <NavbarMobile /> : <Navbar />}
       </Suspense>
       
-      <Suspense fallback={<div>Loading Hero Section...</div>}>
+      <Suspense >
         <HeroSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Molecular Hydrogen Section...</div>}>
+      <Suspense >
         <MolecularHydrogenSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Benefits Section...</div>}>
+      <Suspense >
         <PioneeringTechSection sliderRef={whySliderRef} /> 
       </Suspense>
 
-      <Suspense fallback={<div>Loading Planet Earth Section...</div>}>
+      <Suspense >
         <PlanetEarthSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Feature Highlights Section...</div>}>
+      <Suspense >
         <FeatureHighlightsSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading In-Page Navigation...</div>}>
+      <Suspense >
         <InPageNav />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Frequency Intro Section...</div>}>
+      <Suspense >
         <FrequencyIntroSection />
       </Suspense>
 
       {/* Lumivitae Frequency Detail */}
-      <Suspense fallback={<div>Loading Lumivitae Frequency Details...</div>}>
+      <Suspense >
         <FrequencyDetailSection
           id="lumivitae-frequency-detail-section"
           backgroundImageUrl={frequencies_lumivitae}
@@ -165,7 +166,7 @@ const BottlePage: React.FC = () => {
       </Suspense>
 
       {/* Recovery Frequency Detail */} 
-      <Suspense fallback={<div>Loading Recovery Frequency Details...</div>}>
+      <Suspense >
         <FrequencyDetailSection
           id="recovery-frequency-detail-section"
           backgroundImageUrl={frequencies_recovery}
@@ -179,7 +180,7 @@ const BottlePage: React.FC = () => {
       </Suspense>
     
       {/* Energy Frequency Detail */}
-      <Suspense fallback={<div>Loading Energy Frequency Details...</div>}>
+      <Suspense >
         <FrequencyDetailSection
           id="energy-frequency-detail-section"
           backgroundImageUrl={frequencies_energy}
@@ -192,33 +193,33 @@ const BottlePage: React.FC = () => {
         />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Chromotherapy Intro Section...</div>}>
+      <Suspense>
         <ChromotherapyIntroSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Chromo Colours Section...</div>}>
+      <Suspense >
         <ChromoColoursSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Pioneering Tech Section...</div>}>
+      <Suspense >
         {/* The sliderRef prop is optional for PioneeringTechSection based on its current usage */}
         <PioneeringTechSection sliderRef={whySliderRefTwo} slider={defaultSlidesTwo} /> 
       </Suspense>
 
-      <Suspense fallback={<div>Loading Magnetic Field Info Section...</div>}>
+      <Suspense>
         <MagneticFieldInfoSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Product Purchase CTA Section...</div>}>
+      <Suspense >
         <ProductPurchaseCtaSection />
       </Suspense>
 
-      <Suspense fallback={<div>Loading Footer...</div>}>
+      <Suspense >
       {isMobile?<MobileFooter/>:
         <Footer />}
       </Suspense>
 
-      <Suspense fallback={null}> {/* ScrollToTopButton is light, null fallback is fine */}
+      <Suspense > {/* ScrollToTopButton is light, null fallback is fine */}
         <ScrollToTopButton />
       </Suspense>
       

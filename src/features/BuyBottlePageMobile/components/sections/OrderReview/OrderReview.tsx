@@ -17,6 +17,7 @@ import { ProductVariation, Subscription } from '@/core/types/api/shop';
 import { CartItem } from '@/features/cart/store/cartStore';
 import useScrollAnimation from '@/core/hooks/useScrollAnimation';
 import Button from '../../Button/Button';
+import { SeparatorLine } from '@/features/New folder/BuyBottlePage/components/OrderReview/OrderReview.styles';
 const checkoutImageUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Checkout_Shop 1.avif";
 
 interface OrderReviewProps {
@@ -46,44 +47,31 @@ const OrderReview: React.FC<OrderReviewProps> = ({
 
   const renderContent = () => {
     // Case 1: Bottle Product (ID '1') - Review is based on cart content
-    if (productId === '1') {
-      if (!bottleItem) {
-        return <NoItemSelected>Your order summary will appear here once you select a bottle.</NoItemSelected>;
-      }
+ 
       return (
         <>
+        {cartItems?.map((items)=>{
+          return (
           <SummaryItem>
-            <ItemTitle>{bottleItem.name}</ItemTitle>
-            <ItemDetail>Quantity: {bottleItem.quantity}</ItemDetail>
-            <ItemDetail>{bottleItem.sale_price.gross_value_after_discount_string}</ItemDetail>
+       <ItemTitle>
+  {items.name}
+  <br />
+  {items.subscriptionPrices?.length && items.subscriptionPrices[0]?.interval_days && (
+    <>{items.subscriptionPrices[0].interval_days} Days</>
+  )}
+</ItemTitle>
+            <ItemDetail>Quantity: {items.quantity}</ItemDetail>
+            <ItemDetail>{items?.sale_price?.gross_value_after_discount_string}</ItemDetail>
+            <SeparatorLine alt="Line"/>
           </SummaryItem>
+          )
+        })}
         </>
       );
-    }
+    
 
     // Case 2: Tablet Products - Review is based on current selections
-    if (!selectedProduct) {
-        return <NoItemSelected>Your order summary will appear here once you select a bundle.</NoItemSelected>;
-    }
-    return (
-      <>
-        <SummaryItem>
-          <ItemTitle>{selectedProduct.name}</ItemTitle>
-          <ItemDetail>{selectedProduct.product?.description || `${selectedProduct.quantity} Tablets`}</ItemDetail>
-          <ItemDetail>{selectedProduct.sale_price.gross_value_after_discount_string}</ItemDetail>
-        </SummaryItem>
-        {selectedSubscription && (
-          <>
-            <Divider />
-            <SummaryItem>
-              <ItemTitle>Frequency</ItemTitle>
-              <ItemDetail>{selectedSubscription.title}</ItemDetail>
-              {selectedSubscription.description && <ItemDetail>{selectedSubscription.description}</ItemDetail>}
-            </SummaryItem>
-          </>
-        )}
-      </>
-    );
+   
   };
 
   return (

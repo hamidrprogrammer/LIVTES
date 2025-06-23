@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { httpClient, type RequestOptions, type ApiError } from '../../../core/httpClient/httpClient';
 import {
   UserProfileResponseSchema,
@@ -23,6 +24,19 @@ import type {
 const API_BASE_URL = 'https://api.lumivitaeglobal.com/api'; // Should be in an env file
 
 /**
+ * Deactivates the current user's account.
+ * @param requestOptions Optional fetch request options.
+ * @returns
+ */
+export async function deactivateAccount(requestOptions?: RequestOptions): Promise<any> {
+  const url = `${API_BASE_URL}/users/deactive-account`;
+  return await httpClient(url, {
+    method: 'PUT',
+    ...requestOptions,
+  });
+}
+
+/**
  * Fetches the current user's profile.
  * @param requestOptions - Optional fetch request options.
  * @returns A promise resolving to the user's profile.
@@ -34,13 +48,12 @@ export async function getUserProfile(
 ): Promise<UserProfileResponse> {
   const url = `${API_BASE_URL}/users/profile`;
   const response = await httpClient(url, requestOptions, UserProfileResponseSchema);
-     
-     
-     
-  
-  
+
+
+
+
     return response;
- 
+
 }
 
 /**
@@ -74,9 +87,9 @@ export async function updateUserProfile(
     },
     UserProfileResponseSchema
   );
-   
-   
-   
+
+
+
   return ursl
 }
 

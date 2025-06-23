@@ -7,6 +7,7 @@ import {
   selectNewsletterSuccessMessage,
 } from '../stores/newsletterStore';
 import type { SubscribeNewsletterPayload } from '../../../core/types/api/newsletter';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 export const NewsletterSubscribeForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export const NewsletterSubscribeForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email.trim()) {
-      alert('Please enter your email address.');
+      showToast(`Please enter your email address.`,'error')
       return;
     }
     // It's good practice to clear previous messages before a new submission attempt

@@ -113,3 +113,16 @@ export async function listOrderSales(
   const url = `${API_BASE_URL}/order-sales/list${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
   return httpClient(url, requestOptions, OrderSaleListResponseSchema);
 }
+export async function cancelOrderSubscription(
+  subscriptionId: number,
+  requestOptions?: RequestOptions
+): Promise<any> { // Use 'any' or a more specific response type if the API returns one
+  const url = `${API_BASE_URL}/order-subscriptions/${subscriptionId}/cancel`;
+  return httpClient(
+    url,
+    {
+      method: 'PUT',
+      ...requestOptions,
+    }
+  );
+}

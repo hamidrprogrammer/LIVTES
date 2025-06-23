@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, type UseMutationOptions, useQueryClient } from '@tanstack/react-query';
-import { subscribeToNewsletter } from '../services/newsletterApi';
+import { subscribeToNewsletter, unsubscribeFromNewsletter } from '../services/newsletterApi';
 import type {
   SubscribeNewsletterPayload,
   SubscribeNewsletterResponse,
+  UnsubscribeNewsletterPayload,
 } from '../../../core/types/api/newsletter';
 import type { ApiError } from '../../../core/httpClient/httpClient';
 // import { userQueryKeys } from '../../user/hooks/useUserQueries'; // If subscription status affects user profile
@@ -49,5 +52,22 @@ export function useSubscribeToNewsletterMutation(
       }
     },
     ...options,
+  });
+}
+
+/**
+ * Hook for unsubscribing from the newsletter.
+ */
+export function useUnsubscribeFromNewsletterMutation(
+  options?: Omit<UseMutationOptions<any, ApiError, UnsubscribeNewsletterPayload>, 'mutationFn'>
+) {
+  const queryClient = useQueryClient();
+  return useMutation<any, ApiError, UnsubscribeNewsletterPayload>({
+    mutationFn: unsubscribeFromNewsletter,
+    onSuccess: (data, variables, context) => {
+      if (options?.onSuccess) {
+        options.onSuccess(data, variables, context);
+      }
+    },
   });
 }

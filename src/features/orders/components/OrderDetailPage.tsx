@@ -46,7 +46,7 @@ export const OrderDetailPage: React.FC<OrderOrderDetailProps> = ({onBack,orderId
                 setGenerateLinkResponse(responseData);
                 if (responseData?.session_data) setShowAdyen(true);
             },
-            onError: (err) => alert(`Could not generate payment link: ${err.message}`),
+            onError: (err) =>showToast(`Could not generate payment link: ${err.message}`,'error'),
         });
     };
 

@@ -9,6 +9,7 @@ import { ContactGroup, ListContactGroupsParams } from '@/core/types/api/contactG
 import { Pagination } from '@/lib/shared/components/Pagination/Pagination';
 import { DebouncedSearchInput } from '@/lib/shared/components/DebouncedSearchInput/DebouncedSearchInput';
 import { SortDropdown } from '@/lib/shared/components/SortDropdown/SortDropdown';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 const PageContainer = styled.div`
   display: flex;
@@ -94,10 +95,13 @@ export const AddressListPage: React.FC = () => {
     isArchive: false,page:currentPage, per_page: itemsPerPage ,
     'orderBy[id]': sort, 
     search: search }), [currentPage,search,sort]);
-  const { data: addressesData, isLoading, isError } = useListContactGroupsQuery(listParams);
+  const { data: addressesData, isLoading, isError,refetch } = useListContactGroupsQuery(listParams);
 
   const { mutate: setInvoiceAddress, isPending: isSettingInvoice } = useChangeInvoiceContactGroupMutation({
-    onSuccess: () => alert('Default invoice address changed successfully!'),
+    onSuccess: () => {
+      showToast('Default invoice address changed successfully!','success')
+      refetch();
+    },
     onError: (err) => alert(`Error: ${err.message}`),
   });
 

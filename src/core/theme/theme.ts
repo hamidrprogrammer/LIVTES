@@ -210,6 +210,7 @@ export const theme: Theme = {
   colors: {
     // Theme 2 values prioritized for direct overlaps
     primary: '#33BFBC', // Teal/Cyan focus color (Theme 2)
+    primaryLight: '#60C9DA', // Added for scrollbar and general use
     primaryDark: '#072C3D', // Dark blue/teal (Theme 2)
     secondary: '#3FFFF8', // Bright Cyan (Theme 2)
     textLight: '#FFFFFF', // Consistent

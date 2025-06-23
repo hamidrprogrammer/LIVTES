@@ -36,7 +36,6 @@ const FrequencyPicker: React.FC<FrequencyPickerProps> = ({ product, onSelect, se
 
   const handleSelect = (option: Subscription) => {
     if (isProductInCart) {
-      alert("This bundle is already in your cart. To change the frequency, please remove it from the cart first.");
       return;
     }
     onSelect(option);

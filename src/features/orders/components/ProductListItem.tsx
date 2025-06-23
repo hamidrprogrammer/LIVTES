@@ -45,19 +45,7 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({ item, currency
                 <S.DetailText>Article Number: <span>{productVariation.number}</span></S.DetailText>
                 
                 {/* MLM Details, shown only if data exists */}
-                {position.orderPositionMlmDetail && (
-                     <S.MlmDetails>
-                        <S.DetailText>QV: <span>{position.orderPositionMlmDetail.qv ?? 'N/A'}</span></S.DetailText>
-                        <S.DetailText>
-                            Provision: <span>
-                                {currencyFormat(
-                                    (position.orderPositionMlmDetail.provision_price * (position.orderPositionMlmDetail.percentage_of_provision / 100)),
-                                    currencyIso
-                                )}
-                            </span>
-                        </S.DetailText>
-                    </S.MlmDetails>
-                )}
+              
             </S.InfoContainer>
             
             <S.PriceContainer>
@@ -65,11 +53,9 @@ export const ProductListItem: React.FC<ProductListItemProps> = ({ item, currency
                 <S.DetailText>Quantity: <span>{position.quantity}</span></S.DetailText>
                 <S.DetailText>Discount: <span>{currencyFormat(position.discount ?? 0, currencyIso)}</span></S.DetailText>
                 <S.DetailText>Total Price: <span>{currencyFormat(position.gross_amount?? 0, currencyIso)}</span></S.DetailText>
-                {productVariation.product && (
-                    <S.ShowArticleButton to={`/shop/products/${productVariation.product.slug}`}>
-                        Show Article
-                    </S.ShowArticleButton>
-                )}
+                <S.DetailText >
+                        Show Article  <span>{productVariation.number}</span>
+                    </S.DetailText>
             </S.PriceContainer>
         </S.ItemWrapper>
     );

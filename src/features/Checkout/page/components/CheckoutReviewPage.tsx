@@ -259,7 +259,8 @@ const onHandleChangeDelivery = (delivery_contact_group_id: number) => {
     if (isCreatingOrder) return;
 
     if (!selectedBillingAddressId || !selectedDeliveryAddressId) {
-      alert('Please select billing and delivery addresses.');
+            showToast('Please select billing and delivery addresses.','info')
+      
       return;
     }
 

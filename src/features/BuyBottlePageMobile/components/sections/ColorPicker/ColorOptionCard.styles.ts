@@ -65,7 +65,19 @@ export const ColorName = styled.h3`
   overflow-wrap: anywhere;
   word-break: break-word;
 `;
-
+export const ColorNameR = styled.h3`
+  grid-area: name;
+  font-family: ${({ theme }) => theme.typography.fontFamily};
+  font-weight: ${({ theme }) => theme.typography.fontWeightLight};
+  font-size: clamp(${pxToRem(12)}, 4vw, ${pxToRem(2)});
+  line-height: 1.2;
+  color: ${({ theme }) => theme.colors.textDark};
+  margin-bottom: ${pxToRem(4)};
+  
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+`;
 export const DetailsRow = styled.div`
   grid-area: details;
   display: flex;
@@ -85,7 +97,7 @@ export const DetailText = styled.p`
   color: ${({ theme }) => theme.colors.textGrey};
 
   &.price {
-    text-align: right;
+    text-align: left;
   }
   &.volume {
     /* No min-width needed, flexbox will handle spacing */

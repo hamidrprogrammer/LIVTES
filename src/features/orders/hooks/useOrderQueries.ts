@@ -1,4 +1,4 @@
-import { useQuery, type UseQueryOptions, type QueryKey, useInfiniteQuery, UseInfiniteQueryOptions, InfiniteData, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, type UseQueryOptions, type QueryKey, useInfiniteQuery, UseInfiniteQueryOptions, InfiniteData, useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 import {
   getOrderSubscription,
   listOrderSubscriptions,
@@ -6,6 +6,7 @@ import {
     getOrderSaleDetail,
     generatePaymentLink,
     generateSubPaymentLink,
+    cancelOrderSubscription,
 
 } from '../services/orderApi';
 import type {
@@ -138,3 +139,23 @@ export function useGenerateSubPaymentLinkMutation() {
     });
 }
 
+
+/**
+ * Hook to cancel an order subscription.
+ */
+export function useCancelOrderSubscriptionMutation(
+  options?: Omit<UseMutationOptions<any, ApiError, number>, 'mutationFn'>
+) {
+  const queryClient = useQueryClient();
+  return useMutation<any, ApiError, number>({
+    mutationFn: (subscriptionId) => cancelOrderSubscription(subscriptionId),
+    onSuccess: (data, subscriptionId, context) => {
+      // Invalidate queries to refetch updated data after cancellation
+      queryClient.invalidateQueries({ queryKey: orderQueryKeys.subscriptions() });
+      if (options?.onSuccess) {
+        options.onSuccess(data, subscriptionId, context);
+      }
+    },
+    ...options,
+  });
+}

@@ -20,6 +20,7 @@
     "@types/node": "^16.18.38",
     "@types/styled-components": "^5.1.34",
     "aos": "^2.3.4",
+    "axios": "^1.10.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^10.12.21",
     "i18next": "^25.2.1",

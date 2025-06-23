@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery, useMutation, useQueryClient, type UseQueryOptions, type UseMutationOptions, type QueryKey } from '@tanstack/react-query';
 import {
@@ -7,6 +8,7 @@ import {
   getUnassignedLegals,
   changeInvoiceContactGroup,
   changePassword,
+  deactivateAccount,
 } from '../services/userApi';
 import type {
   UserProfileResponse,
@@ -28,6 +30,15 @@ export const userQueryKeys = {
   documents: (params?: GetUserDocumentsParams) => [...userQueryKeys.all, 'documents', params ?? {}] as const,
   unassignedLegals: () => [...userQueryKeys.all, 'unassignedLegals'] as const,
 };
+
+export function useDeactivateAccountMutation(
+  options?: Omit<UseMutationOptions<any, ApiError, void>, 'mutationFn'>
+) {
+  return useMutation<any, ApiError, void>({
+    mutationFn: deactivateAccount,
+    ...options,
+  });
+}
 export function useChangePasswordMutation(
   options?: Omit<UseMutationOptions<any, ApiError, ChangePasswordPayload>, 'mutationFn'>
 ) {

@@ -18,10 +18,10 @@ import type { PaginationLinks, Meta } from '../../../core/types/api/common';
 
 const createListKey = (params?: GetOrderParams | GetOrderSaleParams): string => {
   if (!params || Object.keys(params).length === 0) return 'default';
-  return JSON.stringify(Object.keys(params).sort().reduce((acc, key) => {
+  return JSON.stringify(Object.keys(params).sort().reduce((acc, key) => ({
     ...acc,
     [key as keyof typeof params]: params[key as keyof typeof params],
-  }, {}));
+  }), {}));
 };
 
 interface OrderSubscriptionDetailState {

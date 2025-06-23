@@ -39,7 +39,6 @@ export const FrequencyOptionsSection: React.FC<FrequencyOptionsSectionProps> = (
 
   const handelOnSelect = (option: Subscription) => {
     if (isProductInCart) {
-      alert("This bundle is already in your cart. To change the frequency, please remove it from the cart first.");
       return;
     }
     onSelect(option);

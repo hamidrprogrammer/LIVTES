@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useChangePasswordMutation, useUpdateUserProfileMutation } from '../../hooks/useUserQueries';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 const Card = styled.div`
   background-color: #FFFFFF;
@@ -82,20 +83,23 @@ export const ChangePassword = () => {
 
   const { mutate: updatePassword, isLoading, error } = useChangePasswordMutation({
     onSuccess: () => {
-      alert('Password updated successfully!');
+                        showToast('Password updated successfully!','info')
+
       setCurrentPassword('');
       setNewPassword('');
       setPasswordConfirmation('');
     },
     onError: (err) => {
-      alert(`Error: ${err.message}`);
+                              showToast(`Error: ${err.message}`,'error')
+
     }
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== passwordConfirmation) {
-      alert("New passwords do not match.");
+                  showToast('New passwords do not match.','info')
+      
       return;
     }
     updatePassword({

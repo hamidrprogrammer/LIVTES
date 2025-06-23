@@ -18,6 +18,7 @@ export interface BuyOptionDesignProps {
   disabled?: boolean; // پراپرتی جدید اضافه شد
     handleQuantity: (optionId: number, quantity: string) => void;
    option: any;
+   
   currentQuantity: number;
   onQuantityChange: (optionId: string, newQuantity: number) => void;
 }
@@ -35,6 +36,7 @@ export const BuyOptionSubDesign = ({
   currentQuantity,
   className,
   option,
+  product,
   disabled = false, // مقدار پیش‌فرض false
 }: BuyOptionDesignProps): JSX.Element => {
   const hasShipmentDetails = shipmentRange1 || shipmentRange2;

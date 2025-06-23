@@ -19,6 +19,7 @@ import OrderReview from '../components/sections/OrderReview/OrderReview';
 import WhatsInBox from '../components/sections/WhatsInBox/WhatsInBox';
 import FAQ from '../components/sections/FAQ/FAQ';
 import MobileFooter from '@/lib/shared/layouts/MobileFooter/MobileFooter';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 const BuyBottlePageMobile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -89,21 +90,20 @@ const BuyBottlePageMobile: React.FC = () => {
       addItemToCart(selectedProduct, "1");
     }
     
-    alert('Product added to bag!');
+          showToast("Product added to bag!.",'info')
+    
     setSelectedProduct(null);
     setSelectedSubscription(null);
   };
   
   const handleCheckoutNow = () => {
      
-    alert('Proceeding to checkout (simulated)! Check console for details.');
     // Here you would typically navigate to the checkout page
   };
 
   if (!id) {
     return null; // or a loading/error component
   }
-  
   return (
     <PageWrapper>
       <NavbarMobile />

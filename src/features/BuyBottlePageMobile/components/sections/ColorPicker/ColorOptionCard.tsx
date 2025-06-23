@@ -8,6 +8,7 @@ import {
   DetailText,
   ColorSwatch,
   QuantitySelectorContainer,
+  ColorNameR,
 } from './ColorOptionCard.styles';
 import { ProductVariation } from '@/core/types/api/shop';
 import QuantitySelector from '../../QuantitySelector/QuantitySelector';
@@ -58,10 +59,12 @@ const ColorOptionCard: React.FC<ColorOptionCardProps> = ({
     >
       <InfoColumn>
         <ColorName>{option.name}</ColorName>
-        <DetailsRow>
+       
           {/* <DetailText className="volume">{option.quantity}</DetailText> */}
           <DetailText className="price">{option.sale_price?.gross_value_after_discount_string}</DetailText>
-        </DetailsRow>
+        
+                        <ColorNameR >{"Article number: " +option.number}</ColorNameR>
+
       </InfoColumn>
 
       <ColorSwatch $colorStyle={colorStyle} aria-label={`${option.name} color swatch`} />

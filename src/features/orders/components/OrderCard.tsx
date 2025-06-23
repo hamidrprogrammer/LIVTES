@@ -7,10 +7,11 @@ import { FiEye } from 'react-icons/fi';
 interface OrderCardProps {
   order: OrderSale;
     onViewDetails: (id: number) => void;
+    onCancel: (id: number) => void;
 
 }
 
-export const OrderCard: React.FC<OrderCardProps> = ({ order ,onViewDetails}) => {
+export const OrderCard: React.FC<OrderCardProps> = ({ order ,onViewDetails,onCancel}) => {
   const formattedDate = new Date(order?.order_date).toLocaleDateString('en-US', {
     month: 'long', day: 'numeric', year: 'numeric'
   });

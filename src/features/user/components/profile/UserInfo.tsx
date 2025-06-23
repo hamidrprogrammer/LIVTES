@@ -10,6 +10,7 @@ import { useListLanguagesQuery, useListCountriesQuery } from '@/features/setting
 // END: Import hooks
 import { format } from 'date-fns';
 import { useQueryClient } from '@tanstack/react-query';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 // ... Styled Components (Card, Grid, Field, Label, Value, StyledInput, StyledSelect, etc.) remain the same ...
 const Card = styled.div`
@@ -151,11 +152,14 @@ export const UserInfo: React.FC<UserInfoProps> = ({ user, isEditing, onSave }) =
     onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: userQueryKeys.profile() });
             // Optionally, you can set the query data immediately if the response is the full profile
-      alert('Profile updated successfully!');
+                                    showToast(`Profile updated successfully!`,'success')
+      
       onSave();
     },
     onError: (error: any) => {
-      alert(`Update failed: ${error.message}`);
+      
+                                          showToast(`Update failed: ${error.message}`,'error')
+
     }
   });
 

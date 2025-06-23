@@ -7,6 +7,7 @@ import { SubscriptionProductListItem } from './SubscriptionProductListItem'; // 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import AdyenDropIn from '@/lib/shared/components/adyen';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 interface OrderSubscriptionDetailProps {
   subscriptionId: number;
@@ -41,7 +42,7 @@ export const OrderSubscriptionDetail: React.FC<OrderSubscriptionDetailProps> = (
                 setGenerateLinkResponse(responseData);
                 if (responseData?.session_data) setShowAdyen(true);
             },
-            onError: (err) => alert(`Could not generate payment link: ${err.message}`),
+            onError: (err) =>  showToast(`Could not generate payment link: ${err.message}`,'error')
         });
     };
     return (

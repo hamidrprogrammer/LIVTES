@@ -31,7 +31,7 @@ import type { UserCountry, UserLanguage, Currency, PaginationLinks, Meta } from 
 export type SocialMediaItem = z.infer<typeof SocialMediaItemSchema>;
 export type SocialMediaSettings = z.infer<typeof SocialMediaSettingsSchema>;
 // Assuming response is { data: SocialMediaSettings }
-export type SocialMediaSettingsResponse = z.object({ data: SocialMediaSettingsSchema });
+export type SocialMediaSettingsResponse = { data: SocialMediaSettings };
 
 
 // States Types

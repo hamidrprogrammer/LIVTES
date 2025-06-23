@@ -6,6 +6,7 @@ import {
   selectIsApplyingCoupon,
 } from '../stores/couponStore';
 import type { SetCouponInfoPayload } from '../../../core/types/api/coupon';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 interface CouponApplyFormProps {
   invoiceContactGroupId?: number;
@@ -31,7 +32,8 @@ export const CouponApplyForm: React.FC<CouponApplyFormProps> = ({ invoiceContact
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!couponCode.trim()) {
-      alert('Please enter a coupon code.');
+                        showToast('Please enter a coupon code.','info')
+      
       return;
     }
     clearAppliedCoupon();

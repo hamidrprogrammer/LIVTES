@@ -38,7 +38,7 @@ export function useGetProductVariationsQuery(
   return useQuery<ProductVariationsResponse, ApiError, ProductVariationsResponse, QueryKey>({
     queryKey: productQueryKeys.variationDetail(productId, params),
     queryFn: ({ signal }) => getProductVariations(productId, params, { signal }),
-    enabled: !!productId && !!params.countryId,
+    enabled: !!productId|| !!params.countryId,
     ...options,
   });
 }

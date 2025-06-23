@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 // import CheckoutPage from './features/Checkout/page/CheckoutPage'; // حذف import مستقیم
 // import { CheckoutReviewPage } from './features/Checkout/page/components/CheckoutReviewPage'; // حذف import مستقیم
 import { ResponsiveRoute } from './ResponsiveRoute'; // این کامپوننت به صورت مستقیم استفاده می‌شود، نیازی به lazy نیست مگر اینکه خودش پیچیده باشد.
+import { LoginForm } from './features/auth/components/LoginForm';
 // import { BuyBottlePage } from './features/BuyBottlePage/BuyBottlePage'; // حذف import مستقیم
 // import { ProfilePage } from './features/user/components/profile/ProfilePage'; // حذف import مستقیم
 
@@ -25,12 +26,18 @@ const ProductTabletsWebPage = lazy(() => import('./features/ProductTabletsWebPag
 const TabletPage = lazy(() => import('./features/TabletPage/page/TabletPage'));
 const HomeOldPage = lazy(() => import('./features/HomePageold/pages'));
 const BuyBottlePageMobile = lazy(() => import('./features/BuyBottlePageMobile/page/BuyBottlePage'));
-const LoginForm = lazy(() => import('./features/auth/components/LoginForm').then(module => ({ default: module.LoginForm })));
 const CheckoutPage = lazy(() => import('./features/Checkout/page/CheckoutPage'));
 const CheckoutReviewPage = lazy(() => import('./features/Checkout/page/components/CheckoutReviewPage'));
-const BuyBottlePage = lazy(() => import('./features/BuyBottlePage/BuyBottlePage').then(module => ({ default: module.BuyBottlePage })));
-const ProfilePage = lazy(() => import('./features/user/components/profile/ProfilePage').then(module => ({ default: module.ProfilePage })));
-
+const BuyBottlePage = lazy(() =>
+  import("./features/BuyBottlePage/BuyBottlePage").then((mod) => ({
+    default: mod.BuyBottlePage, // 👈 دستی export رو مشخص می‌کنی
+  }))
+);
+const ProfilePage = lazy(() =>
+  import("./features/user/components/profile/ProfilePage").then((mod) => ({
+    default: mod.ProfilePage, // 👈 دستی export رو مشخص می‌کنی
+  }))
+);
 const TermsAndConditionsPage = lazy(() => import('./features/legals/TermsAndConditionsPage'));
 const ShippingPolicyPage = lazy(() => import('./features/legals/ShippingPolicyPage'));
 const ReturnsPolicyPage = lazy(() => import('./features/legals/ReturnsPolicyPage'));

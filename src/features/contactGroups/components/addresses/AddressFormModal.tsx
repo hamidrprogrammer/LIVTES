@@ -208,7 +208,7 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
   const countries: Country[] = useMemo(() => countriesData?.data || [], [countriesData]);
 
   const { data: statesData, isLoading: isLoadingStates } = useListStatesQuery(
-    { countryId: formData.country_id },
+    { countryId: formData.country_id,page:1,per_page:200 },
     { enabled: !!formData.country_id }
   );
 
@@ -281,7 +281,6 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
       first_name: formData.first_name,
       last_name: formData.last_name,
     };
-    alert(formData.state_id)
 
     if (formData.state_id) {
       addressPayload.state_id =parseInt( formData?.state_id.toString());
@@ -366,19 +365,20 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
               {errors.last_name && <ErrorMessage>{errors.last_name}</ErrorMessage>}
             </FormGroup>
           </FormGrid>
-
-          <FormGroup fullWidth>
+ <FormGrid>
+          <FormGroup >
             <Label htmlFor="company_name">Company Name</Label>
             <Input id="company_name" name="company_name" value={formData.company_name} onChange={handleChange} />
           </FormGroup>
 
-          <FormGroup fullWidth>
+          <FormGroup >
             <Label htmlFor="address1">* Address Line 1</Label>
             <Input id="address1" name="address1" value={formData.address1} onChange={handleChange} required />
             {errors.address1 && <ErrorMessage>{errors.address1}</ErrorMessage>}
           </FormGroup>
-
-          <FormGroup fullWidth>
+</FormGrid>
+<FormGrid>
+          <FormGroup >
             <Label htmlFor="address2">Address Line 2</Label>
             <Input id="address2" name="address2" value={formData.address2} onChange={handleChange} />
           </FormGroup>
@@ -389,6 +389,7 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
               <Input id="postal_code" name="postal_code" value={formData.postal_code} onChange={handleChange} required />
               {errors.postal_code && <ErrorMessage>{errors.postal_code}</ErrorMessage>}
             </FormGroup>
+            </FormGrid>
             <FormGroup>
               <Label htmlFor="city">* City</Label>
               <Input id="city" name="city" value={formData.city} onChange={handleChange} required />
@@ -400,9 +401,13 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
   {isLoadingStates ? (
     <Input value="Loading states..." disabled />
   ) : statesData && statesData.data && statesData.data.length > 0 ? (
-    <Select
-      id="state_id"
+      <Select
+    id="state_id"
       name="state_id"
+   
+ 
+    isLoading={isLoadingCountries}
+     
       value={statesData.data.find(s => s.id === formData.state_id) || null}
       onChange={(selectedOption: any) => {
         setFormData(prev => ({
@@ -415,7 +420,8 @@ export const AddressFormModal: React.FC<AddressFormModalProps> = ({ isOpen, onCl
       getOptionLabel={(option) => option.name}
       getOptionValue={(option) => option.id.toString()}
       placeholder="Select state..."
-    />
+  />
+    
   ) : (
     <Input
       id="state"

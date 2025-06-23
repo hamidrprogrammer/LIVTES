@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { useInfiniteOrderSubscriptionsQuery } from '../hooks/useOrderQueries';
+import { useCancelOrderSubscriptionMutation, useInfiniteOrderSubscriptionsQuery } from '../hooks/useOrderQueries';
 import { GetOrderSubscriptionListParams } from '@/core/types/api/order';
 import { OrderSubscriptionCard } from './OrderSubscriptionCard';
 import { Pagination } from '@/lib/shared/components/Pagination/Pagination';
 import { DebouncedSearchInput } from '@/lib/shared/components/DebouncedSearchInput/DebouncedSearchInput';
 import { SortDropdown } from '@/lib/shared/components/SortDropdown/SortDropdown';
+import { showToast } from '@/lib/shared/stores/toastStore';
+import { ConfirmDialog } from '@/lib/shared/components/ConfirmDialog/ConfirmDialog';
 
 const ListContainer = styled.div`
   display: flex;
@@ -74,9 +76,29 @@ export const OrderSubscriptionList: React.FC<OrderSubscriptionListProps> = ({ on
     data,
     error,
     status,
+    refetch
   } = useInfiniteOrderSubscriptionsQuery({ page: currentPage, 
     per_page: itemsPerPage, 'orderBy[id]': sort, 
     search: search  });
+      const [isCancelConfirmOpen, setCancelConfirmOpen] = useState(false);
+    const [subscriptionId, setSubscriptionId] = useState(0);
+  const cancelSubscriptionMutation = useCancelOrderSubscriptionMutation({
+    onSuccess: () => {
+      showToast('Subscription cancelled successfully.', 'success');
+      refetch(); // Refetch the details to show the updated status
+    },
+    onError: (err) => {
+      showToast(err.message || 'Failed to cancel subscription.', 'error');
+    },
+  });
+  const handleCancelClick = () => {
+    setCancelConfirmOpen(true);
+  };
+
+  const confirmCancellation = () => {
+    cancelSubscriptionMutation.mutate(subscriptionId);
+    setCancelConfirmOpen(false);
+  };
 
   if (status === 'pending') return <p>Loading subscriptions...</p>;
   if (status === 'error') return <p>An error has occurred: {error.message}</p>;
@@ -111,6 +133,10 @@ export const OrderSubscriptionList: React.FC<OrderSubscriptionListProps> = ({ on
               <OrderSubscriptionCard
                 key={page.id}
                 subscription={page}
+                onCancel={()=>{
+          setCancelConfirmOpen(true);
+          setSubscriptionId(page?.id??0);
+        }}
                 onViewDetails={() => onViewDetails(page?.id??0)}
               />
            
@@ -124,6 +150,14 @@ export const OrderSubscriptionList: React.FC<OrderSubscriptionListProps> = ({ on
                 totalPages={data.meta?.last_page??0}
                 onPageChange={setCurrentPage}
               />
+                 <ConfirmDialog
+                      isOpen={isCancelConfirmOpen}
+                      onClose={() => setCancelConfirmOpen(false)}
+                      onConfirm={confirmCancellation}
+                      title="Confirm Cancellation"
+                      message="Are you sure you want to cancel this subscription? This action cannot be undone."
+                      confirmText="Yes, Cancel"
+                    />
     </div>
   );
 };

@@ -1,10 +1,10 @@
 // src/pages/BuyBottlePage/BuyBottlePage.tsx
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { useGetProductVariationsQuery } from '@/features/shop/hooks/useProductQueries';
-import { useCartStore } from '@/features/cart/store/cartStore';
-import { OrderState } from '@/core/types';
-import { NavbarProduct } from '@/lib/shared/layouts/NavbarWeb/NavbarProduct';
-import Footer from '@/lib/shared/layouts/FooterWeb/FooterWeb';
+import { useGetProductVariationsQuery } from '../shop/hooks/useProductQueries';
+import { useCartStore } from '../cart/store/cartStore';
+import { OrderState } from '../../core/types';
+import { NavbarProduct } from '../../lib/shared/layouts/NavbarWeb/NavbarProduct';
+import Footer from '../../lib/shared/layouts/FooterWeb/FooterWeb';
 import { PageHeaderSection } from './components/PageHeaderSection/PageHeaderSection';
 import { MemoizedProductInfoPromptsBottle, MemoizedProductInfoPromptsTablet } from './components/ProductInfoPrompts/ProductInfoPrompts';
 import { BottleSelection } from './components/BottleSelection/BottleSelection';
@@ -16,10 +16,11 @@ import { WhatsInTheBox } from './components/WhatsInTheBox/WhatsInTheBox';
 import { FaqSection } from './components/FaqSection/FaqSection';
 import * as S from './BuyBottlePage.styles';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProductVariation, Subscription } from '@/core/types/api/shop';
+import { ProductVariation, Subscription } from '../../core/types/api/shop';
 import { useSettingsStore } from '../settings/stores/settingsStore'; // ایمپورت استور تنظیمات
 import ColorPicker from '../BuyBottlePageMobile/components/sections/ColorPicker/ColorPicker';
-import ScrollToTopButton from '@/lib/shared/components/ScrollToTopButton';
+import ScrollToTopButton from '../../lib/shared/components/ScrollToTopButton';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 export const BuyBottlePage = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
@@ -75,7 +76,7 @@ export const BuyBottlePage = (): JSX.Element => {
 
   const handleAddToBag = () => {
     if (!selectedProduct && !selectedSubscription) {
-      alert("Please select a product bundle.");
+      showToast("Please select a product bundle.",'info')
       return;
     }
     if(selectedSubscription && selectedProduct){

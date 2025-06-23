@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNewsletterStore } from '@/features/newsletter/stores/newsletterStore';
 import { useAuthStore } from '@/features/auth/stores/authStore';
 import { useNavigate } from 'react-router-dom';
-import { ConfirmDialog } from '@/lib/shared/components/ConfirmDialog/ConfirmDialog'; // ایمپورت کامپوننت جدید
+import { ConfirmDialog } from '@/lib/shared/components/ConfirmDialog/ConfirmDialog';
+import { useDeactivateAccountMutation } from '@/features/user/hooks/useUserQueries';
+import { useUnsubscribeFromNewsletterMutation } from '@/features/newsletter/hooks/useNewsletterMutations';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -89,19 +91,55 @@ interface ProfileHeaderProps {
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ isEditing, setIsEditing }) => {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
-  
-  const [isLogoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
 
-  const handleDeactivate = () => {
-    if (window.confirm('Are you sure you want to deactivate your account? This action cannot be undone.')) {
-      alert('Deactivation request sent.');
+  const [isLogoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [isDeactivateConfirmOpen, setDeactivateConfirmOpen] = useState(false);
+  const [isUnsubscribeConfirmOpen, setUnsubscribeConfirmOpen] = useState(false);
+
+  const deactivateAccountMutation = useDeactivateAccountMutation({
+    onSuccess: () => {
+      showToast('Deactivation request sent successfully.', 'success');
       logout();
       navigate('/login');
-    }
+    },
+    onError: (error) => {
+      console.error('Deactivation failed', error);
+    },
+  });
+
+  const unsubscribeMutation = useUnsubscribeFromNewsletterMutation({
+    onSuccess: () => {
+      showToast('You have been unsubscribed from the newsletter.', 'success');
+    },
+    onError: (error) => {
+      console.error('Unsubscribe failed', error);
+    },
+  });
+
+  const handleDeactivateClick = () => {
+    setDeactivateConfirmOpen(true);
+  };
+
+  const handleUnsubscribeClick = () => {
+    setUnsubscribeConfirmOpen(true);
   };
 
   const handleLogoutClick = () => {
     setLogoutConfirmOpen(true);
+  };
+
+  const confirmDeactivate = () => {
+    deactivateAccountMutation.mutate();
+    setDeactivateConfirmOpen(false);
+  };
+
+  const confirmUnsubscribe = () => {
+    if (user?.email) {
+      unsubscribeMutation.mutate({ email: user.email });
+    } else {
+      showToast('User email not found.', 'error');
+    }
+    setUnsubscribeConfirmOpen(false);
   };
 
   const confirmLogout = () => {
@@ -115,9 +153,8 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ isEditing, setIsEd
       <HeaderWrapper>
         <Title>Profile</Title>
         <ActionsContainer>
-          <ActionButton onClick={handleDeactivate}>Deactivate Account</ActionButton>
-                  <ActionButton onClick={handleDeactivate}>Unsubscribe Newsletter</ActionButton>
-
+          <ActionButton onClick={handleDeactivateClick}>Deactivate Account</ActionButton>
+          <ActionButton onClick={handleUnsubscribeClick}>Unsubscribe Newsletter</ActionButton>
           <ActionButton className="edit" onClick={() => setIsEditing(!isEditing)}>
             {isEditing ? 'Cancel' : 'Edit Profile'}
           </ActionButton>
@@ -134,6 +171,22 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ isEditing, setIsEd
         title="Confirm Logout"
         message="Are you sure you want to log out of your account?"
         confirmText="Logout"
+      />
+      <ConfirmDialog
+        isOpen={isDeactivateConfirmOpen}
+        onClose={() => setDeactivateConfirmOpen(false)}
+        onConfirm={confirmDeactivate}
+        title="Confirm Deactivation"
+        message="Are you sure you want to deactivate your account? This action cannot be undone."
+        confirmText="Deactivate"
+      />
+      <ConfirmDialog
+        isOpen={isUnsubscribeConfirmOpen}
+        onClose={() => setUnsubscribeConfirmOpen(false)}
+        onConfirm={confirmUnsubscribe}
+        title="Confirm Unsubscribe"
+        message="Are you sure you want to unsubscribe from our newsletter?"
+        confirmText="Unsubscribe"
       />
     </>
   );

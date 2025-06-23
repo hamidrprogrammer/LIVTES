@@ -5,6 +5,7 @@ import { ContactGroup } from '@/core/types/api/contactGroup';
 import { FiEdit, FiTrash2, FiCheckCircle } from 'react-icons/fi';
 import { useDeleteContactGroupMutation } from '@/features/contactGroups/hooks/useContactGroupQueries';
 import { ConfirmDeleteModal } from './ConfirmDeleteModal';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 // START: 2. یک اینترفیس برای پراپ‌های استایل تعریف می‌کنیم تا از تکرار کد جلوگیری شود
 interface StyleProps {
@@ -93,8 +94,7 @@ interface AddressCardProps {
 
 export const AddressCard: React.FC<AddressCardProps> = ({ address, isInvoiceDefault, onEdit, onSetAsInvoice, isSettingInvoice }) => {
   const { mutate: deleteAddress, isPending: isDeleting } = useDeleteContactGroupMutation({
-    onSuccess: () => alert('Address deleted.'),
-    onError: (err) => alert(`Error: ${err.message}`),
+    onSuccess: () =>           showToast("Address deleted.",'info')
   });
 
   const handleDelete = () => {

@@ -25,6 +25,7 @@ export const BundleOptionsSection: React.FC<BundleOptionsSectionProps> = ({ data
             text={option.name}
             hasDiv // This seems to control the price display in your component
             property1={selectedId === option.id}
+            number={` Article number : ${option.number}`}
           />
         </S.OptionWrapper>
       ))}

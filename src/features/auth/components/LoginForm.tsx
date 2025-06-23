@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 // src/components/LoginPage/LoginPage.tsx
 
 import React, { useState, useEffect, FormEvent } from 'react';
@@ -6,7 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Zustand store hooks for auth state
-import { useAuthStore, selectIsAuthenticated, selectAuthIsLoading, selectAuthError, initializeAuth } from '../stores/authStore';
+import { useAuthStore, selectIsAuthenticated, selectAuthIsLoading, selectAuthError } from '../stores/authStore';
 import type { LoginPayload } from '../../../core/types/api/auth';
 
 // Icons and placeholder components
@@ -16,7 +15,7 @@ import { FiLoader } from 'react-icons/fi';
 // Styled components from the previous step
 import * as S from './LoginPage.styles';
 import { useNavigate } from 'react-router-dom';
-import { useSettingsStore } from '@/features/settings/stores/settingsStore';
+import { useSettingsStore } from '../../settings/stores/settingsStore';
 
 // Define a type for our form's validation errors
 interface FormErrors {
@@ -58,7 +57,7 @@ export const LoginForm: React.FC = () => {
     localStorage.clear();          // Clear all localStorage
     sessionStorage.clear(); 
     setSelectedCountryId(null) ;
-    alert('Your cart has been cleared')     
+    // alert('Your cart has been cleared')     
     caches.keys().then((names) => { // Optional: clear Cache Storage (PWA)
       for (let name of names) {
         caches.delete(name);

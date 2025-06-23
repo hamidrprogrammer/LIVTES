@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { OrderSubscription } from '@/core/types/api/order';
 import { FiEye, FiXCircle } from 'react-icons/fi';
+import { useCancelOrderSubscriptionMutation } from '../hooks/useOrderQueries';
+import { showToast } from '@/lib/shared/stores/toastStore';
 
 const CardWrapper = styled.div`
   background-color: #FFFFFF;
@@ -94,17 +96,15 @@ const ActionButton = styled.button`
 interface OrderSubscriptionCardProps {
   subscription: OrderSubscription;
   onViewDetails: () => void;
+  onCancel: () => void;
 }
 
-export const OrderSubscriptionCard: React.FC<OrderSubscriptionCardProps> = ({ subscription, onViewDetails }) => {
+export const OrderSubscriptionCard: React.FC<OrderSubscriptionCardProps> = ({ subscription, onViewDetails ,onCancel}) => {
   const { id, orderStatus, total_gross_amount, currency, created_at, positions } = subscription;
-  
+
   // Placeholder for cancel logic
   const handleCancel = () => {
-    if (window.confirm(`Are you sure you want to cancel subscription #${id}?`)) {
-      alert(`Subscription #${id} cancellation request sent.`);
-      // Here you would call a mutation: cancelSubscription(id)
-    }
+  onCancel();
   };
   
   return (
