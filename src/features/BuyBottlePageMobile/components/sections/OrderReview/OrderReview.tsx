@@ -17,7 +17,7 @@ import { ProductVariation, Subscription } from '@/core/types/api/shop';
 import { CartItem } from '@/features/cart/store/cartStore';
 import useScrollAnimation from '@/core/hooks/useScrollAnimation';
 import Button from '../../Button/Button';
-import { SeparatorLine } from '@/features/New folder/BuyBottlePage/components/OrderReview/OrderReview.styles';
+import { SeparatorLine } from '@/features/BuyBottlePage/components/OrderReview/OrderReview.styles';
 const checkoutImageUrl = "https://lumivitae-project.s3.eu-central-1.amazonaws.com/public/shop/images/bottle/Checkout_Shop 1.avif";
 
 interface OrderReviewProps {
